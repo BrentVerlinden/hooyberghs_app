@@ -15,12 +15,16 @@ use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome');
 
-Route::get('/t3', 'test3');
+
+Auth::routes();
+
+Route::view('/t3', 'test3');
+
 
 Route::group(['middleware' => 'auth'], function () {
-    Route::get('/t1', 'test1'); // user (logged in) only
+    Route::view('/t1', 'test1'); // user (logged in) only
     Route::middleware(['auth', 'admin'])->group(function () {
-        Route::get('/t2', 'test2'); // admin only
+        Route::view('/t2', 'test2'); // admin only
     });
 });
 
