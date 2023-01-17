@@ -13,11 +13,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//Route::get('/', function () {
-//    return view('welcome');
-//});
-
 Route::view('/', 'welcome');
 
+Route::get('/t3', 'test3');
 
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/t1', 'test1'); // user (logged in) only
+    Route::middleware(['auth', 'admin'])->group(function () {
+        Route::get('/t2', 'test2'); // admin only
+    });
+});
 
+Route::get('/home', 'HomeController@index')->name('home');
