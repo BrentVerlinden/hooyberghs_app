@@ -9,7 +9,8 @@ html, body {
     font-size: $font-size-base;
     font-family: $font-family-1;
     line-height: $line-height-base;
-    background-color: #FAF9F6;
+    //background-color: #FAF9F6;
+    background-color: #FFFFFF;
     color: $blue_c_1;
     font-weight: 200;
     min-height: 100vh;
@@ -85,8 +86,36 @@ html, body {
     }
 }
 
+.fixedmt {
+    //margin-top: 30px;
+    height: 80px;
+}
+
+.collapse {
+    a {
+        text-align: right;
+        //float: right;
+    }
+}
+
+#navtop {
+    overflow: visible;
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
 nav {
     background-color: $green_c_1;
+
+    overflow: visible;
+    position: fixed;
+    top: 0;
+    width: 100%;
+
+    a {
+        font-size: 14px;
+    }
 }
 
 .btn-default {

@@ -10938,7 +10938,7 @@ body {
   font-size: 0.9rem;
   font-family: "Montserrat", sans-serif;
   line-height: 1.5;
-  background-color: #FAF9F6;
+  background-color: #FFFFFF;
   color: #1C66A6;
   font-weight: 200;
   min-height: 100vh;
@@ -11012,8 +11012,31 @@ body {
   background-color: #E2D0BD;
 }
 
+.fixedmt {
+  height: 80px;
+}
+
+.collapse a {
+  text-align: right;
+}
+
+#navtop {
+  overflow: visible;
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
 nav {
-  background-color: #DDF5B6;
+  background-color: #ffffff;
+  overflow: visible;
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+nav a {
+  font-size: 14px;
 }
 
 .btn-default {

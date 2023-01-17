@@ -9,7 +9,9 @@
 </head>
 <body>
 {{--  Navigation  --}}
+<div id="navtop">
 @include('shared.navigation')
+</div>
 <main class="container mt-5 mb-5 pb-5">
     @yield('main', 'Page under construction ...')
 </main>
