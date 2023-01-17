@@ -17,14 +17,12 @@ Route::view('/', 'welcome');
 
 Auth::routes();
 
-Route::get('/user/home', 'HomeController@index')->name('home');
-
-Route::get('/t3', 'test3');
+Route::view('/t3', 'test3');
 
 Route::group(['middleware' => 'auth'], function () {
-    Route::get('/t1', 'test1'); // user (logged in) only
+    Route::view('/t1', 'test1'); // user (logged in) only
     Route::middleware(['auth', 'admin'])->group(function () {
-        Route::get('/t2', 'test2'); // admin only
+        Route::view('/t2', 'test2'); // admin only
     });
 });
 
