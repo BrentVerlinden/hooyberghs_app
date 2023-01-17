@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Pump;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,6 +24,31 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $active_pumps = Pump::where('status', true)->get();
+        $inactive_pumps = Pump::where('status', false)->get();
+
+        return view('home', [
+            'active_pumps' => $active_pumps,
+            'inactive_pumps' => $inactive_pumps
+        ]);
     }
+
+
+    public function showPump($id)
+    {
+        $pump = Pump::find($id);
+        return view('pumps.show', ['pump' => $pump]);
+    }
+    public function updatePump(Request $request, $id)
+    {
+        $pump = Pump::find($id);
+        if ($request->status == 'on') {
+            $pump->status = true;
+        } else {
+            $pump->status = false;
+        }
+        $pump->save();
+        return redirect('/pump/'.$id);
+    }
+
 }

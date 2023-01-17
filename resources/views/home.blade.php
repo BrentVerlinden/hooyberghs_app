@@ -1,23 +1,31 @@
-@extends('layouts.app')
+@extends('layouts.template')
 
-@section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
-
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    {{ __('You are logged in!') }}
+@section('main')
+    <div class="fixedmt"></div>
+    <h1>Welkom  {{ auth()->user()->name }}!</h1>
+    <br>
+    @guest
+        <p>Please login...</p>
+    @endguest
+        @auth
+            <div class="row">
+                <div class="col-6">
+                    <h2>Actieve pompen</h2>
+                    <ul>
+            @foreach($active_pumps ?? '' as $pump)
+                            <li><a href="pump/{{ $pump->id }}">{{ $pump->pumpname }}</a></li>
+                        @endforeach
+                    </ul>
+                </div>
+                <div class="col-6">
+                    <h2>Inactieve pompen</h2>
+                    <ul>
+                        @foreach($inactive_pumps ?? '' as $pump)
+                            <li><a href="pump/{{ $pump->id }}">{{ $pump->pumpname }}</a></li>
+                        @endforeach
+                    </ul>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
+    @endauth
+
 @endsection

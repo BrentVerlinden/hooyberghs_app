@@ -2,6 +2,6 @@
 
 @section('main')
     <div class="fixedmt"></div>
-    <h1>Welkom!</h1>
+    <h1>welcome.blade.php!</h1>
 
 @endsection

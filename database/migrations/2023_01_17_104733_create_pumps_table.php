@@ -20,11 +20,12 @@ class CreatePumpsTable extends Migration
             $table->float('flowrate'); //andere variable?
             $table->float('powerconsumption'); //andere variable?
             $table->string('location');
+            $table->string('motif');
             $table->boolean('frequention');
             $table->float('percentage');
             $table->boolean('error');
             $table->foreignId('sensor_id');
-
+            $table->timestamps();
             //Foreign keys --> moet nog aangepast worden
             $table->foreign('sensor_id')->references('id')->on('sensors')->onDelete('cascade')->onUpdate('cascade');
         });
@@ -33,55 +34,73 @@ class CreatePumpsTable extends Migration
         DB::table('pumps')->insert(
             [
                 [
-                    'pumpname' => "Naam 1",
+                    'pumpname' => "Pomp 1",
                     'status' => true,
                     'flowrate' => 3,
                     'powerconsumption' => 2000,
                     'location' => "hoek 1",
+                    'motif' => "",
                     'frequention' => true,
                     'percentage' => 70,
                     'error' => false,
                     'sensor_id' => 1
                 ],
                 [
-                    'pumpname' => "Naam 2",
+                    'pumpname' => "Pomp 2",
                     'status' => true,
                     'flowrate' => 3,
                     'powerconsumption' => 2000,
                     'location' => "hoek 2",
+                    'motif' => "",
                     'frequention' => true,
                     'percentage' => 70,
                     'error' => false,
                     'sensor_id' => 1
                 ],
                 [
-                    'pumpname' => "Naam 3",
+                    'pumpname' => "Pomp 3",
                     'status' => true,
                     'flowrate' => 3,
                     'powerconsumption' => 2000,
                     'location' => "hoek 3",
+                    'motif' => "",
                     'frequention' => true,
                     'percentage' => 70,
                     'error' => false,
                     'sensor_id' => 3
                 ],
                 [
-                    'pumpname' => "Naam 4",
+                    'pumpname' => "Pomp 4",
                     'status' => true,
                     'flowrate' => 3,
                     'powerconsumption' => 2000,
                     'location' => "hoek 4",
+                    'motif' => "",
                     'frequention' => true,
                     'percentage' => 70,
                     'error' => false,
                     'sensor_id' => 2
                 ],
                 [
-                    'pumpname' => "Naam 5",
-                    'status' => true,
+                    'pumpname' => "Pomp 5",
+                    'status' => false,
                     'flowrate' => 3,
                     'powerconsumption' => 0,
                     'location' => "hoek 5",
+                    'motif' => "Deze pomp is preventief uitgeschakeld omdat het stroomverbruik veel te hoog lag",
+                    'frequention' => false,
+                    'percentage' => 0,
+                    'error' => true,
+                    'sensor_id' => 4
+                ]
+                ,
+                [
+                    'pumpname' => "Pomp 6",
+                    'status' => false,
+                    'flowrate' => 3,
+                    'powerconsumption' => 0,
+                    'location' => "hoek 6",
+                    'motif' => "Deze pomp is preventief uitgeschakeld omdat het stroomverbruik veel te hoog lag",
                     'frequention' => false,
                     'percentage' => 0,
                     'error' => true,
