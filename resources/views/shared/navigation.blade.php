@@ -18,30 +18,30 @@
 
                 @endguest
                     @auth
-                    <li class="nav-item dropdown">
+{{--                    <li class="nav-item dropdown">--}}
 
-                        <a class="nav-link dropdown-toggle" href="#!" data-toggle="dropdown">
-                            Details
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right">
-                            <form action="/details" method="post">
-                                @csrf
-                                <button type="submit" class="dropdown-item"><i class="fas fa-sign-out-alt"></i> Detail 1
-                                </button>
-                            </form>
-                            <form action="/details" method="post">
-                                @csrf
-                                <button type="submit" class="dropdown-item"><i class="fas fa-sign-out-alt"></i> Detail 2
-                                </button>
-                            </form>
-                            <form action="/details" method="post">
-                                @csrf
-                                <button type="submit" class="dropdown-item"><i class="fas fa-sign-out-alt"></i> Detail 3
-                                </button>
-                            </form>
-                        </div>
+{{--                        <a class="nav-link dropdown-toggle" href="#!" data-toggle="dropdown">--}}
+{{--                            Details--}}
+{{--                        </a>--}}
+{{--                        <div class="dropdown-menu dropdown-menu-right">--}}
+{{--                            <form action="/details" method="post">--}}
+{{--                                @csrf--}}
+{{--                                <button type="submit" class="dropdown-item"><i class="fas fa-sign-out-alt"></i> Detail 1--}}
+{{--                                </button>--}}
+{{--                            </form>--}}
+{{--                            <form action="/details" method="post">--}}
+{{--                                @csrf--}}
+{{--                                <button type="submit" class="dropdown-item"><i class="fas fa-sign-out-alt"></i> Detail 2--}}
+{{--                                </button>--}}
+{{--                            </form>--}}
+{{--                            <form action="/details" method="post">--}}
+{{--                                @csrf--}}
+{{--                                <button type="submit" class="dropdown-item"><i class="fas fa-sign-out-alt"></i> Detail 3--}}
+{{--                                </button>--}}
+{{--                            </form>--}}
+{{--                        </div>--}}
 
-                    </li>
+{{--                    </li>--}}
 
 
                 <li class="nav-item dropdown ml-4">
