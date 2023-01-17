@@ -19,16 +19,5 @@ use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome');
 
-Auth::routes();
-
-Route::middleware(['auth', 'user'])->group(function () {
 
 
-
-    Route::middleware(['auth', 'admin'])->group(function () {
-
-    });
-
-});
-
-Route::get('/home', 'HomeController@index')->name('home');

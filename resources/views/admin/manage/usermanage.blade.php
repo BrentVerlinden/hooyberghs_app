@@ -2,6 +2,6 @@
 
 @section('main')
     <div class="fixedmt"></div>
-    <h1>Welkom!</h1>
+    <h1>Dit is de usermanagepage/h1>
 
 @endsection
