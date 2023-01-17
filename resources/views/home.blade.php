@@ -5,10 +5,10 @@
 
     <h4>Welkom @auth{{ auth()->user()->name }}@endauth()</h4>
 
-    <p>Deze applicatie maakt het makkelijker om dossiers van studenten te beheren. Ook kan u faciliteiten en functiebeperkingen aan deze studenten toevoegen.
+    <p>  Deze applicatie maakt het makkelijker om dossiers van studenten te beheren. Ook kan u faciliteiten en functiebeperkingen aan deze studenten toevoegen.
         Verder is het beheren van opleidingen, personen en rollen mogelijk.
         Vervolgens kan u de enquêtes beheren, afdrukken en uploaden.
-        Als SVK Docent kan u ook de docenten afvinken. </p>
+        Als SVK Docent kan u ook de docenten afvinken </p>
 
     @auth
         @if(auth()->user()->education_role_people->role_id == 1)
