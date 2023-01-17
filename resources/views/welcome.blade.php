@@ -1,20 +1,91 @@
-@extends('layouts.app')
 @extends('layouts.template')
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="{{ mix('css/app.css') }}">
-        <title>Hooyberghs Applicatie</title>
 
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;600&display=swap" rel="stylesheet">
+@section('main')
+    <h1>Faciliteitbeheer</h1>
 
+    <h4>Welkom @auth{{ auth()->user()->name }}@endauth()</h4>
 
-    </head>
-    <body>
-        <script src="{{ mix('js/app.js') }}"></script>
+    @auth
+        @if(auth()->user()->education_role_people->role_id == 1)
+            <div class="">
+                <div class="row">
+                    <div class="col-sm-12 col-md-3 mt-3">
+                        <div class="card" style="height: 250px">
+                            <div class="card-body">
+                                <h5 class="card-title text-center">Enquête
+                                    <i class="fas fa-file-alt"></i></h5>
+                                <hr>
+                                <a href="{{action('admin\QuestionController@index')}}">
+                                    <p>Vragen Beheren</p></a>
 
-    </body>
-</html>
+                                <a href="{{action('admin\GdprController@index')}}">
+                                    <p>GDPR beheren</p></a>
+
+                                <a href="{{action('admin\EvaluationController@index')}}">
+                                    <p>Evaluaties
+                                        beheren</p></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-3 mt-3">
+                        <div class="card" style="height: 250px">
+                            <div class="card-body">
+                                <h5 class="card-title text-center">Dossier <i class="fas fa-archive"></i></h5>
+
+                                <hr>
+                                <a href="{{action('admin\DossierController@index')}}"><p>Dossier beheren</p></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-3 mt-3">
+                        <div class="card" style="height: 250px">
+                            <div class="card-body">
+                                <h5 class="card-title text-center">Faciliteiten en beperkingen <i class="fas fa-folder-plus"></i></h5>
+                                <hr>
+                                <a href="/managefd/disability"><p>
+                                        Functiebeperkingen beheren
+                                    </p></a>
+
+                                <a href="/managefd/facility"><p>
+                                        Faciliteiten beheren
+                                    </p></a>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-3 mt-3">
+                        <div class="card" style="height: 250px">
+                            <div class="card-body">
+                                <h5 class="card-title text-center">Beheer <i class="fas fa-tasks"></i></h5>
+                                <hr>
+                                <a href="{{action('admin\EducationController@index')}}"><p>Opleidingen beheren</p></a>
+                                <a href="{{action('admin\PersonController@index')}}"><p>Personen beheren</p></a>
+                                <a href="{{action('admin\RoleController@index')}}"><p>Rollen beheren</p></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @endif
+                @if(auth()->user()->education_role_people->role_id == 1 || auth()->user()->education_role_people->role_id == 2)
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title text-center">SVK Docent
+                                        <i class="fas fa-check"></i>
+                                    </h5>
+                                    <hr>
+                                    <br>
+                                    <a href="{{action('admin\StudentCheckOffController@index')}}">
+                                        <p>
+                                            Studenten afvinken
+                                        </p>
+                                        <a/>
+                                    </a></div>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+            </div>
+        @endauth
+@endsection
