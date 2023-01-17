@@ -11,6 +11,8 @@ Homestead.yaml
 npm-debug.log
 yarn-error.log
 public_html/css/app.css
+public_html/css/app.css.map
 public_html/js/app.js
+public_html/js/app.js.map
 public_html/mix-manifest.json
 package-lock.json
