@@ -1,4 +1,4 @@
-@guest
+
 <nav class="navbar navbar-expand-md navbar-light shadow-sm">
     <div class="container">
         <a class="navbar-brand" href="/">
@@ -11,23 +11,30 @@
 
         <div class="collapse navbar-collapse" id="collapsNav">
             <ul class="navbar-nav ml-auto">
+                @guest
+                    <li class="nav-item">
+                        <a class="nav-link" href="/login"><i class="fas fa-sign-in-alt"></i>Login</a>
+                    </li>
+
+                @endguest
+                    @auth
                     <li class="nav-item dropdown">
 
                         <a class="nav-link dropdown-toggle" href="#!" data-toggle="dropdown">
                             Details
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">
-                            <form action="/gebruikers" method="post">
+                            <form action="/details" method="post">
                                 @csrf
                                 <button type="submit" class="dropdown-item"><i class="fas fa-sign-out-alt"></i> Detail 1
                                 </button>
                             </form>
-                            <form action="/logboek" method="post">
+                            <form action="/details" method="post">
                                 @csrf
                                 <button type="submit" class="dropdown-item"><i class="fas fa-sign-out-alt"></i> Detail 2
                                 </button>
                             </form>
-                            <form action="/uitloggen" method="post">
+                            <form action="/details" method="post">
                                 @csrf
                                 <button type="submit" class="dropdown-item"><i class="fas fa-sign-out-alt"></i> Detail 3
                                 </button>
@@ -35,12 +42,16 @@
                         </div>
 
                     </li>
+
+
                 <li class="nav-item dropdown ml-4">
 
                     <a class="nav-link dropdown-toggle" href="#!" data-toggle="dropdown">
-                        <i class="fas fa-user"></i>  Admin
+                        <i class="fas fa-user"></i>     {{ auth()->user()->name }} <span class="caret"></span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right">
+
+                        @if(auth()->user()->admin)
                         <form action="/gebruikers" method="post">
                             @csrf
                             <button type="submit" class="dropdown-item"><i class="fas fa-sign-out-alt"></i> Gebruikers beheren
@@ -51,17 +62,19 @@
                             <button type="submit" class="dropdown-item"><i class="fas fa-sign-out-alt"></i> Logboek
                             </button>
                         </form>
-                        <form action="/uitloggen" method="post">
+                        @endif
+
+                        <form action="/logout" method="post">
                             @csrf
                             <button type="submit" class="dropdown-item"><i class="fas fa-sign-out-alt"></i> Uitloggen
                             </button>
                         </form>
                     </div>
 
-                </li>
+                </li>  @endauth
             </ul>
         </div>
 
     </div>
 </nav>
-@endguest
+

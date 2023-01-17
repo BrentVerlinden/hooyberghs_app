@@ -15,9 +15,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome');
 
+
 Auth::routes();
 
 Route::view('/t3', 'test3');
+
 
 Route::group(['middleware' => 'auth'], function () {
     Route::view('/t1', 'test1'); // user (logged in) only
