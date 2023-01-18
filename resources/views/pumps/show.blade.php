@@ -1,9 +1,10 @@
 @extends('layouts.template')
+<head><script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script> </head>
 
 @section('main')
     <div class="fixedmt"></div>
 
-    <h1>{{$pump->pumpname}}</h1>
+    <h1 class="pump">{{$pump->pumpname}}</h1>
 <p>Status:
     @if($pump->status)
         Active
@@ -29,6 +30,7 @@
             <label for="status"></label>
         </div>
     </form>
+    <div id="curve_chart"></div>
 @endsection
 <style>
     .toggle-switch {
@@ -92,3 +94,28 @@
         border-radius: 50%;
     }
 </style>
+
+<script type="text/javascript">
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+            ['Year', 'Stroom'],
+            ['2004',  1000],
+            ['2005',  1170],
+            ['2006',  660],
+            ['2007',  1030]
+        ]);
+
+        var options = {
+            title: 'Company Performance',
+            curveType: 'function',
+            legend: { position: 'bottom' }
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+        chart.draw(data, options);
+    }
+</script>
