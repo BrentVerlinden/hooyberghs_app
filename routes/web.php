@@ -22,3 +22,6 @@ Route::middleware(['auth'])->prefix('user')->group(function () {
 Route::get('/pump/{id}', 'HomeController@showPump');
 Route::patch('/pump/{id}', 'HomeController@updatePump');
 
+// logboek
+Route::resource('log', 'LogController');
+
