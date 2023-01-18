@@ -37,7 +37,14 @@ class HomeController extends Controller
     public function showPump($id)
     {
         $pump = Pump::find($id);
-        return view('pumps.show', ['pump' => $pump]);
+        $power_consumptions = $pump->powerconsumption;
+
+        foreach ($power_consumptions as $power_consumption) {
+            $power_consumption->power = json_decode($power_consumption->power);
+        }
+
+        // je kunt nu de power_consumptions gebruiken in je view
+        return view('pumps.show', ['pump' => $pump, 'power_consumptions' => $power_consumptions]);
     }
     public function updatePump(Request $request, $id)
     {
