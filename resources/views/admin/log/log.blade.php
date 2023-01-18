@@ -17,17 +17,19 @@
                     @endforeach
                 </ul>
                 <h2 class="mt-5">Kies hieronder een zoekterm (beschrijving) en filter!</h2>
-            <form method="get" action="/admin/filtered" id="searchForm" class="mid">
+            <div class="container d-flex justify-content-center">
+            <form method="get" action="/admin/filtered" id="searchForm" class="mx-auto">
                 <div class="row">
-                    <div class="col-sm-6 mb-2">
+                    <div class="mr-2">
                         <input type="text" class="form-control" name="description" id="description"
                                value="" placeholder="Filter description">
                     </div>
-                    <div class="col-sm-2 mb-2">
+                    <div class="">
                         <button type="submit" class="btn btn-success btn-block">Search</button>
                     </div>
                 </div>
             </form>
+            </div>
             <hr>
 
             {{--                <div class="d-flex justify-content-center">--}}

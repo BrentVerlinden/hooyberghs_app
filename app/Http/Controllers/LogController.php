@@ -16,7 +16,7 @@ class LogController extends Controller
 
     public function index()
     {
-        $logs = Log::all();
+        $logs = Log::orderBy('date', 'desc')->get();
 
         return view('admin.log.log', [
             'logs' => $logs,
@@ -26,9 +26,8 @@ class LogController extends Controller
     public function filtered(Request $request)
     {
 
-//            $search = '%' . $request->input('description') . '%';
-            $search = '%' . $request->input('description') . '%';
-            $logs = Log::where('description', 'like', $search)->get();
+        $search = '%' . $request->input('description') . '%';
+        $logs = Log::where('description', 'like', $search)->orderBy('date', 'desc')->get();
 
         return view('admin.log.filtered', [
             'logs' => $logs,
