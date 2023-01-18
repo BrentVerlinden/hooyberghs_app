@@ -4,6 +4,7 @@
 @section('main')
     <div class="fixedmt"></div>
     <h1>Welkom  {{ auth()->user()->name }}!</h1>
+    <a href="/" class="align-content-center text-center">Pomp instellingen</a>
     <br>
     @guest
         <p>Please login...</p>
@@ -27,7 +28,7 @@
                     </ul>
                 </div>
             </div>
-            <div id="curve_chart"></div>
+            <div id="curve_chart" class="mt-5"></div>
     @endauth
     <script type="text/javascript">
         google.charts.load('current', {'packages':['corechart']});
