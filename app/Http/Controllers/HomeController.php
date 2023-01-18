@@ -44,6 +44,8 @@ class HomeController extends Controller
         $pump = Pump::find($id);
         if ($request->status == 'on') {
             $pump->status = true;
+            // als pomp terug opzet, gaan we ervan uit pomp gefixt, dus motief uitgezet preventief weg
+            $pump->motif = "";
         } else {
             $pump->status = false;
         }
