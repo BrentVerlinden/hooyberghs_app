@@ -18,4 +18,14 @@ class Pump extends Model
     public function pit() {
         return $this->belongsTo('App\Pit')->withDefault();
     }
+
+    public function powerconsumption()
+    {
+        return $this->hasMany('App\Powerconsumption');
+    }
+
+    public function flowrate()
+    {
+        return $this->hasMany('App\Flowrate');
+    }
 }
