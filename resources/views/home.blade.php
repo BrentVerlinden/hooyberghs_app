@@ -1,4 +1,5 @@
 @extends('layouts.template')
+<head><script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script> </head>
 
 @section('main')
     <div class="fixedmt"></div>
@@ -11,9 +12,9 @@
             <div class="row">
                 <div class="col-6">
                     <h2>Actieve pompen</h2>
-                    <ul>
+                    <ul >
             @foreach($active_pumps ?? '' as $pump)
-                            <li><a href="pump/{{ $pump->id }}">{{ $pump->pumpname }}</a></li>
+                            <li style="list-style: none"><a href="pump/{{ $pump->id }}">{{ $pump->pumpname }}</a></li>
                         @endforeach
                     </ul>
                 </div>
@@ -21,11 +22,37 @@
                     <h2>Inactieve pompen</h2>
                     <ul>
                         @foreach($inactive_pumps ?? '' as $pump)
-                            <li><a href="pump/{{ $pump->id }}">{{ $pump->pumpname }}</a></li>
+                            <li style="list-style: none"><a href="pump/{{ $pump->id }}">{{ $pump->pumpname }}</a></li>
                         @endforeach
                     </ul>
                 </div>
             </div>
+            <div id="curve_chart"></div>
     @endauth
+    <script type="text/javascript">
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+                ['Year', 'Stroom'],
+                ['2004',  1000],
+                ['2005',  1170],
+                ['2006',  660],
+                ['2007',  1030]
+            ]);
+
+            var options = {
+                title: 'Company Performance',
+                curveType: 'function',
+                legend: { position: 'bottom' }
+            };
+
+            var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+            chart.draw(data, options);
+        }
+    </script>
+
 
 @endsection
