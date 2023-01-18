@@ -19,6 +19,7 @@ class CreatePumpsTable extends Migration
             $table->boolean('status');
             $table->float('flowrate'); //andere variable?
             $table->float('powerconsumption'); //andere variable?
+            $table->float('voltage');
             $table->string('location');
             $table->string('motif');
             $table->boolean('frequention');
@@ -38,6 +39,7 @@ class CreatePumpsTable extends Migration
                     'status' => true,
                     'flowrate' => 3,
                     'powerconsumption' => 2000,
+                    'voltage' => 230,
                     'location' => "hoek 1",
                     'motif' => "",
                     'frequention' => true,
@@ -50,6 +52,7 @@ class CreatePumpsTable extends Migration
                     'status' => true,
                     'flowrate' => 3,
                     'powerconsumption' => 2000,
+                    'voltage' => 230,
                     'location' => "hoek 2",
                     'motif' => "",
                     'frequention' => true,
@@ -62,6 +65,7 @@ class CreatePumpsTable extends Migration
                     'status' => true,
                     'flowrate' => 3,
                     'powerconsumption' => 2000,
+                    'voltage' => 230,
                     'location' => "hoek 3",
                     'motif' => "",
                     'frequention' => true,
@@ -74,6 +78,7 @@ class CreatePumpsTable extends Migration
                     'status' => true,
                     'flowrate' => 3,
                     'powerconsumption' => 2000,
+                    'voltage' => 110,
                     'location' => "hoek 4",
                     'motif' => "",
                     'frequention' => true,
@@ -86,6 +91,7 @@ class CreatePumpsTable extends Migration
                     'status' => false,
                     'flowrate' => 3,
                     'powerconsumption' => 0,
+                    'voltage' => 50,
                     'location' => "hoek 5",
                     'motif' => "Deze pomp is preventief uitgeschakeld omdat het stroomverbruik veel te hoog lag",
                     'frequention' => false,
@@ -99,6 +105,7 @@ class CreatePumpsTable extends Migration
                     'status' => false,
                     'flowrate' => 3,
                     'powerconsumption' => 0,
+                    'voltage' => 280,
                     'location' => "hoek 6",
                     'motif' => "Deze pomp is preventief uitgeschakeld omdat het stroomverbruik veel te hoog lag",
                     'frequention' => false,
