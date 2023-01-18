@@ -15,7 +15,7 @@ class CreateSensorsTable extends Migration
     {
         Schema::create('sensors', function (Blueprint $table) {
             $table->id();
-            $table->float('data'); //andere variable?
+
             $table->boolean('error');
         });
 
@@ -23,23 +23,23 @@ class CreateSensorsTable extends Migration
         DB::table('sensors')->insert(
             [
                 [
-                    'data' => 1,
+
                     'error' => false
                 ],
                 [
-                    'data' => 2,
+
                     'error' => false
                 ],
                 [
-                    'data' => 3,
+
                     'error' => false
                 ],
                 [
-                    'data' => 4,
+
                     'error' => false
                 ],
                 [
-                    'data' => 5,
+
                     'error' => true
                 ]
 
