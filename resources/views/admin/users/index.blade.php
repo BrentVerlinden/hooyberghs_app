@@ -3,6 +3,7 @@
 @section('title', 'Gebruikers')
 
 @section('main')
+    <div class="fixedmt"></div>
     <h1>Users</h1>
 {{--    @include('shared.alert')--}}
     <p>
