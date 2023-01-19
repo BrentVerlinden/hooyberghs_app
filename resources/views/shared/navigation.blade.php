@@ -52,7 +52,7 @@
                     <div class="dropdown-menu dropdown-menu-right">
 
                         @if(auth()->user()->admin)
-                        <form action="/gebruikers" method="post">
+                        <form action="/admin/users" method="get">
                             @csrf
                             <button type="submit" class="dropdown-item"><i class="fas fa-sign-out-alt"></i> Gebruikers beheren
                             </button>

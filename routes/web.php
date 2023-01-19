@@ -9,7 +9,7 @@ Route::get('/', 'HomeController@index');
 
 // INGELOGD ALS ADMIN
 Route::middleware(['auth', 'admin'])->prefix('admin')->group(function (){
-
+    Route::resource('users', 'Admin\UserController');
 });
 
 //INGELOGD ALS USER
