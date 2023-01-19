@@ -1,5 +1,8 @@
 @extends('layouts.app')
 
+<link rel="shortcut icon" href="{{ asset('img/hooyberghs_logo_one.jpg') }}">
+<title>@yield('title', 'Hooyberghs Applicatie')</title>
+
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
