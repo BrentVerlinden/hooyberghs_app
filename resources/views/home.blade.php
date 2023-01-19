@@ -5,7 +5,7 @@
     <div class="fixedmt"></div>
     <h1>Welkom  {{ auth()->user()->name }}!</h1>
     @if(auth()->user()->admin)
-    <a href="/" class="align-content-center text-center">Pomp instellingen</a>
+    <a href="/" class="align-content-center text-center">Pompinstellingen werf</a>
     @endif
     <br>
     @guest
