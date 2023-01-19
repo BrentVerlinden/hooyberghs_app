@@ -5,16 +5,18 @@
     <div class="fixedmt"></div>
     <h1>Welkom  {{ auth()->user()->name }}!</h1>
     @if(auth()->user()->admin)
-    <a href="/" class="align-content-center text-center">Pompinstellingen werf</a>
+        <div class="mt-5">    <a href="/" class="align-content-center text-center">Pompinstellingen werf</a> </div>
+
     @endif
     <br>
     @guest
         <p>Please login...</p>
     @endguest
         @auth
-            <div class="row">
+            <div class="row mt-3 mb-5">
                 <div class="col-6">
-                    <h2>Actieve pompen</h2>
+                    <h2><span class="logged-in">●</span> Actieve pompen</h2><div class="circle_green">
+                    </div>
                     <ul >
             @foreach($active_pumps ?? '' as $pump)
                             <li style="list-style: none"><a href="/user/pump/{{ $pump->id }}">{{ $pump->pumpname }}</a></li>
@@ -22,7 +24,7 @@
                     </ul>
                 </div>
                 <div class="col-6">
-                    <h2>Inactieve pompen</h2>
+                    <h2><span class="logged-out">●</span> Inactieve pompen</h2>
                     <ul>
                         @foreach($inactive_pumps ?? '' as $pump)
                             <li style="list-style: none"><a href="/user/pump/{{ $pump->id }}">{{ $pump->pumpname }}</a></li>
@@ -30,32 +32,64 @@
                     </ul>
                 </div>
             </div>
-            <div id="curve_chart" class="mt-5"></div>
+
+            <div>
+            <div id="chart_div" class="mt-5"></div></div>
     @endauth
+
     <script type="text/javascript">
         google.charts.load('current', {'packages':['corechart']});
         google.charts.setOnLoadCallback(drawChart);
 
+
         function drawChart() {
-            var data = google.visualization.arrayToDataTable([
-                ['Year', 'Stroom'],
-                ['2004',  1000],
-                ['2005',  1170],
-                ['2006',  660],
-                ['2007',  1030]
-            ]);
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Pump');
+            data.addColumn('number', 'Average Power Consumption');
+
+            var pumps = @json($pumps);
+            var pumpData = {};
+            pumps.forEach(function(pump) {
+                pumpData[pump.pumpname] = {
+                    sum: 0,
+                    count: 0
+                };
+            });
+
+            pumps.forEach(function(pump) {
+                pump.powerconsumption.forEach(function(power_consumption) {
+                    power_consumption.power.forEach(function(power) {
+                        pumpData[pump.pumpname].sum += power.power;
+                        pumpData[pump.pumpname].count++;
+                    });
+                });
+            });
+
+            var dataArray = [];
+            for (var pumpname in pumpData) {
+                var averagePower = pumpData[pumpname].sum / pumpData[pumpname].count;
+                dataArray.push([pumpname, averagePower]);
+            }
+            data.addRows(dataArray);
 
             var options = {
-                title: 'Company Performance',
-                curveType: 'function',
-                legend: { position: 'bottom' }
+                title: 'Average Power Consumption per Pump',
+                hAxis: {
+                    title: 'Pump'
+                },
+                vAxis: {
+                    title: 'Power (kWh)'
+                },
+                series: {
+                    0: {color: '#096192'}
+                }
             };
 
-            var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+            var chart = new google.visualization.ColumnChart(
+                document.getElementById('chart_div'));
 
             chart.draw(data, options);
         }
     </script>
-
 
 @endsection

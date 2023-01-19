@@ -11066,3 +11066,11 @@ nav a {
   margin-bottom: 10px;
 }
 
+.logged-in {
+  color: #07f737;
+}
+
+.logged-out {
+  color: red;
+}
+
