@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Helpers\Json;
 use App\Http\Controllers\Controller;
+use App\Log;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -65,6 +66,12 @@ class UserController extends Controller
             $user->admin = 0;
         }
         $user->save();
+
+        $log = new Log();
+        $log->description = auth()->user()->email . " heeft de gebruiker " . $user->email . " aangemaakt";
+        $log->nameLog = "user creation";
+        $log->date = now();
+        $log->save();
 
         // Flash a success message to the session
         $message = "User $user->name met email  $user->email is aangemaakt.";
