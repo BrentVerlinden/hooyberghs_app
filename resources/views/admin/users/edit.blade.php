@@ -36,4 +36,5 @@
         </div>
         <button type="submit" class="btn btn-success">Gebruiker opslaan</button>
     </form>
+    <a href="{{ url()->previous() }}" class="btn btn-primary mt-3">Terug</a>
 @endsection
