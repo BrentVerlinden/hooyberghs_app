@@ -45,7 +45,7 @@
         function drawChart() {
             var data = new google.visualization.DataTable();
             data.addColumn('string', 'Pump');
-            data.addColumn('number', 'Average Power Consumption');
+            data.addColumn('number', 'Stroom');
 
             var pumps = @json($pumps);
             var pumpData = {};
@@ -73,12 +73,12 @@
             data.addRows(dataArray);
 
             var options = {
-                title: 'Average Power Consumption per Pump',
+                title: 'Gemiddelde Stroomverbruik per Pomp',
                 hAxis: {
-                    title: 'Pump'
+                    title: 'Pomp'
                 },
                 vAxis: {
-                    title: 'Power (kWh)'
+                    title: 'Stroom (kWh)'
                 },
                 series: {
                     0: {color: '#096192'}
