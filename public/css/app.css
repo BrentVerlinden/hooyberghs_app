@@ -11016,6 +11016,14 @@ body {
   height: 80px;
 }
 
+.card-size {
+  width: 350px;
+  /* or a fixed width */
+  height: 200px;
+  /* or a fixed height */
+  overflow: auto;
+}
+
 .collapse a {
   text-align: right;
 }
