@@ -45,6 +45,17 @@ class CreateLogsTable extends Migration
             );
         }
 
+        DB::table('logs')->insert([
+            [
+                'description' => "failure of login",
+                'namelog' => "log failure 1",
+                'date' => '2022-01-01 11:00',  //andere variable
+                'user_id' => 1,
+                'pump_id' => 1,
+                'sensor_id' => 1
+            ],
+        ]);
+
 
     }
 

@@ -7,16 +7,23 @@
 @section('main')
     <div class="fixedmt"></div>
     <h1 class="pump">{{$pump->pumpname}}</h1>
-    <p>Status:
-        @if($pump->status)
-            Active
-        @else
-            Inactive
-            <br>
-            <small>Reason: {{ $pump->motif }}</small>
-        @endif
-    </p>
 
+<p>Status:
+    @if($pump->status)
+        Active
+    @else
+        Inactive
+    <br>
+        @if($pump->motif !== "" &&  $pump->motif !== null)
+        <small >Reden: {{ $pump->motif }}</small>
+        @else<small >Geen reden gevonden</small>
+        @endif
+    @endif
+</p>
+
+
+
+    @if(auth()->user()->admin)
     <form action="{{ $pump->id }}" method="POST">
         @csrf
         @method('PATCH')
@@ -32,6 +39,9 @@
             <label for="status"></label>
         </div>
     </form>
+    @endif
+
+    <div id="curve_chart"></div>
     <div id="chart"></div>
 
 @endsection

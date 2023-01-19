@@ -12,9 +12,26 @@ class LogController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+
     public function index()
     {
-        //
+        $logs = Log::orderBy('date', 'desc')->get();
+
+        return view('admin.log.log', [
+            'logs' => $logs,
+        ]);
+    }
+
+    public function filtered(Request $request)
+    {
+
+        $search = '%' . $request->input('description') . '%';
+        $logs = Log::where('description', 'like', $search)->orderBy('date', 'desc')->get();
+
+        return view('admin.log.filtered', [
+            'logs' => $logs,
+        ]);
     }
 
     /**
