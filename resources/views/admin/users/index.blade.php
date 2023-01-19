@@ -4,7 +4,7 @@
 
 @section('main')
     <div class="fixedmt"></div>
-    <h1>Users</h1>
+    <h1>Gebruikers</h1>
 {{--    @include('shared.alert')--}}
     <p>
         <a href="/admin/users/create" class="btn btn-outline-success">
@@ -15,19 +15,19 @@
         <table class="table">
             <thead>
             <tr>
-                <th>#</th>
+                <th class="d-none d-md-table-cell">#</th>
                 <th>Naam</th>
-                <th>Email</th>
+                <th  class="d-none d-md-table-cell">Email</th>
                 <th>Acties</th>
             </tr>
             </thead>
             <tbody>
             @foreach($users as $user)
                 <tr>
-                    <td>{{ $user->id }}</td>
+                    <td class="d-none d-md-table-cell">{{ $user->id }}</td>
                     <td>{{ $user->name }}</td>
-                    <td>{{ $user->email }}</td>
-                    <td>
+                    <td class="d-none d-md-table-cell">{{ $user->email }}</td>
+                    <td >
                         <form action="/admin/users/{{ $user->id }}" method="post">
                             @method('delete')
                             @csrf
@@ -38,11 +38,11 @@
                                     <i class="fas fa-edit"></i>
                                 </a>
                                 @if($user->name != auth()->user()->name)
-                                <button type="submit" class="btn btn-outline-danger"
-                                        data-toggle="tooltip"
-                                        title="Delete {{ $user->name }}">
-                                    <i class="fas fa-trash-alt"></i>
-                                </button>
+                                    <button type="submit" class="btn btn-outline-danger"
+                                            data-toggle="tooltip"
+                                            title="Delete {{ $user->name }}">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </button>
                                 @endif
                             </div>
                         </form>
