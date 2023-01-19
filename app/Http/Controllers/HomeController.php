@@ -57,7 +57,7 @@ class HomeController extends Controller
             $pump->status = false;
         }
         $pump->save();
-        return redirect('/pump/'.$id);
+        return redirect('/user/pump/'.$id);
     }
 
 }
