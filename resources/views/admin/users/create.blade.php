@@ -8,4 +8,8 @@
     <form action="/admin/users" method="post">
         @include('admin.users.form')
     </form>
+
+    <a href="{{ url()->previous() }}" class="btn btn-primary mt-3">Terug</a>
 @endsection
+
+
