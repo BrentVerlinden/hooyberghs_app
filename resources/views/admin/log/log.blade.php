@@ -48,10 +48,10 @@
             <h2 class="text-center">Alle Logs</h2>
             <div class="row">
                 @foreach($logs ?? '' as $log)
-                    <div class="col-md-4">
+                    <div class="col-md-4 col-sm-6 col-xs-12">
                         <div class="card mb-4 card-size">
                             <div class="card-body">
-                                <h5 class="card-title">{{ $loop->index + 1 }} - Beschrijving: {{ $log->description }}</h5>
+                                <h5 class="card-title">{{ $loop->index + 1 }} - {{ $log->description }}</h5>
                                 <p class="card-text">Tijd: {{ $log->date }}</p>
                             </div>
                         </div>
@@ -59,6 +59,21 @@
                 @endforeach
             </div>
         </div>
+{{--        <div class="container">--}}
+{{--            <h2 class="text-center">Alle Logs</h2>--}}
+{{--            <div class="row">--}}
+{{--                @foreach($logs ?? '' as $log)--}}
+{{--                    <div class="col-md-4">--}}
+{{--                        <div class="card mb-4 card-size">--}}
+{{--                            <div class="card-body">--}}
+{{--                                <h5 class="card-title">{{ $loop->index + 1 }} - {{ $log->description }}</h5>--}}
+{{--                                <p class="card-text">Tijd: {{ $log->date }}</p>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                @endforeach--}}
+{{--            </div>--}}
+{{--        </div>--}}
     @endauth
 
 @endsection
