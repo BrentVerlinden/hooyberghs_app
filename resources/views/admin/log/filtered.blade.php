@@ -16,7 +16,7 @@
                     <div class="col-md-4">
                         <div class="card mb-4 card-size">
                             <div class="card-body">
-                                <h5 class="card-title">{{ $loop->index + 1 }} - Beschrijving: {{ $log->description }}</h5>
+                                <h5 class="card-title">{{ $loop->index + 1 }} - {{ $log->description }}</h5>
                                 <p class="card-text">Tijd: {{ $log->date }}</p>
                             </div>
                         </div>

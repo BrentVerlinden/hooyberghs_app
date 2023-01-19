@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
+    <link rel="shortcut icon" href="{{ asset('img/hooyberghs_logo_one.jpg') }}">
     @yield('css_after')
     <title>@yield('title', 'Hooyberghs Applicatie')</title>
 </head>
