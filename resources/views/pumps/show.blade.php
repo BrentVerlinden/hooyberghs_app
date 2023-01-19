@@ -11,9 +11,9 @@
 
         <p>Status:
             @if($pump->status)
-                Actief
+                <span class="logged-in">●</span> Actief
             @else
-                Inactief
+                <span class="logged-out">●</span>  Inactief
                 <br>
                 @if($pump->motif !== "" &&  $pump->motif !== null)
                     <small>Reden: {{ $pump->motif }}</small>
@@ -41,22 +41,17 @@
                 </div>
             </form>
         @endif
-        <div>
-            <div>
-                @if($pump->status)
-                    <div class="status-message">Meting is aan het uitvoeren...</div>
+        <div class="mt-5">
 
-                @else
-                    <div class="status-message"> Meting is gestopt</div>
-
-                @endif
-            </div>
             <div id="dashboard_div">
+                <div class="border pt-4">
                 <div id="filter_div"></div>
-                <div id="chart_div"></div>
-                <div id="filter2"></div>
-                <div id="chart2"></div>
 
+                <div id="chart_div"></div></div>
+<div class="mt-5 border pt-4">
+    <div id="filter2"></div>
+                <div id="chart2"></div>
+               </div>
             </div>
         </div>
 
@@ -65,7 +60,8 @@
 
 @endsection
 
-
+naam:data[0]['pumpname']
+power:data[0]['powerconsumption'][0]['power'][0]['power']
 <script type="text/javascript">
     google.charts.load('current', {'packages': ['corechart', 'controls']});
 
@@ -74,95 +70,154 @@
 
     function drawChart1() {
         var data = @json($power_consumptions);
-        var chartData = [['Tijd', 'Stroom']];
-
+        var chartData = [['Datum', 'Stroom']];
+console.log(data[1]);
         data[0].power.forEach(function (power) {
-            chartData.push([power.time, power.power]);
+            chartData.push([new Date(power.time), power.power]);
+
         });
-        var options = {
-            title: 'Stroomverbruik kwh',
-            curveType: 'function',
-            legend: {position: 'right'},
-            hAxis: {
-                title: 'Tijd'
-            },
-            vAxis: {
-                title: 'Stroom'
-            },
-            series: {
-                0: {color: '#D10000'}
-            },
-            interpolateNulls: true,
-            animation: {
-                duration: 1000,
-                easing: 'out',
-            },
-            pointSize: 5,
-            pointShape: 'circle',
+   console.log(data);
 
-            explorer: {
-                axis: 'horizontal',
-                keepInBounds: true,
-                maxZoomIn: 4.0
-            },
-        };
-
-        // Create the data table
+// Create the data table
         var chartDataTable = new google.visualization.arrayToDataTable(chartData);
 
-        // Create and draw the chart
-        var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
-        chart.draw(chartDataTable,options);
+        // Create a dashboard
+        var dashboard = new google.visualization.Dashboard(document.getElementById('dashboard_div'));
+
+        // Create the date range filter
+        var dateRangeFilter = new google.visualization.ControlWrapper({
+            'controlType': 'DateRangeFilter',
+            'containerId': 'filter_div',
+            'options': {
+                'filterColumnLabel': 'Datum',
+                'ui': {
+                    'format': {
+                        'pattern': 'dd-MM-yyyy'
+                    }
+                }
+            }
+        });
+
+
+        // Create the chart
+        var chart = new google.visualization.ChartWrapper({
+            'chartType': 'LineChart',
+            'containerId': 'chart_div',
+            'options': {
+                title: 'Stroomverbruik kwh',
+                curveType: 'function',
+                legend: {position: 'right'},
+                hAxis: {
+                    format: "MMM d, yyyy HH:mm"
+                },
+                vAxis: {
+                    title: 'Stroom'
+                },
+                series: {
+                    0: {color: '#D10000'}
+                },
+                interpolateNulls: true,
+                animation: {
+                    duration: 1000,
+                    easing: 'out',
+                },
+                pointSize: 5,
+                pointShape: 'circle',
+                explorer: {
+                    axis: 'horizontal',
+                    keepInBounds: true,
+                    maxZoomIn: 4.0
+                },
+            }
+        });
+
+        // Create the default view
+        var defaultView = new google.visualization.DataView(chartDataTable);
+
+        // Bind the data table to the date range filter
+        dateRangeFilter.setDataTable(defaultView);
+
+        // Listen for the 'statechange' event
+
+        // Draw the dashboard
+        dashboard.bind(dateRangeFilter, chart);
+        dashboard.draw(defaultView);
     }
 
+
     function drawChart2() {
-        var data = @json($power_consumptions);
-        var chartData = [['Tijd', 'Debiet']];
-        data[0].power.forEach(function(power) {
-            chartData.push([power.time, power.power]);
+        var data = @json($flowrates);
+        var chartData = [['Datum', 'Debiet']];
+
+        data[0].flowrate.forEach(function (flowrate) {
+            chartData.push([new Date(flowrate.time), flowrate.flowrate]);
         });
-        var options = {
-            title: 'Waterdebiet in kubieke m/s',
-            curveType: 'function',
-            legend: { position: 'right' },
-            hAxis: {
-                title: 'Tijd'
-            },
-            vAxis: {
-                title: 'Debiet'
-            }, series: {
-                0: { color: '#096192' }
-            },
-            interpolateNulls: true,
-            animation: {
-                duration: 1000,
-                easing: 'out',
-            },
-            pointSize: 5,
-            pointShape: 'circle',
-            crosshair: {
-                trigger: 'both',
-                color: 'gray',
-            },
-            explorer: {
-                axis: 'horizontal',
-                keepInBounds: true,
-                maxZoomIn: 4.0,
-                zoomDelta: 0.5,
-                zoomEnabled: true,
-                actions: ['dragToZoom', 'rightClickToReset'],
-            },
 
 
-
-        };
-
-        // Create the data table
+// Create the data table
         var chartDataTable = new google.visualization.arrayToDataTable(chartData);
 
-        // Create and draw the chart
-        var chart = new google.visualization.LineChart(document.getElementById('chart2'));
-        chart.draw(chartDataTable,options);
+        // Create a dashboard
+        var dashboard = new google.visualization.Dashboard(document.getElementById('dashboard_div'));
+
+        // Create the date range filter
+        var dateRangeFilter = new google.visualization.ControlWrapper({
+            'controlType': 'DateRangeFilter',
+            'containerId': 'filter2',
+            'options': {
+                'filterColumnLabel': 'Datum',
+                'ui': {
+                    'format': {
+                        'pattern': 'dd-MM-yyyy'
+                    }
+                }
+            }
+        });
+
+
+        // Create the chart
+        var chart = new google.visualization.ChartWrapper({
+            'chartType': 'LineChart',
+            'containerId': 'chart2',
+            'options': {
+                title: 'Waterdebiet in kubieke m/s',
+                curveType: 'function',
+                legend: {position: 'right'},
+                hAxis: {
+                    format: "MMM d, yyyy HH:mm"
+                },
+                vAxis: {
+                    title: 'm3/s'
+                },
+                series: {
+                    0: {color: '#096192'}
+                },
+                interpolateNulls: true,
+                animation: {
+                    duration: 1000,
+                    easing: 'out',
+                },
+                pointSize: 5,
+                pointShape: 'circle',
+                explorer: {
+                    axis: 'horizontal',
+                    keepInBounds: true,
+                    maxZoomIn: 4.0
+                },
+            }
+        });
+
+        // Create the default view
+        var defaultView = new google.visualization.DataView(chartDataTable);
+
+        // Bind the data table to the date range filter
+        dateRangeFilter.setDataTable(defaultView);
+
+        // Listen for the 'statechange' event
+
+        // Draw the dashboard
+        dashboard.bind(dateRangeFilter, chart);
+        dashboard.draw(defaultView);
     }
 
 </script>
