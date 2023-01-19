@@ -18,31 +18,6 @@
 
                 @endguest
                     @auth
-{{--                    <li class="nav-item dropdown">--}}
-
-{{--                        <a class="nav-link dropdown-toggle" href="#!" data-toggle="dropdown">--}}
-{{--                            Details--}}
-{{--                        </a>--}}
-{{--                        <div class="dropdown-menu dropdown-menu-right">--}}
-{{--                            <form action="/details" method="post">--}}
-{{--                                @csrf--}}
-{{--                                <button type="submit" class="dropdown-item"><i class="fas fa-sign-out-alt"></i> Detail 1--}}
-{{--                                </button>--}}
-{{--                            </form>--}}
-{{--                            <form action="/details" method="post">--}}
-{{--                                @csrf--}}
-{{--                                <button type="submit" class="dropdown-item"><i class="fas fa-sign-out-alt"></i> Detail 2--}}
-{{--                                </button>--}}
-{{--                            </form>--}}
-{{--                            <form action="/details" method="post">--}}
-{{--                                @csrf--}}
-{{--                                <button type="submit" class="dropdown-item"><i class="fas fa-sign-out-alt"></i> Detail 3--}}
-{{--                                </button>--}}
-{{--                            </form>--}}
-{{--                        </div>--}}
-
-{{--                    </li>--}}
-
 
                 <li class="nav-item dropdown ml-4">
 
@@ -57,7 +32,7 @@
                             <button type="submit" class="dropdown-item"><i class="fas fa-sign-out-alt"></i> Gebruikers beheren
                             </button>
                         </form>
-                        <form action="/logboek" method="post">
+                        <form action="/admin/log" method="get">
                             @csrf
                             <button type="submit" class="dropdown-item"><i class="fas fa-sign-out-alt"></i> Logboek
                             </button>

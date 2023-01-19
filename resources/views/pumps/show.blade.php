@@ -1,5 +1,5 @@
 @extends('layouts.template')
-<head><script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script> </head>
+<head><script src="https://www.gstatic.com/charts/loader.js"></script></head>
 
 @section('main')
     <div class="fixedmt"></div>
@@ -11,11 +11,15 @@
     @else
         Inactive
     <br>
-        <small >Reason: {{ $pump->motif }}</small>
+        @if($pump->motif !== "" &&  $pump->motif !== null)
+        <small >Reden: {{ $pump->motif }}</small>
+        @else<small >Geen reden gevonden</small>
+        @endif
     @endif
 </p>
 
 
+    @if(auth()->user()->admin)
     <form action="{{ $pump->id }}" method="POST">
         @csrf
         @method('PATCH')
@@ -30,7 +34,10 @@
             <label for="status"></label>
         </div>
     </form>
+    @endif
+
     <div id="curve_chart"></div>
+    <div id="chart"></div>
 @endsection
 <style>
     .toggle-switch {
@@ -98,24 +105,29 @@
 <script type="text/javascript">
     google.charts.load('current', {'packages':['corechart']});
     google.charts.setOnLoadCallback(drawChart);
-
     function drawChart() {
-        var data = google.visualization.arrayToDataTable([
-            ['Year', 'Stroom'],
-            ['2004',  1000],
-            ['2005',  1170],
-            ['2006',  660],
-            ['2007',  1030]
-        ]);
+        var data = @json($power_consumptions);
+        console.log();
+        var chartData = [['Tijd', 'Stroom']];
 
+        data[0].power.forEach(function(power) {
+            console.log(power.power)
+            chartData.push([power.time, power.power]);
+        });
         var options = {
-            title: 'Company Performance',
+            title: 'Stroomverbruik kwh',
             curveType: 'function',
             legend: { position: 'bottom' }
         };
 
-        var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
 
-        chart.draw(data, options);
+        // // Create the data table
+        var chartDataTable = new google.visualization.arrayToDataTable(chartData);
+        //
+        // // Create and draw the chart
+        var chart = new google.visualization.LineChart(document.getElementById('chart'));
+        chart.draw(chartDataTable,options);
     }
+
 </script>
+
