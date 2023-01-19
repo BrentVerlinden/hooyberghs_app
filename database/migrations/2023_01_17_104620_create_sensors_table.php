@@ -41,6 +41,10 @@ class CreateSensorsTable extends Migration
                 [
 
                     'error' => true
+                ],
+                [
+
+                    'error' => true
                 ]
 
             ]
