@@ -17,6 +17,9 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function (){
     //pompen
     Route::patch('/pump/{id}', 'HomeController@updatePump');
 
+    //pomp settings
+    Route::resource('pumpsettings', 'Admin\PumpSettingsController');
+
 
 });
 

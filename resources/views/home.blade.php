@@ -5,7 +5,7 @@
     <div class="fixedmt"></div>
     <h1>Welkom  {{ auth()->user()->name }}!</h1>
     @if(auth()->user()->admin)
-        <div class="mt-5">    <a href="/" class="align-content-center text-center">Pompinstellingen werf</a> </div>
+        <div class="mt-5">    <a href="/admin/pumpsettings" class="align-content-center text-center">Pompinstellingen werf</a> </div>
 
     @endif
     <br>

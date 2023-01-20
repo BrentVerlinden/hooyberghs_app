@@ -23,7 +23,7 @@
                         <div class="mr-2">
                             <input type="text" class="form-control" name="description" id="description"
 
-                           
+
 
                                    value="" placeholder="Filter beschrijving">
 
