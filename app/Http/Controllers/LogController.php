@@ -14,25 +14,26 @@ class LogController extends Controller
      */
 
 
-    public function index()
+    public function index(Request $request)
     {
-        $logs = Log::orderBy('date', 'desc')->get();
+        $description = '%' . $request->input('description') . '%';
+        $date = $request->input('date');
 
-        return view('admin.log.log', [
-            'logs' => $logs,
-        ]);
+        $logs = Log::orderBy('date', 'desc');
+
+        if ($description) {
+            $logs = $logs->where('description', 'like', $description);
+        }
+
+        if ($date) {
+            $logs = $logs->whereDate('date', $date);
+        }
+
+        $logs = $logs->get();
+
+        return view('admin.log.log', compact('logs'));
     }
 
-    public function filtered(Request $request)
-    {
-
-        $search = '%' . $request->input('description') . '%';
-        $logs = Log::where('description', 'like', $search)->orderBy('date', 'desc')->get();
-
-        return view('admin.log.filtered', [
-            'logs' => $logs,
-        ]);
-    }
 
     /**
      * Show the form for creating a new resource.

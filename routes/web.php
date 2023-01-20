@@ -10,12 +10,10 @@ Route::get('/', 'HomeController@index');
 
 // INGELOGD ALS ADMIN
 Route::middleware(['auth', 'admin'])->prefix('admin')->group(function (){
-
     Route::resource('users', 'Admin\UserController');
-
     // logboek
     Route::resource('log', 'LogController');
-    Route::get('filtered', 'LogController@filtered');
+
     //pompen
     Route::patch('/pump/{id}', 'HomeController@updatePump');
 
