@@ -22,10 +22,14 @@
                     <div class="row">
                         <div class="mr-2">
                             <input type="text" class="form-control" name="description" id="description"
-                                   value="" placeholder="Filter logs">
+
+                           
+
+                                   value="" placeholder="Filter beschrijving">
+
                         </div>
                         <div class="">
-                            <button type="submit" class="btn btn-success btn-block">Search</button>
+                            <button type="submit" class="btn btn-success btn-block">Zoeken</button>
                         </div>
 
                     </div>
