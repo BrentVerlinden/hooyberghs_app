@@ -64,18 +64,7 @@ class CreateUsersTable extends Migration
             ]
         );
 
-        // Add 40 dummy users inside a loop
-        for ($i = 0; $i <= 40; $i++) {
-            DB::table('users')->insert(
-                [
-                    'name' => "ITF User $i",
-                    'email' => "itf_user_$i@mailinator.com",
-                    'password' => Hash::make("itfuser$i"),
-                    'created_at' => now(),
-                    'email_verified_at' => now()
-                ]
-            );
-        }
+
 
 
     }

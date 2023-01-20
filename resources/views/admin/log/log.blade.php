@@ -18,34 +18,27 @@
             {{--                </ul>--}}
             {{--                <h2 class="mt-5">Kies hieronder een zoekterm (beschrijving) en filter!</h2>--}}
             <div class="container d-flex justify-content-center">
-                <form method="get" action="/admin/filtered" id="searchForm" class="mx-auto">
+                <form method="get" action="/admin/log" id="searchForm" class="mx-auto">
                     <div class="row">
                         <div class="mr-2">
                             <input type="text" class="form-control" name="description" id="description"
-                                   value="" placeholder="Filter description">
+                                   value="" placeholder="Filter logs">
                         </div>
                         <div class="">
                             <button type="submit" class="btn btn-success btn-block">Search</button>
                         </div>
+
+                    </div>
+                    <div class="form-group mt-2">
+
+                        <input type="date" class="form-control" name="date" id="date" value="{{ request()->input('date') }}">
                     </div>
                 </form>
             </div>
             <hr>
-
-            {{--                <div class="d-flex justify-content-center">--}}
-            {{--                <form class="form-inline my-2 my-lg-0" href="/admin/filtered">--}}
-            {{--                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">--}}
-            {{--                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>--}}
-            {{--                </form>--}}
-            {{--                </div>--}}
-            {{--                <ul >--}}
-            {{--                    @foreach($filtlogs ?? '' as $log)--}}
-            {{--                        <li style="list-style: none"><i class="fa-solid fa-circle-exclamation"></i> Naam: {{ $log->nameLog }}, Beschrijving: {{ $log->description }}</li>--}}
-            {{--                    @endforeach--}}
-            {{--                </ul>--}}
         </div>
         <div class="container">
-            <h2 class="text-center">Alle Logs</h2>
+
             <div class="row">
                 @foreach($logs ?? '' as $log)
                     <div class="col-md-4 col-sm-6 col-xs-12">
