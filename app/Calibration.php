@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Calibration extends Model
 {
-    public function pit() {
-        return $this->belongsTo('App\Pit')->withDefault();
+    public function werf() {
+        return $this->belongsTo('App\Werf')->withDefault();
     }
 }
