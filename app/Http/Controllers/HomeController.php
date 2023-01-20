@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Log;
 use App\Pump;
 use Illuminate\Http\Request;
 
@@ -79,6 +80,19 @@ class HomeController extends Controller
             $pump->status = false;
         }
         $pump->save();
+        $log = new Log();
+        if ($pump->status === true)
+        {
+            $test1 = " aangezet.";
+        }
+        else
+        {
+            $test1 = " uitgezet.";
+        }
+        $log->description = auth()->user()->email . " heeft de pomp " . $pump->pumpname . $test1;
+        $log->nameLog = "pomp aan/uit";
+        $log->date = now();
+        $log->save();
         return redirect('/user/pump/'.$id);
     }
 

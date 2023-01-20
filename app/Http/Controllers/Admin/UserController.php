@@ -68,8 +68,8 @@ class UserController extends Controller
         $user->save();
 
         $log = new Log();
-        $log->description = auth()->user()->email . " heeft de gebruiker " . $user->email . " aangemaakt";
-        $log->nameLog = "user creation";
+        $log->description = auth()->user()->email . " heeft de gebruiker met email " . $user->email . " aangemaakt";
+        $log->nameLog = "gebruiker aangemaakt";
         $log->date = now();
         $log->save();
 
@@ -129,6 +129,12 @@ class UserController extends Controller
         }
         $user->save();
 
+        $log = new Log();
+        $log->description = auth()->user()->email . " heeft de gebruiker met email " . $user->email . " aangepast";
+        $log->nameLog = "gebruiker aangepast";
+        $log->date = now();
+        $log->save();
+
         // Flash a success message to the session
         session()->flash('success', 'De gebruiker is aangepast');
         // Redirect to the master page
@@ -144,6 +150,11 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         $user->delete();
+        $log = new Log();
+        $log->description = auth()->user()->email . " heeft de gebruiker met email " . $user->email . " verwijderd";
+        $log->nameLog = "gebruiker verwijderd";
+        $log->date = now();
+        $log->save();
         session()->flash('success', "De gebruiker $user->name  is verwijderd");
         return redirect('admin/users');
     }
