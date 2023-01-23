@@ -1,41 +1,27 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use App\Log;
+use App\Http\Controllers\Controller;
+use App\Pump;
 use App\Werf;
 use Illuminate\Http\Request;
 
-class LogController extends Controller
+class PumpController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-
-
-    public function index(Request $request, $werfid)
+    public function index($werfid)
     {
         $werf = Werf::findOrFail($werfid);
-        $description = '%' . $request->input('description') . '%';
-        $date = $request->input('date');
-
-        $logs = Log::orderBy('date', 'desc');
-
-        if ($description) {
-            $logs = $logs->where('description', 'like', $description);
-        }
-
-        if ($date) {
-            $logs = $logs->whereDate('date', $date);
-        }
-
-        $logs = $logs->get();
-
-        return view('admin.log.log', compact('logs', 'werf'));
+        $pumps = Pump::orderBy('id')->get();
+        $result = compact('pumps', 'werf');
+        (new \App\Helpers\Json)->dump($result);
+        return view('admin.pumps.index', $result);
     }
-
 
     /**
      * Show the form for creating a new resource.
@@ -61,10 +47,10 @@ class LogController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Log  $log
+     * @param  \App\Pump  $pump
      * @return \Illuminate\Http\Response
      */
-    public function show(Log $log)
+    public function show(Pump $pump)
     {
         //
     }
@@ -72,10 +58,10 @@ class LogController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Log  $log
+     * @param  \App\Pump  $pump
      * @return \Illuminate\Http\Response
      */
-    public function edit(Log $log)
+    public function edit(Pump $pump)
     {
         //
     }
@@ -84,10 +70,10 @@ class LogController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Log  $log
+     * @param  \App\Pump  $pump
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Log $log)
+    public function update(Request $request, Pump $pump)
     {
         //
     }
@@ -95,10 +81,10 @@ class LogController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Log  $log
+     * @param  \App\Pump  $pump
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Log $log)
+    public function destroy(Pump $pump)
     {
         //
     }

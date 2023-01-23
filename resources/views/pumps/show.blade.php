@@ -24,7 +24,7 @@
 
 
         @if(auth()->user()->admin)
-            <form action="/admin/pump/{{ $pump->id }}" method="POST">
+            <form action="/admin/werf/{{ $werf->id }}/pump/{{ $pump->id }}" method="POST">
                 @csrf
                 @method('PATCH')
                 <label for="status">

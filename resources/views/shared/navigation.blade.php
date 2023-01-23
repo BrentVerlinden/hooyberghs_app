@@ -1,7 +1,7 @@
 
 <nav class="navbar navbar-expand-md navbar-light shadow-sm">
     <div class="container">
-        <a class="navbar-brand" href="/">
+        <a class="navbar-brand" href="/user/werf/{{$werf->id}}/home">
             <img src="{{ asset('img/hooyberghs_logo_two.png') }}" alt="description of myimage" height="59" width="329"
             id="img-1">
         </a>
@@ -27,17 +27,29 @@
                     <div class="dropdown-menu dropdown-menu-right">
 
                         @if(auth()->user()->admin)
-                        <form action="/admin/users" method="get">
+                            <form action="/admin/werf/{{$werf->id}}/pumps" method="get">
+                                @csrf
+                                <button type="submit" class="dropdown-item"><i class="fas fa-sign-out-alt"></i> Pompen beheren
+                                </button>
+                            </form>
+                        <form action="/admin/werf/{{$werf->id}}/users" method="get">
                             @csrf
                             <button type="submit" class="dropdown-item"><i class="fas fa-sign-out-alt"></i> Gebruikers beheren
                             </button>
                         </form>
-                        <form action="/admin/log" method="get">
+
+                        <form action="/admin/werf/{{$werf->id}}/log" method="get">
                             @csrf
                             <button type="submit" class="dropdown-item"><i class="fas fa-sign-out-alt"></i> Logboek
                             </button>
                         </form>
                         @endif
+
+                            <form action="/" method="get">
+                                @csrf
+                                <button type="submit" class="dropdown-item"><i class="fas fa-sign-out-alt"></i> Mijn werven
+                                </button>
+                            </form>
 
                         <form action="/logout" method="post">
                             @csrf

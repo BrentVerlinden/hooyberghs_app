@@ -6,6 +6,7 @@ use App\Helpers\Json;
 use App\Http\Controllers\Controller;
 use App\Log;
 use App\User;
+use App\Werf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -17,11 +18,12 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($werfid)
     {
+        $werf = Werf::findOrFail($werfid);
         $users = User::orderBy('id')
             ->get();
-        $result = compact('users');
+        $result = compact('users', 'werf');
         (new \App\Helpers\Json)->dump($result);
         return view('admin.users.index', $result);
     }
@@ -31,10 +33,11 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($werfid)
     {
+        $werf = Werf::findOrFail($werfid);
         $user = new User();
-        return view('admin.users.create', compact('user'));
+        return view('admin.users.create', compact('user', 'werf'));
     }
 
     /**
@@ -43,8 +46,9 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $werfid)
     {
+        $werf = Werf::findOrFail($werfid);
         // Validate $request
         $this->validate($request,[
             'name' => 'required|min:3',
@@ -77,7 +81,7 @@ class UserController extends Controller
         $message = "User $user->name met email  $user->email is aangemaakt.";
         session()->flash('success', $message);
         // Redirect to the master page
-        return redirect('admin/users');
+        return redirect('/admin/werf/' . $werf->id . '/users');
     }
 
     /**
@@ -97,9 +101,10 @@ class UserController extends Controller
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)
+    public function edit($werfid,User $user)
     {
-        $result = compact('user');
+        $werf = Werf::findOrFail($werfid);
+        $result = compact('user', 'werf');
         (new \App\Helpers\Json)->dump($result);
         return view('admin.users.edit', $result);
     }
@@ -111,8 +116,9 @@ class UserController extends Controller
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, $werfid, User $user)
     {
+        $werf = Werf::findOrFail($werfid);
         // Validate $request
         $this->validate($request,[
             'name' => 'unique:users,name,' . $user->id,
@@ -130,15 +136,15 @@ class UserController extends Controller
         $user->save();
 
         $log = new Log();
-        $log->description = auth()->user()->email . " heeft de gebruiker met email " . $user->email . " aangepast";
-        $log->nameLog = "gebruiker aangepast";
+        $log->description = auth()->user()->email . " heeft de gebruiker met email " . $user->email . " bewerkt";
+        $log->nameLog = "gebruiker bewerkt";
         $log->date = now();
         $log->save();
 
         // Flash a success message to the session
-        session()->flash('success', 'De gebruiker is aangepast');
+        session()->flash('success', 'De gebruiker is bewerkt');
         // Redirect to the master page
-        return redirect('admin/users');
+        return redirect('/admin/werf/' . $werf->id . '/users');
     }
 
     /**
@@ -147,7 +153,7 @@ class UserController extends Controller
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy($werfid, User $user)
     {
         $user->delete();
         $log = new Log();
@@ -156,6 +162,6 @@ class UserController extends Controller
         $log->date = now();
         $log->save();
         session()->flash('success', "De gebruiker $user->name  is verwijderd");
-        return redirect('admin/users');
+        return redirect('/admin/werf/' . $werfid . '/users');
     }
 }

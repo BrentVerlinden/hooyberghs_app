@@ -5,7 +5,7 @@
 @section('main')
     <div class="fixedmt"></div>
     <h1>Gebruiker bewerken: {{ $user->name }}</h1>
-    <form action="/admin/users/{{ $user->id }}" method="post">
+    <form action="/admin/werf/{{ $werf->id }}/users/{{ $user->id }}" method="post">
         @method('put')
         @csrf
         <div class="form-group">

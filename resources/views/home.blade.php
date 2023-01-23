@@ -5,7 +5,7 @@
     <div class="fixedmt"></div>
     <h1>Welkom  {{ auth()->user()->name }}!</h1>
     @if(auth()->user()->admin)
-        <div class="mt-5">    <a href="/admin/pumpsettings" class="align-content-center text-center">Pompinstellingen werf</a> </div>
+        <div class="mt-5">    <a href="/admin/werf/{{ $werf->id }}/pumpsettings" class="align-content-center text-center">Pompinstellingen werf</a> </div>
 
     @endif
     <br>
@@ -19,7 +19,7 @@
                     </div>
                     <ul >
             @foreach($active_pumps ?? '' as $pump)
-                            <li style="list-style: none"><a href="/user/pump/{{ $pump->id }}">{{ $pump->pumpname }}</a></li>
+                            <li style="list-style: none"><a href="/user/werf/{{ $werf->id }}/pump/{{ $pump->id }}">{{ $pump->pumpname }}</a></li>
                         @endforeach
                     </ul>
                 </div>
@@ -27,7 +27,7 @@
                     <h2><span class="logged-out">●</span> Inactieve pompen</h2>
                     <ul>
                         @foreach($inactive_pumps ?? '' as $pump)
-                            <li style="list-style: none"><a href="/user/pump/{{ $pump->id }}">{{ $pump->pumpname }}</a></li>
+                            <li style="list-style: none"><a href="/user/werf/{{ $werf->id }}/pump/{{ $pump->id }}">{{ $pump->pumpname }}</a></li>
                         @endforeach
                     </ul>
                 </div>
