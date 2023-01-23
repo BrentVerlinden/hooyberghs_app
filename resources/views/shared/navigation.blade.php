@@ -27,12 +27,22 @@
                     <div class="dropdown-menu dropdown-menu-right">
 
                         @if(auth()->user()->admin)
-                        <form action="/admin/users" method="get">
+                            <form action="/admin/werf/{{$werf->id}}/pumps" method="get">
+                                @csrf
+                                <button type="submit" class="dropdown-item"><i class="fas fa-sign-out-alt"></i> Pompen beheren
+                                </button>
+                            </form>
+                        <form action="/admin/werf/{{$werf->id}}/users" method="get">
                             @csrf
                             <button type="submit" class="dropdown-item"><i class="fas fa-sign-out-alt"></i> Gebruikers beheren
                             </button>
                         </form>
-                        <form action="/admin/log" method="get">
+                            <form action="/user/werf/{{$werf->id}}/home" method="get">
+                                @csrf
+                                <button type="submit" class="dropdown-item"><i class="fas fa-sign-out-alt"></i> Overzicht
+                                </button>
+                            </form>
+                        <form action="/admin/werf/{{$werf->id}}/log" method="get">
                             @csrf
                             <button type="submit" class="dropdown-item"><i class="fas fa-sign-out-alt"></i> Logboek
                             </button>

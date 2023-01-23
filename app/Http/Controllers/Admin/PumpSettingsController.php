@@ -13,7 +13,7 @@ class PumpSettingsController extends Controller
         return view('admin.pumpstart.start');
     }
 
-    public function store(Request $request)
+    public function store(Request $request, $werfid)
     {
 
         // Validate $request
@@ -28,6 +28,6 @@ class PumpSettingsController extends Controller
         $automation->automatic = true;
         $automation->save();
 
-        return redirect('admin/pumpsettings');
+        return redirect('/admin/werf/' . $werfid . '/pumpsettings');
     }
 }

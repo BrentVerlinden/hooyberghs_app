@@ -20,7 +20,7 @@
                     <div class="col-md-4 col-sm-6 col-xs-12">
                         <div class="card mb-4 card-size">
                             <div class="card-body">
-                                <a href="/user/werf/{id}"><h5 class="card-title">{{ $werf->name }}</h5></a>
+                                <a href="/user/werf/{{ $werf->id }}/home"><h5 class="card-title">{{ $werf->name }}</h5></a>
                             </div>
                         </div>
                     </div>

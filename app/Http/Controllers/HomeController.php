@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Log;
 use App\Pump;
+use App\Werf;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,7 +24,7 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index($werfid)
     {
 
         $pumps = Pump::with('powerconsumption')->get();
@@ -32,24 +33,28 @@ class HomeController extends Controller
         foreach($pump->powerconsumption as $power_consumption){
             $power_consumption->power = json_decode($power_consumption->power);
         }
-    }
+        }
 
         $active_pumps = Pump::where('status', true)->get();
         $inactive_pumps = Pump::where('status', false)->get();
         (new \App\Helpers\Json)->dump($pumps);
 
+        $werf = Werf::findOrFail($werfid);
+
 
 
         return view('home', [
             'active_pumps' => $active_pumps,
-            'inactive_pumps' => $inactive_pumps,'pumps'=>$pumps
+            'inactive_pumps' => $inactive_pumps,'pumps'=>$pumps,
+            'werf' => $werf
         ]);
     }
 
 
-    public function showPump($id)
+    public function showPump($werfid, $id)
     {
         $pump = Pump::find($id);
+        $werf = Werf::findOrFail($werfid);
         $power_consumptions = $pump->powerconsumption;
 
         //STROOMVERBRUIK
@@ -67,10 +72,11 @@ class HomeController extends Controller
 
         (new \App\Helpers\Json)->dump($pump);
         // je kunt nu de power_consumptions gebruiken in je view
-        return view('pumps.show', ['pump' => $pump, 'power_consumptions' => $power_consumptions,'flowrates'=>$flowrates]);
+        return view('pumps.show', ['pump' => $pump, 'power_consumptions' => $power_consumptions,'flowrates'=>$flowrates, 'werf' => $werf]);
     }
-    public function updatePump(Request $request, $id)
+    public function updatePump(Request $request, $werfid, $id)
     {
+        $werf = Werf::find($werfid);
         $pump = Pump::find($id);
         if ($request->status == 'on') {
             $pump->status = true;
@@ -93,7 +99,7 @@ class HomeController extends Controller
         $log->nameLog = "pomp aan/uit";
         $log->date = now();
         $log->save();
-        return redirect('/user/pump/'.$id);
+        return redirect('/user/werf/' . $werf->id . '/pump/'.$id);
     }
 
 }
