@@ -17,16 +17,16 @@
             <thead>
             <tr>
 {{--                <th class="d-none d-md-table-cell">#</th>--}}
-                <th>Naam</th>
-                <th>Acties</th>
+                <th class="text-center">Naam</th>
+                <th class="text-center">Acties</th>
             </tr>
             </thead>
             <tbody>
             @foreach($werfs as $werf)
                 <tr>
 {{--                    <td class="">{{ $werf->id }}</td>--}}
-                    <td>{{ $werf->name }}</td>
-                    <td >
+                    <td class="text-center">{{ $werf->name }}</td>
+                    <td class="text-center">
                         <form action="/admin/werf/crud/{{ $werf->id }}" method="post">
                             @method('delete')
                             @csrf

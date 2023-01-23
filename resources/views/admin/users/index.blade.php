@@ -1,14 +1,14 @@
 @extends('layouts.template')
 
-@section('title', 'Gebruikers')
+@section('title', 'Werfgebruikers')
 
 @section('main')
     <div class="fixedmt"></div>
-    <h1>Gebruikers</h1>
+    <h1>Werfgebruikers</h1>
 {{--    @include('shared.alert')--}}
     <p>
         <a href="/admin/users/create" class="btn btn-outline-success">
-            <i class="fas fa-plus-circle mr-1"></i>Maak een nieuwe gebruiker aan
+            <i class="fas fa-plus-circle mr-1"></i>Maak een nieuwe werfgebruiker aan
         </a>
     </p>
     <div class="table-responsive">

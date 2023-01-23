@@ -17,6 +17,11 @@
                    required
                    value="{{ old('name', $werf->name) }}">
 
+            @csrf
+            <label for="admin">Frequentiegestuurde pompen</label>
+            <br>
+            <input type="hidden" name="admin" value="0">
+            <input type="checkbox" name="admin" value="1" {{ $werf->frequention ? 'checked' : '' }}>
             @error('name')
             <div class="invalid-feedback">{{ $message }}</div>
             @enderror
