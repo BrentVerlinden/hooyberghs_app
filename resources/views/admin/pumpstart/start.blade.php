@@ -2,7 +2,7 @@
 @section('title', 'Pompen')
 @section('main')
     <div class="fixedmt"></div>
-    <form action="/admin/pumpsettings" method="post">
+    <form action="/admin/werf/{{ $werf->id }}/pumpsettings" method="post">
         @csrf
         <div class="form-group ">
             <label for="depth">Diepte</label>

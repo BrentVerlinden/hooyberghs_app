@@ -4,13 +4,15 @@ namespace App\Http\Controllers\Admin;
 
 use App\Automation;
 use App\Http\Controllers\Controller;
+use App\Werf;
 use Illuminate\Http\Request;
 
 class PumpSettingsController extends Controller
 {
-    public function index()
+    public function index($werfid)
     {
-        return view('admin.pumpstart.start');
+        $werf = Werf::findOrFail($werfid);
+        return view('admin.pumpstart.start', compact('werf'));
     }
 
     public function store(Request $request, $werfid)

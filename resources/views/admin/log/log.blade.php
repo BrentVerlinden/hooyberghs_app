@@ -18,7 +18,7 @@
             {{--                </ul>--}}
             {{--                <h2 class="mt-5">Kies hieronder een zoekterm (beschrijving) en filter!</h2>--}}
             <div class="container d-flex justify-content-center">
-                <form method="get" action="/admin/log" id="searchForm" class="mx-auto">
+                <form method="get" action="/admin/werf/{{$werf->id}}/log" id="searchForm" class="mx-auto">
                     <div class="row">
                         <div class="mr-2">
                             <input type="text" class="form-control" name="description" id="description"
