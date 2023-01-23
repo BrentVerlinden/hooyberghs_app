@@ -6,6 +6,7 @@ use App\Helpers\Json;
 use App\Http\Controllers\Controller;
 use App\Log;
 use App\User;
+use App\Werf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -17,11 +18,12 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($werfid)
     {
+        $werf = Werf::findOrFail($werfid);
         $users = User::orderBy('id')
             ->get();
-        $result = compact('users');
+        $result = compact('users', 'werf');
         (new \App\Helpers\Json)->dump($result);
         return view('admin.users.index', $result);
     }
