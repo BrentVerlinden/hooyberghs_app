@@ -22,6 +22,40 @@ class CreateWerfusersTable extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('werf_id')->references('id')->on('werves');
         });
+
+        DB::table('werfusers')->insert(
+            [
+                [
+                    'user_id' => 1,
+                    'werf_id' => 1
+                ],
+                [
+                    'user_id' => 2,
+                    'werf_id' => 1
+                ],
+                [
+                    'user_id' => 3,
+                    'werf_id' => 1
+                ],
+                [
+                    'user_id' => 4,
+                    'werf_id' => 1
+                ],
+                [
+                    'user_id' => 1,
+                    'werf_id' => 2
+                ],
+                [
+                    'user_id' => 2,
+                    'werf_id' => 2
+                ],
+                [
+                    'user_id' => 3,
+                    'werf_id' => 2
+                ],
+
+            ]
+        );
     }
 
     /**

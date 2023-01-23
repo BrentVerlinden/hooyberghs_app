@@ -16,7 +16,7 @@ class CreateWervesTable extends Migration
         Schema::create('werves', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
-            $table->text('description')->nullable();
+            $table->boolean('frequention');
             $table->timestamps();
         });
 
@@ -24,7 +24,11 @@ class CreateWervesTable extends Migration
             [
                 [
                     'name' => 'Werf 1',
-                    'description' => 'Werf voor bouw',
+                    'frequention' => 1
+                ],
+                [
+                    'name' => 'Werf 2',
+                    'frequention' => 0
                 ],
             ]
         );
