@@ -1,10 +1,10 @@
 @extends('layouts.template')
 
-@section('title', 'Gebruiker bewerken')
+@section('title', 'Werfgebruiker bewerken')
 
 @section('main')
     <div class="fixedmt"></div>
-    <h1>Gebruiker bewerken: {{ $user->name }}</h1>
+    <h1>Werfgebruiker bewerken: {{ $user->name }}</h1>
     <form action="/admin/werf/{{ $werf->id }}/users/{{ $user->id }}" method="post">
         @method('put')
         @csrf
