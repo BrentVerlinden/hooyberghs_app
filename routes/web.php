@@ -14,6 +14,7 @@ Route::get('/', 'WerfController@home');
 // INGELOGD ALS ADMIN
 Route::middleware(['auth', 'admin'])->prefix('admin')->group(function (){
     Route::resource('/werf/{werfid}/users', 'Admin\UserController');
+    Route::resource('/werf/{werfid}/pumps', 'Admin\PumpController');
     // logboek
     Route::resource('/werf/{werfid}/log', 'LogController');
 
