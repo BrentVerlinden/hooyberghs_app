@@ -27,13 +27,21 @@ class HomeController extends Controller
     public function index($werfid)
     {
 
-        $pumps = Pump::with('powerconsumption')->get();
+        $pumps = Pump::all();
 
         foreach ($pumps as $pump) {
+
         foreach($pump->powerconsumption as $power_consumption){
-            $power_consumption->power = json_decode($power_consumption->power);
+            $power_consumption->verbruik = json_decode($power_consumption->verbruik);
         }
+
+            foreach($pump->sensors as $sensor){
+                $sensor->data = json_decode($sensor->data);
+            }
+    }
+
         }
+
 
         $active_pumps = Pump::where('status', true)->get();
         $inactive_pumps = Pump::where('status', false)->get();
@@ -57,9 +65,9 @@ class HomeController extends Controller
         $werf = Werf::findOrFail($werfid);
         $power_consumptions = $pump->powerconsumption;
 
-        //STROOMVERBRUIK
+        //verbruik
         foreach ($power_consumptions as $power_consumption) {
-            $power_consumption->power = json_decode($power_consumption->power);
+            $power_consumption->verbruik = json_decode($power_consumption->verbruik);
         }
 
         //FLOWRATE
@@ -70,9 +78,17 @@ class HomeController extends Controller
 
         }
 
+
+        //stroom
+        foreach ($power_consumptions as $power_consumption) {
+            $power_consumption->stroom = json_decode($power_consumption->stroom);
+        }
+
         (new \App\Helpers\Json)->dump($pump);
         // je kunt nu de power_consumptions gebruiken in je view
-        return view('pumps.show', ['pump' => $pump, 'power_consumptions' => $power_consumptions,'flowrates'=>$flowrates, 'werf' => $werf]);
+
+        return view('pumps.show', ['pump' => $pump, 'power_consumptions' => $power_consumptions,'flowrates'=>$flowrates,'stroom' => $power_consumptions, 'werf' => $werf]);
+
     }
     public function updatePump(Request $request, $werfid, $id)
     {

@@ -15,8 +15,5 @@ class Sensor extends Model
         return $this->belongsTo('App\Pump')->withDefault();
     }
 
-    public function sensordata()
-    {
-        return $this->hasMany('App\Sensordata');
-    }
+
 }
