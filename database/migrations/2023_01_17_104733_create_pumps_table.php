@@ -25,9 +25,11 @@ class CreatePumpsTable extends Migration
             $table->float('percentage');
             $table->boolean('error');
             $table->foreignId('sensor_id');
+            $table->foreignId('werf_id');
             $table->timestamps();
             //Foreign keys --> moet nog aangepast worden
             $table->foreign('sensor_id')->references('id')->on('sensors')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('werf_id')->references('id')->on('werves')->onDelete('cascade')->onUpdate('cascade');
         });
 
 
@@ -42,7 +44,8 @@ class CreatePumpsTable extends Migration
                     'frequention' => true,
                     'percentage' => 70,
                     'error' => false,
-                    'sensor_id' => 1
+                    'sensor_id' => 1,
+                    'werf_id' => 1,
                 ],
                 [
                     'pumpname' => "Pomp 2",
@@ -53,7 +56,8 @@ class CreatePumpsTable extends Migration
                     'frequention' => true,
                     'percentage' => 70,
                     'error' => false,
-                    'sensor_id' => 2
+                    'sensor_id' => 2,
+                    'werf_id' => 1
                 ],
                 [
                     'pumpname' => "Pomp 3",
@@ -64,7 +68,8 @@ class CreatePumpsTable extends Migration
                     'frequention' => true,
                     'percentage' => 70,
                     'error' => false,
-                    'sensor_id' => 3
+                    'sensor_id' => 3,
+                    'werf_id' => 1,
                 ],
                 [
                     'pumpname' => "Pomp 4",
@@ -75,7 +80,8 @@ class CreatePumpsTable extends Migration
                     'frequention' => true,
                     'percentage' => 70,
                     'error' => false,
-                    'sensor_id' => 4
+                    'sensor_id' => 4,
+                    'werf_id' => 1,
                 ],
                 [
                     'pumpname' => "Pomp 5",
@@ -86,7 +92,8 @@ class CreatePumpsTable extends Migration
                     'frequention' => false,
                     'percentage' => 0,
                     'error' => true,
-                    'sensor_id' => 5
+                    'sensor_id' => 5,
+                    'werf_id' => 1,
                 ]
                 ,
                 [
@@ -98,7 +105,8 @@ class CreatePumpsTable extends Migration
                     'frequention' => false,
                     'percentage' => 0,
                     'error' => true,
-                    'sensor_id' => 6
+                    'sensor_id' => 6,
+                    'werf_id' => 1,
                 ]
 
             ]

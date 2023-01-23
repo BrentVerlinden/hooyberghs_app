@@ -8,6 +8,10 @@ use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
+    public function werfusers()
+    {
+        return $this->hasMany('App\Werfuser');
+    }
 
     public function logs()
     {

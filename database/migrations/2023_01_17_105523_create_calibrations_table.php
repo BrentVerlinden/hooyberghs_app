@@ -15,14 +15,17 @@ class CreateCalibrationsTable extends Migration
     {
         Schema::create('calibrations', function (Blueprint $table) {
             $table->id();
-            $table->dateTime('startDate');
-            $table->dateTime('endDate');
+            $table->dateTime('startDate')->nullable();
+            $table->dateTime('endDate')->nullable();
             $table->time('time'); //andere variable?
-            $table->foreignId('pit_id');
+            $table->foreignId('werf_id');
+            $table->float('pump')->nullable();
+            $table->float('sensor')->nullable();
             //Foreign keys --> moet nog aangepast worden
-            $table->foreign('pit_id')->references('id')->on('pits')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('werf_id')->references('id')->on('werves')->onDelete('cascade')->onUpdate('cascade');
         });
 
+        // 1 werf = 1 calibration
 
         DB::table('calibrations')->insert(
             [
@@ -30,37 +33,8 @@ class CreateCalibrationsTable extends Migration
                     'startDate' => '2023-01-16',
                     'endDate' => '2023-04-22',
                     'time' => 10,
-                    'pit_id' => 1
-
+                    'werf_id' => 1
                 ],
-                [
-                    'startDate' => '2023-01-17',
-                    'endDate' => '2023-05-22',
-                    'time' => 10,
-                    'pit_id' => 1
-
-                ],
-                [
-                    'startDate' => '2023-01-15',
-                    'endDate' => '2023-04-22',
-                    'time' => 10,
-                    'pit_id' => 2
-
-                ],
-                [
-                    'startDate' => '2023-01-17',
-                    'endDate' => '2023-02-19',
-                    'time' => 10,
-                    'pit_id' => 2
-
-                ],
-                [
-                    'startDate' => '2023-01-17',
-                    'endDate' => '2023-03-19',
-                    'time' => 10,
-                    'pit_id' => 3
-
-                ]
             ]
         );
 

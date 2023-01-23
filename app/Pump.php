@@ -15,8 +15,8 @@ class Pump extends Model
         return $this->belongsTo('App\Sensor')->withDefault();
     }
 
-    public function pit() {
-        return $this->belongsTo('App\Pit')->withDefault();
+    public function werf() {
+        return $this->belongsTo('App\Werf')->withDefault();
     }
 
     public function powerconsumption()
