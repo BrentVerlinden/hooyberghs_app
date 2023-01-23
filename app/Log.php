@@ -19,4 +19,8 @@ class Log extends Model
     public function sensor() {
         return $this->belongsTo('App\Sensor')->withDefault();
     }
+
+    public function werf() {
+        return $this->belongsTo('App\Werf')->withDefault();
+    }
 }

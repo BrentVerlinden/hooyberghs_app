@@ -15,4 +15,12 @@ class Werf extends Model
     {
         return $this->hasMany('App\Pump');
     }
+
+    public function calibration() {
+        return $this->belongsTo('App\Calibration')->withDefault();
+    }
+
+    public function logs() {
+        return $this->hasMany('App\Log');
+    }
 }

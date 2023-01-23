@@ -21,12 +21,14 @@ class CreateLogsTable extends Migration
             $table->foreignId('user_id')->nullable();
             $table->foreignId('pump_id')->nullable();
             $table->foreignId('sensor_id')->nullable();
+            $table->foreignId('werf_id')->nullable();
 
 
             //Foreign keys
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('pump_id')->references('id')->on('pumps')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('sensor_id')->references('id')->on('sensors')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('werf_id')->references('id')->on('werves')->onDelete('cascade')->onUpdate('cascade');
         });
 
         for ($i = 0; $i <= 5; $i++) {
@@ -38,7 +40,8 @@ class CreateLogsTable extends Migration
                         'date' => '2022-01-01 10:00',  //andere variable
                         'user_id' => 1,
                         'pump_id' => 1,
-                        'sensor_id' => 1
+                        'sensor_id' => 1,
+                        'werf_id' => 1
                     ],
 
                 ]
@@ -52,7 +55,8 @@ class CreateLogsTable extends Migration
                 'date' => '2022-01-01 11:00',  //andere variable
                 'user_id' => 1,
                 'pump_id' => 1,
-                'sensor_id' => 1
+                'sensor_id' => 1,
+                'werf_id' => 2
             ],
         ]);
 
