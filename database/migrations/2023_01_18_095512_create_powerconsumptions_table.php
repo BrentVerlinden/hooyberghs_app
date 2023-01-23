@@ -17,7 +17,7 @@ class CreatePowerconsumptionsTable extends Migration
             $table->id();
             $table->json('verbruik');
             $table->foreignId('pump_id');
-            $table->float('stroom');
+            $table->json('stroom');
             $table->foreign('pump_id')->references('id')->on('pumps')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
@@ -50,7 +50,28 @@ class CreatePowerconsumptionsTable extends Migration
                         ['verbruik' => 4400, 'time' => '2023-01-20 17:45'], ['verbruik' => 4450, 'time' => '2023-01-20 18:00'],
                     ]),
                     'pump_id' => 1,
-                    'stroom' => 50
+                    'stroom' => json_encode([                        ['stroom' => 1, 'time' => '2023-01-18 11:00'],
+                        ['stroom' => 6, 'time' => '2023-01-18 11:15'],
+                        ['stroom' => 11, 'time' => '2023-01-18 11:30'],
+                        ['stroom' => 16, 'time' => '2023-01-18 11:45'],
+                        ['stroom' => 21, 'time' => '2023-01-18 12:00'],
+                        ['stroom' => 26, 'time' => '2023-01-18 12:15'],
+                        ['stroom' => 31, 'time' => '2023-01-18 12:30'],
+                        ['stroom' => 36, 'time' => '2023-01-18 12:45'],
+                        ['stroom' => 41, 'time' => '2023-01-18 13:00'],
+                        ['stroom' => 46, 'time' => '2023-01-18 13:15'],
+                        ['stroom' => 51, 'time' => '2023-01-19 11:00'],
+                        ['stroom' => 56, 'time' => '2023-01-19 11:15'],
+                        ['stroom' => 61, 'time' => '2023-01-19 11:30'],
+                        ['stroom' => 66, 'time' => '2023-01-19 11:45'],
+                        ['stroom' => 71, 'time' => '2023-01-19 12:00'],
+                        ['stroom' => 76, 'time' => '2023-01-19 12:15'],
+                        ['stroom' => 81, 'time' => '2023-01-19 12:30'],
+                        ['stroom' => 86, 'time' => '2023-01-19 12:45'],
+                        ['stroom' => 91, 'time' => '2023-01-19 13:00'],
+                        ['stroom' => 96, 'time' => '2023-01-19 13:15'],
+                        ['stroom' => 100, 'time' => '2023-01-20 11:00']
+                    ])
                 ],
                 [
                     'verbruik' => json_encode([
@@ -59,7 +80,17 @@ class CreatePowerconsumptionsTable extends Migration
                         ['verbruik' => 1500, 'time' => '2023-01-18 10:00']
                     ]),
                     'pump_id' => 2,
-                    'stroom' => 25
+                    'stroom' => json_encode([                        ['stroom' => 1, 'time' => '2023-01-18 11:00'],
+                        ['stroom' => 6, 'time' => '2023-01-18 11:15'],
+                        ['stroom' => 11, 'time' => '2023-01-18 11:30'],
+                        ['stroom' => 16, 'time' => '2023-01-18 11:45'],
+                        ['stroom' => 21, 'time' => '2023-01-18 12:00'],
+                        ['stroom' => 26, 'time' => '2023-01-18 12:15'],
+                        ['stroom' => 31, 'time' => '2023-01-18 12:30'],
+                        ['stroom' => 36, 'time' => '2023-01-18 12:45'],
+                        ['stroom' => 41, 'time' => '2023-01-18 13:00'],
+                        ['stroom' => 46, 'time' => '2023-01-18 13:15'],
+                    ])
                 ],
                 [
                     'verbruik' => json_encode([
@@ -69,7 +100,25 @@ class CreatePowerconsumptionsTable extends Migration
                         ['verbruik' => 800, 'time' => '2023-01-18 10:00']
                     ]),
                     'pump_id' => 3,
-                    'stroom' => 30
+                    'stroom' => json_encode([                        ['stroom' => 1, 'time' => '2023-01-18 11:00'],
+                        ['stroom' => 6, 'time' => '2023-01-18 11:15'],
+                        ['stroom' => 11, 'time' => '2023-01-18 11:30'],
+                        ['stroom' => 16, 'time' => '2023-01-18 11:45'],
+                        ['stroom' => 21, 'time' => '2023-01-18 12:00'],
+                        ['stroom' => 26, 'time' => '2023-01-18 12:15'],
+                        ['stroom' => 31, 'time' => '2023-01-18 12:30'],
+                        ['stroom' => 36, 'time' => '2023-01-18 12:45'],
+                        ['stroom' => 41, 'time' => '2023-01-18 13:00'],
+                        ['stroom' => 46, 'time' => '2023-01-18 13:15'],
+                        ['stroom' => 51, 'time' => '2023-01-19 11:00'],
+                        ['stroom' => 56, 'time' => '2023-01-19 11:15'],
+                        ['stroom' => 61, 'time' => '2023-01-19 11:30'],
+                        ['stroom' => 66, 'time' => '2023-01-19 11:45'],
+                        ['stroom' => 86, 'time' => '2023-01-19 12:45'],
+                        ['stroom' => 91, 'time' => '2023-01-19 13:00'],
+                        ['stroom' => 96, 'time' => '2023-01-19 13:15'],
+                        ['stroom' => 100, 'time' => '2023-01-20 11:00']
+                    ])
                 ],
                 [
                     'verbruik' => json_encode([
@@ -80,7 +129,28 @@ class CreatePowerconsumptionsTable extends Migration
                         ['verbruik' => 800, 'time' => '2023-01-18 10:00']
                     ]),
                     'pump_id' => 4,
-                    'stroom' => 5
+                    'stroom' => json_encode([                        ['stroom' => 1, 'time' => '2023-01-18 11:00'],
+                        ['stroom' => 6, 'time' => '2023-01-18 11:15'],
+                        ['stroom' => 11, 'time' => '2023-01-18 11:30'],
+                        ['stroom' => 16, 'time' => '2023-01-18 11:45'],
+                        ['stroom' => 21, 'time' => '2023-01-18 12:00'],
+                        ['stroom' => 26, 'time' => '2023-01-18 12:15'],
+                        ['stroom' => 31, 'time' => '2023-01-18 12:30'],
+                        ['stroom' => 36, 'time' => '2023-01-18 12:45'],
+                        ['stroom' => 41, 'time' => '2023-01-18 13:00'],
+                        ['stroom' => 46, 'time' => '2023-01-18 13:15'],
+                        ['stroom' => 51, 'time' => '2023-01-19 11:00'],
+                        ['stroom' => 56, 'time' => '2023-01-19 11:15'],
+                        ['stroom' => 61, 'time' => '2023-01-19 11:30'],
+                        ['stroom' => 66, 'time' => '2023-01-19 11:45'],
+                        ['stroom' => 71, 'time' => '2023-01-19 12:00'],
+                        ['stroom' => 76, 'time' => '2023-01-19 12:15'],
+                        ['stroom' => 81, 'time' => '2023-01-19 12:30'],
+                        ['stroom' => 86, 'time' => '2023-01-19 12:45'],
+                        ['stroom' => 91, 'time' => '2023-01-19 13:00'],
+                        ['stroom' => 96, 'time' => '2023-01-19 13:15'],
+                        ['stroom' => 100, 'time' => '2023-01-20 11:00']
+                    ])
                 ], [
                 'verbruik' => json_encode([
                     ['verbruik' => 400, 'time' => '2023-01-18 09:00'],
@@ -89,7 +159,28 @@ class CreatePowerconsumptionsTable extends Migration
                     ['verbruik' => 800, 'time' => '2023-01-18 10:00']
                 ]),
                 'pump_id' => 5,
-                'stroom' => 15
+                'stroom' => json_encode([                        ['stroom' => 1, 'time' => '2023-01-18 11:00'],
+                    ['stroom' => 6, 'time' => '2023-01-18 11:15'],
+                    ['stroom' => 11, 'time' => '2023-01-18 11:30'],
+                    ['stroom' => 16, 'time' => '2023-01-18 11:45'],
+                    ['stroom' => 21, 'time' => '2023-01-18 12:00'],
+                    ['stroom' => 26, 'time' => '2023-01-18 12:15'],
+                    ['stroom' => 31, 'time' => '2023-01-18 12:30'],
+                    ['stroom' => 36, 'time' => '2023-01-18 12:45'],
+                    ['stroom' => 41, 'time' => '2023-01-18 13:00'],
+                    ['stroom' => 46, 'time' => '2023-01-18 13:15'],
+                    ['stroom' => 51, 'time' => '2023-01-19 11:00'],
+                    ['stroom' => 56, 'time' => '2023-01-19 11:15'],
+                    ['stroom' => 61, 'time' => '2023-01-19 11:30'],
+                    ['stroom' => 66, 'time' => '2023-01-19 11:45'],
+                    ['stroom' => 71, 'time' => '2023-01-19 12:00'],
+                    ['stroom' => 76, 'time' => '2023-01-19 12:15'],
+                    ['stroom' => 81, 'time' => '2023-01-19 12:30'],
+                    ['stroom' => 86, 'time' => '2023-01-19 12:45'],
+                    ['stroom' => 91, 'time' => '2023-01-19 13:00'],
+                    ['stroom' => 96, 'time' => '2023-01-19 13:15'],
+                    ['stroom' => 100, 'time' => '2023-01-20 11:00']
+                ])
             ],
                 [
                     'verbruik' => json_encode([
@@ -99,7 +190,18 @@ class CreatePowerconsumptionsTable extends Migration
                         ['verbruik' => 2000, 'time' => '2023-01-18 14:00'],
                     ]),
                     'pump_id' => 6,
-                    'stroom' => 30
+                    'stroom' => json_encode([                        ['stroom' => 1, 'time' => '2023-01-18 11:00'],
+                        ['stroom' => 6, 'time' => '2023-01-18 11:15'],
+                        ['stroom' => 11, 'time' => '2023-01-18 11:30'],
+                        ['stroom' => 16, 'time' => '2023-01-18 11:45'],
+                        ['stroom' => 21, 'time' => '2023-01-18 12:00'],
+                        ['stroom' => 26, 'time' => '2023-01-18 12:15'],
+                        ['stroom' => 36, 'time' => '2023-01-18 12:45'],
+                        ['stroom' => 41, 'time' => '2023-01-18 13:00'],
+                        ['stroom' => 46, 'time' => '2023-01-18 13:15'],
+                        ['stroom' => 96, 'time' => '2023-01-19 13:15'],
+                        ['stroom' => 100, 'time' => '2023-01-20 11:00']
+                    ])
                 ]
 
             ]
