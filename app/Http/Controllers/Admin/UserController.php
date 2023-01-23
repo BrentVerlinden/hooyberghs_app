@@ -130,13 +130,13 @@ class UserController extends Controller
         $user->save();
 
         $log = new Log();
-        $log->description = auth()->user()->email . " heeft de gebruiker met email " . $user->email . " aangepast";
-        $log->nameLog = "gebruiker aangepast";
+        $log->description = auth()->user()->email . " heeft de gebruiker met email " . $user->email . " bewerkt";
+        $log->nameLog = "gebruiker bewerkt";
         $log->date = now();
         $log->save();
 
         // Flash a success message to the session
-        session()->flash('success', 'De gebruiker is aangepast');
+        session()->flash('success', 'De gebruiker is bewerkt');
         // Redirect to the master page
         return redirect('admin/users');
     }

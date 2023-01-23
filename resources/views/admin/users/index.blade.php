@@ -8,7 +8,7 @@
 {{--    @include('shared.alert')--}}
     <p>
         <a href="/admin/users/create" class="btn btn-outline-success">
-            <i class="fas fa-plus-circle mr-1"></i>Maak een nieuwe gebruiker aan.
+            <i class="fas fa-plus-circle mr-1"></i>Maak een nieuwe gebruiker aan
         </a>
     </p>
     <div class="table-responsive">
