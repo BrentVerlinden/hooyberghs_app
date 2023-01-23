@@ -5,8 +5,10 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
+// werven overzicht
+Route::get('/', 'WerfController@home');
 // homepage, overzicht
-Route::get('/', 'HomeController@index');
+//Route::get('/', 'HomeController@index');
 
 // INGELOGD ALS ADMIN
 Route::middleware(['auth', 'admin'])->prefix('admin')->group(function (){
@@ -20,6 +22,9 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function (){
     //pomp settings
     Route::resource('pumpsettings', 'Admin\PumpSettingsController');
 
+//    Route::get('/werf/crud', 'WerfController@crud');
+
+    Route::resource('werf/crud', 'WerfController');
 
 });
 
@@ -27,5 +32,9 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function (){
 Route::middleware(['auth'])->prefix('user')->group(function () {
     // pompen
     Route::get('/pump/{id}', 'HomeController@showPump');
+
+    // werf
+    Route::get('werf', 'WerfController@home');
+//    Route::resource('werf', 'WerfController');
 });
 
