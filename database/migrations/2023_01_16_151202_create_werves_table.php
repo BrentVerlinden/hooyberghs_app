@@ -16,7 +16,7 @@ class CreateWervesTable extends Migration
         Schema::create('werves', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
-            $table->boolean('frequention');
+            $table->boolean('frequention')->nullable();
             $table->timestamps();
         });
 

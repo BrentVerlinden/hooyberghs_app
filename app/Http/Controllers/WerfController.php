@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Log;
 use App\Werf;
+use App\Werfuser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -45,7 +46,6 @@ class WerfController extends Controller
      */
     public function create()
     {
-//        $werf = new Werf();
         return view('werf.create'); //, compact('werf')
     }
 
@@ -65,7 +65,18 @@ class WerfController extends Controller
         // Create new werf
         $werf = new Werf();
         $werf->name = $request->name;
+        $checkboxValue = $request->input('admin');
+        if ($checkboxValue == 1) {
+            $werf->frequention = 1;
+        } else {
+            $werf->frequention = 0;
+        }
         $werf->save();
+
+        $werfuser = new Werfuser();
+        $werfuser->user_id = auth()->user()->id;
+        $werfuser->werf_id = $werf->id;
+        $werfuser->save();
 
         $log = new Log();
         $log->description = auth()->user()->email . " heeft de werf met naam " . $werf->name . " aangemaakt";
@@ -122,8 +133,14 @@ class WerfController extends Controller
             'name' => 'unique:werves,name,' . $werf->id,
         ]);
 
-        // Update genre
+        // Update werf
         $werf->name = $request->name;
+        $checkboxValue = $request->input('admin');
+        if ($checkboxValue == 1) {
+            $werf->frequention = 1;
+        } else {
+            $werf->frequention = 0;
+        }
         $werf->save();
 
         $log = new Log();
