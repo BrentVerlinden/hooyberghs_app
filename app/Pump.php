@@ -11,8 +11,8 @@ class Pump extends Model
         return $this->hasMany('App\Log');
     }
 
-    public function sensor() {
-        return $this->belongsTo('App\Sensor')->withDefault();
+    public function sensors() {
+        return $this->hasMany('App\Sensor');
     }
 
     public function werf() {

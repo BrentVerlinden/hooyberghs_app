@@ -44,14 +44,29 @@
         <div class="mt-5">
 
             <div id="dashboard_div">
-                <div class="border pt-4">
-                <div id="filter_div"></div>
 
-                <div id="chart_div"></div></div>
-<div class="mt-5 border pt-4">
-    <div id="filter2"></div>
-                <div id="chart2"></div>
-               </div>
+
+                <div class="mb-5"><h3>Waterdebiet</h3>
+                    <div class=" border">
+                        <div id="filter2"></div>
+                        <div id="chart2"></div>
+                    </div>
+                </div>
+                <div class="mb-5"><h3>Verbruik KWH</h3>
+                    <div class="border ">
+                        <div id="filter_div"></div>
+
+                        <div id="chart_div"></div>
+                    </div>
+                </div>
+                <div class="mb-5"><h3>Stroom </h3>
+                    <div class="border ">
+                        <div id="filter3"></div>
+
+                        <div id="chart3"></div>
+                    </div>
+                </div>
+
             </div>
         </div>
 
@@ -65,18 +80,18 @@ power:data[0]['powerconsumption'][0]['power'][0]['power']
 <script type="text/javascript">
     google.charts.load('current', {'packages': ['corechart', 'controls']});
 
-    google.charts.setOnLoadCallback(drawChart1);
-    google.charts.setOnLoadCallback(drawChart2);
-
+    google.charts.setOnLoadCallback(drawChart1);//verbruik KWH
+    google.charts.setOnLoadCallback(drawChart2);//Waterdebiet m3/S
+    google.charts.setOnLoadCallback(drawChart3);//Stroom ampere
     function drawChart1() {
         var data = @json($power_consumptions);
-        var chartData = [['Datum', 'Stroom']];
-console.log(data[1]);
-        data[0].power.forEach(function (power) {
-            chartData.push([new Date(power.time), power.power]);
+        var chartData = [['Datum', 'Verbruik']];
+        console.log(data[1]);
+        data[0].verbruik.forEach(function (verbruik) {
+            chartData.push([new Date(verbruik.time), verbruik.verbruik]);
 
         });
-   console.log(data);
+        console.log(data);
 
 // Create the data table
         var chartDataTable = new google.visualization.arrayToDataTable(chartData);
@@ -104,14 +119,14 @@ console.log(data[1]);
             'chartType': 'LineChart',
             'containerId': 'chart_div',
             'options': {
-                title: 'Stroomverbruik kwh',
+                title: 'Verbruik kwh',
                 curveType: 'function',
                 legend: {position: 'right'},
                 hAxis: {
                     format: "MMM d, yyyy HH:mm"
                 },
                 vAxis: {
-                    title: 'Stroom'
+                    title: 'Verbruik'
                 },
                 series: {
                     0: {color: '#D10000'}
@@ -191,6 +206,82 @@ console.log(data[1]);
                 },
                 series: {
                     0: {color: '#096192'}
+                },
+                interpolateNulls: true,
+                animation: {
+                    duration: 1000,
+                    easing: 'out',
+                },
+                pointSize: 5,
+                pointShape: 'circle',
+                explorer: {
+                    axis: 'horizontal',
+                    keepInBounds: true,
+                    maxZoomIn: 4.0
+                },
+            }
+        });
+
+        // Create the default view
+        var defaultView = new google.visualization.DataView(chartDataTable);
+
+        // Bind the data table to the date range filter
+        dateRangeFilter.setDataTable(defaultView);
+
+        // Listen for the 'statechange' event
+
+        // Draw the dashboard
+        dashboard.bind(dateRangeFilter, chart);
+        dashboard.draw(defaultView);
+    }
+
+    function drawChart3() {
+        var data = @json($power_consumptions);
+        var chartData = [['Datum', 'Stroom']];
+
+        data[0].stroom.forEach(function (stroom) {
+            chartData.push([new Date(stroom.time), stroom.stroom]);
+
+        });
+        console.log('chart3', data[0].stroom);
+
+// Create the data table
+        var chartDataTable = new google.visualization.arrayToDataTable(chartData);
+
+        // Create a dashboard
+        var dashboard = new google.visualization.Dashboard(document.getElementById('dashboard_div'));
+
+        // Create the date range filter
+        var dateRangeFilter = new google.visualization.ControlWrapper({
+            'controlType': 'DateRangeFilter',
+            'containerId': 'filter3',
+            'options': {
+                'filterColumnLabel': 'Datum',
+                'ui': {
+                    'format': {
+                        'pattern': 'dd-MM-yyyy'
+                    }
+                }
+            }
+        });
+
+
+        // Create the chart
+        var chart = new google.visualization.ChartWrapper({
+            'chartType': 'LineChart',
+            'containerId': 'chart3',
+            'options': {
+                title: 'Stroom Ampère',
+                curveType: 'function',
+                legend: {position: 'right'},
+                hAxis: {
+                    format: "MMM d, yyyy HH:mm"
+                },
+                vAxis: {
+                    title: 'Stroom'
+                },
+                series: {
+                    0: {color: 'black'}
                 },
                 interpolateNulls: true,
                 animation: {

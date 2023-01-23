@@ -50,7 +50,8 @@ class CreatePowerconsumptionsTable extends Migration
                         ['verbruik' => 4400, 'time' => '2023-01-20 17:45'], ['verbruik' => 4450, 'time' => '2023-01-20 18:00'],
                     ]),
                     'pump_id' => 1,
-                    'stroom' => json_encode([                        ['stroom' => 1, 'time' => '2023-01-18 11:00'],
+                    'stroom' => json_encode([
+                        ['stroom' => 1, 'time' => '2023-01-18 11:00'],
                         ['stroom' => 6, 'time' => '2023-01-18 11:15'],
                         ['stroom' => 11, 'time' => '2023-01-18 11:30'],
                         ['stroom' => 16, 'time' => '2023-01-18 11:45'],

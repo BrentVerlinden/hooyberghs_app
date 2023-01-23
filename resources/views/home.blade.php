@@ -34,15 +34,23 @@
             </div>
 
             <div>
+                <div class="border">
+                    <h4 class="mt-2">Waterniveau</h4>
+                <div id="chart_div2" class="mt-5"></div></div>
+
+                <div class="border mt-4">
+                    <h4 class="mt-2">Stroomverbruik</h4>
             <div id="chart_div" class="mt-5"></div></div>
+
+            </div>
     @endauth
 
     <script type="text/javascript">
         google.charts.load('current', {'packages':['corechart']});
-        google.charts.setOnLoadCallback(drawChart);
+        google.charts.setOnLoadCallback(drawChart1);
+        google.charts.setOnLoadCallback(drawChart2);
 
-
-        function drawChart() {
+        function drawChart1() {
             var data = new google.visualization.DataTable();
             data.addColumn('string', 'Pump');
             data.addColumn('number', 'Stroom');
@@ -58,8 +66,8 @@
 
             pumps.forEach(function(pump) {
                 pump.powerconsumption.forEach(function(power_consumption) {
-                    power_consumption.power.forEach(function(power) {
-                        pumpData[pump.pumpname].sum += power.power;
+                    power_consumption.verbruik.forEach(function(verbruik) {
+                        pumpData[pump.pumpname].sum += verbruik.verbruik;
                         pumpData[pump.pumpname].count++;
                     });
                 });
@@ -75,18 +83,83 @@
             var options = {
                 title: 'Gemiddelde Stroomverbruik per Pomp',
                 hAxis: {
-                    title: 'Pomp'
+
                 },
                 vAxis: {
                     title: 'Stroom (kWh)'
                 },
                 series: {
-                    0: {color: '#096192'}
+                    0: {color: 'lightgray'}
                 }
             };
 
             var chart = new google.visualization.ColumnChart(
                 document.getElementById('chart_div'));
+
+            chart.draw(data, options);
+        }
+
+        function drawChart2() {
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Pump');
+            data.addColumn('number', 'Huidige niveau');
+            data.addColumn('number', 'Waterlevel');
+            data.addColumn({type: 'string', role: 'style'});
+
+            var pumps = @json($pumps);
+            var pumpData = {};
+            var total = 0;
+            var total_first = 0;
+            var count = 0;
+
+            pumps.forEach(function (pump) {
+                console.log();
+                pumpData[pump.sensors[0].name] = {
+                    lastData: 0,
+                    firstData: 0
+                };
+            });
+
+            pumps.forEach(function (pump) {
+                pump.sensors.forEach(function (sensor) {
+                    sensor.data.forEach(function (data) {
+                        if (pumpData[pump.sensors[0].name].firstData == 0) {
+                            pumpData[pump.sensors[0].name].firstData = data.data;
+                        }
+                        pumpData[pump.sensors[0].name].lastData = data.data;
+                        total += data.data;
+                        total_first += pumpData[pump.sensors[0].name].firstData;
+                        count++;
+                    });
+                });
+            });
+
+            var dataArray = [];
+            for (var pumpname in pumpData) {
+                dataArray.push([pumpname, pumpData[pumpname].lastData, pumpData[pumpname].firstData, '#000058']);
+            }
+            var average = total / count;
+            var average_first = total_first / count;
+            dataArray.push(["Waterniveau werf", average, average_first, 'darkgray']);
+            data.addRows(dataArray);
+
+            var options = {
+                title: 'Waterniveau per put',
+                hAxis: {
+
+                },
+                vAxis: {
+                    title: 'Waterniveau in m'
+                },
+                legend: { position: 'top', maxLines: 3 },
+                series: {
+                    0: { color: 'lightblue', labelInLegend: 'Huidige niveau' },
+                    1: { color: '#000058', labelInLegend: 'Start niveau' },
+
+                }
+            };
+            var chart = new google.visualization.ColumnChart(
+                document.getElementById('chart_div2'));
 
             chart.draw(data, options);
         }
