@@ -7,7 +7,7 @@
     <h1>Werfgebruikers</h1>
 {{--    @include('shared.alert')--}}
     <p>
-        <a href="/admin/users/create" class="btn btn-outline-success">
+        <a href="/admin/werf/{{ $werf->id }}/users/create" class="btn btn-outline-success">
             <i class="fas fa-plus-circle mr-1"></i>Maak een nieuwe werfgebruiker aan
         </a>
     </p>
@@ -28,11 +28,11 @@
                     <td>{{ $user->name }}</td>
                     <td class="d-none d-md-table-cell">{{ $user->email }}</td>
                     <td >
-                        <form action="/admin/users/{{ $user->id }}" method="post">
+                        <form action="/admin/werf/{{ $werf->id }}/users/{{ $user->id }}" method="post">
                             @method('delete')
                             @csrf
                             <div class="btn-group btn-group-sm">
-                                <a href="/admin/users/{{ $user->id }}/edit" class="btn btn-outline-success"
+                                <a href="/admin/werf/{{ $werf->id }}/users/{{ $user->id }}/edit" class="btn btn-outline-success"
                                    data-toggle="tooltip"
                                    title="Edit {{ $user->name }}">
                                     <i class="fas fa-edit"></i>
