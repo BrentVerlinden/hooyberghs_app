@@ -31,7 +31,7 @@ class LogController extends Controller
             $logs = $logs->whereDate('date', $date);
         }
 
-        $logs = $logs->get();
+        $logs = $logs->where('werf_id', $werfid)->get();
 
         return view('admin.log.log', compact('logs', 'werf'));
     }
