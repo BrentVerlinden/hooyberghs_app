@@ -40,7 +40,7 @@ class HomeController extends Controller
             }
     }
 
-        }
+
 
 
         $active_pumps = Pump::where('status', true)->get();
