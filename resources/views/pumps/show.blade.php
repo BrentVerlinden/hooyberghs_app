@@ -9,6 +9,11 @@
         <div class="fixedmt"></div>
         <h1 class="pump">{{$pump->pumpname}}</h1>
 
+        @if($werf->frequention == 1)
+            <p>Frequentiegestuurde pomp</p>
+            <p>Frequentie: {{$pump->percentage}}</p>
+        @endif
+
         <p>Status:
             @if($pump->status)
                 <span class="logged-in">●</span> Actief
@@ -41,6 +46,7 @@
                 </div>
             </form>
         @endif
+
         <div class="mt-5">
 
             <div id="dashboard_div">
