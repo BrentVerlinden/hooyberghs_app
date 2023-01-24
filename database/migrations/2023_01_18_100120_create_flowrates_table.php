@@ -15,31 +15,27 @@ class CreateFlowratesTable extends Migration
     {
         Schema::create('flowrates', function (Blueprint $table) {
             $table->id();
-
-            $table->json('flowrate');
+            $table->float('flowrate');
+            $table->timestamp('created_at')->useCurrent();
             $table->foreignId('pump_id');
             $table->foreign('pump_id')->references('id')->on('pumps')->onDelete('cascade')->onUpdate('cascade');
-            $table->timestamps();
         });
 
-        DB::table('flowrates')->insert(
-            [
-                [
-                    'flowrate' => json_encode([
-                        ['flowrate' => 2000, 'time' => '2023-01-18 11:00'],
-                        ['flowrate' => 2050, 'time' => '2023-01-18 11:15'],
-                        ['flowrate' => 2100, 'time' => '2023-01-18 11:30'],
-                        ['flowrate' => 2150, 'time' => '2023-01-18 11:45'],
-                        ['flowrate' => 2200, 'time' => '2023-01-18 12:00'],
-                        ['flowrate' => 2250, 'time' => '2023-01-18 12:15'],['flowrate' => 2300, 'time' => '2023-01-18 12:30'], ['flowrate' => 2350, 'time' => '2023-01-18 12:45'],
-                        ['flowrate' => 2400, 'time' => '2023-01-18 13:00'], ['flowrate' => 2450, 'time' => '2023-01-18 13:15'], ['flowrate' => 2500, 'time' => '2023-01-19 11:00'],
-                        ['flowrate' => 2550, 'time' => '2023-01-19 11:15'], ['flowrate' => 2600, 'time' => '2023-01-19 11:30'], ['flowrate' => 2650, 'time' => '2023-01-19 11:45'], ['flowrate' => 2700, 'time' => '2023-01-19 12:00'],
-                        ['flowrate' => 2750, 'time' => '2023-01-19 12:15'], ['flowrate' => 2800, 'time' => '2023-01-19 12:30'], ['flowrate' => 2850, 'time' => '2023-01-19 12:45'], ['flowrate' => 2900, 'time' => '2023-01-19 13:00'], ['flowrate' => 2950, 'time' => '2023-01-19 13:15'],              ]),
-                    'pump_id' => 1
-                ],
+        $flowrate_data = [];
+        $start_time = strtotime("-2 days");
 
-            ]
-        );
+        for($i=0; $i<48; $i++){
+            $time = $start_time + ($i*60*15);
+            $flowrate = rand(100,200);
+            $flowrate_data[] = [
+                'flowrate' => $flowrate,
+                'created_at' => date('Y-m-d H:i:s', $time),
+                'pump_id' => 1
+            ];
+        }
+
+        DB::table('flowrates')->insert($flowrate_data);
+
     }
 
     /**

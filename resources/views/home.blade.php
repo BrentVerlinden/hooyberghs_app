@@ -67,10 +67,8 @@
 
             pumps.forEach(function(pump) {
                 pump.powerconsumption.forEach(function(power_consumption) {
-                    power_consumption.verbruik.forEach(function(verbruik) {
-                        pumpData[pump.pumpname].sum += verbruik.verbruik;
-                        pumpData[pump.pumpname].count++;
-                    });
+                    pumpData[pump.pumpname].sum += power_consumption.usage;
+                    pumpData[pump.pumpname].count++;
                 });
             });
 
@@ -100,6 +98,7 @@
             chart.draw(data, options);
         }
 
+
         function drawChart2() {
             var data = new google.visualization.DataTable();
             data.addColumn('string', 'Pump');
@@ -114,26 +113,30 @@
             var count = 0;
 
             pumps.forEach(function (pump) {
-                console.log();
-                pumpData[pump.sensors[0].name] = {
-                    lastData: 0,
-                    firstData: 0
-                };
+                pump.sensors.forEach(function (sensor) {
+                    var sensorName = sensor.name;
+                    if (!pumpData[sensorName]) {
+                        pumpData[sensorName] = {
+                            lastData: 0,
+                            firstData: 0
+                        };
+                    }
+                });
             });
 
             pumps.forEach(function (pump) {
                 pump.sensors.forEach(function (sensor) {
-                    sensor.data.forEach(function (data) {
-                        if (pumpData[pump.sensors[0].name].firstData == 0) {
-                            pumpData[pump.sensors[0].name].firstData = data.data;
-                        }
-                        pumpData[pump.sensors[0].name].lastData = data.data;
-                        total += data.data;
-                        total_first += pumpData[pump.sensors[0].name].firstData;
-                        count++;
-                    });
+                    var sensorName = sensor.name;
+                    if (pumpData[sensorName].firstData == 0) {
+                        pumpData[sensorName].firstData = sensor.water_level;
+                    }
+                    pumpData[sensorName].lastData = sensor.water_level;
+                    total += sensor.water_level;
+                    total_first += pumpData[sensorName].firstData;
+                    count++;
                 });
             });
+
 
             var dataArray = [];
             for (var pumpname in pumpData) {
@@ -164,6 +167,7 @@
 
             chart.draw(data, options);
         }
+
     </script>
 
 @endsection

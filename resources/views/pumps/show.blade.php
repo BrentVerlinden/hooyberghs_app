@@ -92,12 +92,12 @@ power:data[0]['powerconsumption'][0]['power'][0]['power']
     function drawChart1() {
         var data = @json($power_consumptions);
         var chartData = [['Datum', 'Verbruik']];
-        console.log(data[1]);
-        data[0].verbruik.forEach(function (verbruik) {
-            chartData.push([new Date(verbruik.time), verbruik.verbruik]);
+
+        data.forEach(function (usage) {
+
+            chartData.push([new Date(usage.created_at), usage.usage]);
 
         });
-        console.log(data);
 
 // Create the data table
         var chartDataTable = new google.visualization.arrayToDataTable(chartData);
@@ -170,8 +170,9 @@ power:data[0]['powerconsumption'][0]['power'][0]['power']
         var data = @json($flowrates);
         var chartData = [['Datum', 'Debiet']];
 
-        data[0].flowrate.forEach(function (flowrate) {
-            chartData.push([new Date(flowrate.time), flowrate.flowrate]);
+        data.forEach(function (flowrate) {
+           // console.log(flowrate);
+           chartData.push([new Date(flowrate.created_at), flowrate.flowrate]);
         });
 
 
@@ -245,8 +246,8 @@ power:data[0]['powerconsumption'][0]['power'][0]['power']
         var data = @json($power_consumptions);
         var chartData = [['Datum', 'Stroom']];
 
-        data[0].stroom.forEach(function (stroom) {
-            chartData.push([new Date(stroom.time), stroom.stroom]);
+        data.forEach(function (stroom) {
+            chartData.push([new Date(stroom.created_at), stroom.current]);
 
         });
         console.log('chart3', data[0].stroom);
