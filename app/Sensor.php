@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Sensor extends Model
 {
+    public $timestamps = false;
     public function logs()
     {
         return $this->hasMany('App\Log');

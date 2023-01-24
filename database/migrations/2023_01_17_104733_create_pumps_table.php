@@ -18,11 +18,11 @@ class CreatePumpsTable extends Migration
             $table->string('pumpname');
             $table->boolean('status');
             $table->string('location');
-            $table->string('motif');
-            $table->float('percentage');
-            $table->boolean('error');
-            $table->foreignId('sensor_id');
-            $table->foreignId('werf_id');
+            $table->string('motif')->nullable();
+            $table->float('percentage')->nullable();
+            $table->boolean('error')->nullable();
+            $table->foreignId('sensor_id')->nullable();
+            $table->foreignId('werf_id')->nullable();
             $table->timestamps();
             //Foreign keys --> moet nog aangepast worden
             $table->foreign('sensor_id')->references('id')->on('sensors')->onDelete('cascade')->onUpdate('cascade');

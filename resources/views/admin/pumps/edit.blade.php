@@ -1,11 +1,11 @@
 @extends('layouts.template')
 
-@section('title', 'Gebruiker bewerken')
+@section('title', 'Pomp bewerken')
 
 @section('main')
     <div class="fixedmt"></div>
-    <h1>Gebruiker bewerken: {{ $user->name }}</h1>
-    <form action="/admin/users/{{ $user->id }}" method="post">
+    <h1>Pomp bewerken: {{ $pump->pumpnamename }}</h1>
+    <form action="/admin/werf/{{$werf->id}}/pumps/{{ $pump->id }}" method="post">
         @method('put')
         @csrf
         <div class="form-group">
@@ -15,21 +15,16 @@
                    placeholder="Name"
                    minlength="3"
                    required
-                   value="{{ old('name', $user->name) }}">
+                   value="{{ old('name', $pump->pumpname) }}">
 
-            <label for="email">Email</label>
-            <input type="text" name="email" id="email"
-                   class="form-control @error('email') is-invalid @enderror"
-                   placeholder="jan@example.com"
+            <label for="location">Locatie</label>
+            <input type="text" name="location" id="location"
+                   class="form-control @error('location') is-invalid @enderror"
+                   placeholder="Locatie"
                    minlength="3"
                    required
-                   value="{{ old('email', $user->email) }}">
-            @if($user->name != auth()->user()->name)
-            <label for="admin">Admin</label>
-            <br>
-            <input type="hidden" name="admin" value="0">
-            <input type="checkbox" name="admin" value="1" {{ $user->admin ? 'checked' : '' }}>
-            @endif
+                   value="{{ old('location', $pump->location) }}">
+
             @error('name')
             <div class="invalid-feedback">{{ $message }}</div>
             @enderror

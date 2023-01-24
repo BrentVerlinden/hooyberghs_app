@@ -15,7 +15,7 @@ class CreateSensorsTable extends Migration
     {
         Schema::create('sensors', function (Blueprint $table) {
             $table->id();
-            $table->json('data');
+            $table->json('data')->nullable();
             $table->boolean('error');
         });
 

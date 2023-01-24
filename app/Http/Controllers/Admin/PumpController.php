@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Log;
 use App\Pump;
+use App\Sensor;
 use App\Werf;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class PumpController extends Controller
 {
@@ -17,7 +20,9 @@ class PumpController extends Controller
     public function index($werfid)
     {
         $werf = Werf::findOrFail($werfid);
-        $pumps = Pump::orderBy('id')->get();
+        $pumps = Pump::orderBy('id')
+            ->where('werf_id', $werfid)
+            ->get();
         $result = compact('pumps', 'werf');
         (new \App\Helpers\Json)->dump($result);
         return view('admin.pumps.index', $result);
@@ -28,9 +33,11 @@ class PumpController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($werfid)
     {
-        //
+        $werf = Werf::findOrFail($werfid);
+       $pump = new Pump();
+        return view('admin.pumps.create', compact('pump', 'werf'));
     }
 
     /**
@@ -39,9 +46,41 @@ class PumpController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $werfid)
     {
-        //
+        $werf = Werf::findOrFail($werfid);
+        // Validate $request
+        $this->validate($request,[
+            'name' => 'required|min:3',
+            'location' => 'required|min:3|',
+
+        ]);
+        // Create new genre
+        $pump = new Pump();
+        $pump->pumpname = $request->name;
+        $pump->location = $request->location;
+        $pump->status = 0;
+        $pump->werf_id = $werfid;
+
+        $sensor = new Sensor();
+
+        $sensor->error = 0;
+
+        $sensor->save();
+        $pump->sensor_id = $sensor->id;
+        $pump->save();
+
+        $log = new Log();
+        $log->description = auth()->user()->email . " heeft de pomp " . $pump->pumpname . " aangemaakt";
+        $log->nameLog = "Pomp aangemaakt";
+        $log->date = now();
+        $log->save();
+
+        // Flash a success message to the session
+        $message = "$pump->pumpname is aangemaakt.";
+        session()->flash('success', $message);
+        // Redirect to the master page
+        return redirect('/admin/werf/' . $werf->id . '/pumps');
     }
 
     /**
@@ -61,9 +100,13 @@ class PumpController extends Controller
      * @param  \App\Pump  $pump
      * @return \Illuminate\Http\Response
      */
-    public function edit(Pump $pump)
+    public function edit( $werfid, $pumpid)
     {
-        //
+        $werf = Werf::findOrFail($werfid);
+        $pump = Pump::findOrFail($pumpid);
+        $result = compact('pump', 'werf');
+        (new \App\Helpers\Json)->dump($result);
+        return view('admin.pumps.edit', $result);
     }
 
     /**
@@ -73,9 +116,32 @@ class PumpController extends Controller
      * @param  \App\Pump  $pump
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Pump $pump)
+    public function update(Request $request,$werfid, $pumpid)
     {
-        //
+        $werf = Werf::findOrFail($werfid);
+        $pump = Pump::findOrFail($pumpid);
+        // Validate $request
+        $this->validate($request,[
+            'name' => 'required|min:3',
+            'location' => 'required|min:3|',
+
+        ]);
+
+        // Update genre
+        $pump->pumpname = $request->name;
+        $pump->location = $request->location;
+        $pump->save();
+
+        $log = new Log();
+        $log->description = auth()->user()->email . " heeft de pomp " . $pump->pumpname . " bewerkt";
+        $log->nameLog = "Pomp bewerkt";
+        $log->date = now();
+        $log->save();
+
+        // Flash a success message to the session
+        session()->flash('success', 'De pomp is bewerkt');
+        // Redirect to the master page
+        return redirect('/admin/werf/' . $werf->id . '/pumps');
     }
 
     /**
@@ -84,8 +150,20 @@ class PumpController extends Controller
      * @param  \App\Pump  $pump
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Pump $pump)
+    public function destroy($werfid, $pumpid)
     {
-        //
+        $werf = Werf::findOrFail($werfid);
+        $pump = Pump::findOrFail($pumpid);
+        $sensor_id = $pump->sensor_id;
+        $sensor = Sensor::findOrFail($sensor_id);
+        $sensor->delete();
+        $pump->delete();
+        $log = new Log();
+        $log->description = auth()->user()->email . " heeft de pomp  " . $pump->pumpname . " verwijderd";
+        $log->nameLog = "Pomp verwijderd";
+        $log->date = now();
+        $log->save();
+        session()->flash('success', "De pomp $pump->pumpname  is verwijderd");
+        return redirect('/admin/werf/' . $werf->id . '/pumps');
     }
 }
