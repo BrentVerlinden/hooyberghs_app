@@ -38,7 +38,6 @@ class HomeController extends Controller
             foreach($pump->sensors as $sensor){
                 $sensor->data = json_decode($sensor->data);
             }
-    }
 
         }
 

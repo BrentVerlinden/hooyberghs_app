@@ -3,7 +3,8 @@
 
 @section('main')
     <div class="fixedmt"></div>
-    <h1>Welkom  {{ auth()->user()->name }}!</h1>
+    <h1>Welkom in {{$werf->name}}, {{ auth()->user()->name }}!</h1>
+{{--    <h3>Ingelogd in {{$werf->name}}</h3>--}}
     @if(auth()->user()->admin)
         <div class="mt-5">    <a href="/admin/werf/{{ $werf->id }}/pumpsettings" class="align-content-center text-center">Pompinstellingen werf</a> </div>
 
