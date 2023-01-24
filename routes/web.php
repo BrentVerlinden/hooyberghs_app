@@ -22,7 +22,10 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function (){
     Route::patch('/werf/{werfid}/pump/{id}', 'HomeController@updatePump');
 
     //pomp settings
-    Route::resource('/werf/{werfid}/pumpsettings', 'Admin\PumpSettingsController');
+//    Route::resource('/werf/{werfid}/pumpsettings', 'Admin\PumpSettingsController');
+    Route::put('/werf/{werfid}/pumpsettings', 'Admin\PumpSettingsController@update');
+    Route::get('/werf/{werfid}/pumpsettings', 'Admin\PumpSettingsController@index');
+//    Route::patch('/werf/{werfid}/pumpsettings', 'Admin\PumpSettingsController@update');
 
 //    Route::get('/werf/crud', 'WerfController@crud');
 

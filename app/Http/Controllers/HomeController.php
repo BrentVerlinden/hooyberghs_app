@@ -31,16 +31,16 @@ class HomeController extends Controller
 
         foreach ($pumps as $pump) {
 
-        foreach($pump->powerconsumption as $power_consumption){
-            $power_consumption->verbruik = json_decode($power_consumption->verbruik);
-        }
+            foreach ($pump->powerconsumption as $power_consumption) {
+                $power_consumption->verbruik = json_decode($power_consumption->verbruik);
+            }
 
-            foreach($pump->sensors as $sensor){
+            foreach ($pump->sensors as $sensor) {
                 $sensor->data = json_decode($sensor->data);
             }
 
 
-
+        }
 
         $active_pumps = Pump::where('status', true)->get();
         $inactive_pumps = Pump::where('status', false)->get();

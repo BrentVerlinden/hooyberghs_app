@@ -18,6 +18,8 @@ class CreateAutomationsTable extends Migration
             $table->integer('day')->nullable();
             $table->float('depth')->nullable();
             $table->boolean('automatic')->default(false);
+            $table->foreignId('werf_id')->nullable();
+            $table->foreign('werf_id')->references('id')->on('werves')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
