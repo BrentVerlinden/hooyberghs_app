@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Log;
 use App\User;
 use App\Werf;
+use App\Werfuser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -22,6 +23,9 @@ class UserController extends Controller
     {
         $werf = Werf::findOrFail($werfid);
         $users = User::orderBy('id')
+            ->whereHas('werfusers', function($query) use ($werfid) {
+                $query->where('werf_id', $werfid);
+            })
             ->get();
         $result = compact('users', 'werf');
         (new \App\Helpers\Json)->dump($result);
@@ -52,24 +56,35 @@ class UserController extends Controller
         // Validate $request
         $this->validate($request,[
             'name' => 'required|min:3',
-            'email' => 'required|min:3|unique:users,email',
+            'email' => 'required|min:3', //|unique:users,email
             'password' => 'required'
 
         ]);
         $request->merge(['password' => Hash::make($request->password)]);
-        // Create new genre
-        $user = new User();
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->password = $request->password;
-//        $user->admin = $request->admin ? 1 : 0;
-        $checkboxValue = $request->input('admin');
-        if ($checkboxValue == 1) {
-            $user->admin = 1;
+        // Create new user
+        $user = User::firstOrNew(['email' => $request->email]);
+        if (!$user->exists) {
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->password = $request->password;
+            $checkboxValue = $request->input('admin');
+            if ($checkboxValue == 1) {
+                $user->admin = 1;
+            } else {
+                $user->admin = 0;
+            }
+            $user->save();
+            $msg = "Deze gebruiker is succesvol toegevoegd aan het systeem & aan jouw werf.";
+            session()->flash('success', $msg);
         } else {
-            $user->admin = 0;
+            $msg = "Deze user bestaat al in het systeem. Als deze nog niet in uw werf zit, zullen we deze toevoegen aan jouw werf. Let wel op, de gegevens van deze persoon blijven ongewijzigd aangezien dit account al bestond.";
+            session()->flash('success', $msg);
         }
-        $user->save();
+
+        $werfuser = Werfuser::firstOrNew(['werf_id' => $werfid, 'user_id' => $user->id]);
+        if (!$werfuser->exists) {
+            $werfuser->save();
+        }
 
         $log = new Log();
         $log->description = auth()->user()->email . " heeft de gebruiker met email " . $user->email . " aangemaakt";
@@ -77,9 +92,6 @@ class UserController extends Controller
         $log->date = now();
         $log->save();
 
-        // Flash a success message to the session
-        $message = "User $user->name met email  $user->email is aangemaakt.";
-        session()->flash('success', $message);
         // Redirect to the master page
         return redirect('/admin/werf/' . $werf->id . '/users');
     }
@@ -124,7 +136,7 @@ class UserController extends Controller
             'name' => 'unique:users,name,' . $user->id,
         ]);
 
-        // Update genre
+        // Update user
         $user->name = $request->name;
         $user->email = $request->email;
         $checkboxValue = $request->input('admin');
@@ -155,13 +167,22 @@ class UserController extends Controller
      */
     public function destroy($werfid, User $user)
     {
-        $user->delete();
+
+//        $user->delete();
+        $user = User::find($user->id);
+        if ($user->werfusers->count() === 1) {
+            $user->delete();
+            session()->flash('success', "De gebruiker $user->name  is verwijderd");
+        } else {
+            $user->werfusers()->where('werf_id', $werfid)->delete();
+            session()->flash('success', "De gebruiker $user->name  is verwijderd uit uw werf. Aangezien deze nog in andere wer(ven) zit, zal het account wel blijven bestaan.");
+        }
         $log = new Log();
         $log->description = auth()->user()->email . " heeft de gebruiker met email " . $user->email . " verwijderd";
         $log->nameLog = "gebruiker verwijderd";
         $log->date = now();
         $log->save();
-        session()->flash('success', "De gebruiker $user->name  is verwijderd");
+//        session()->flash('success', "De gebruiker $user->name  is verwijderd");
         return redirect('/admin/werf/' . $werfid . '/users');
     }
 }

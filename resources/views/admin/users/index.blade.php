@@ -15,7 +15,7 @@
         <table class="table">
             <thead>
             <tr>
-                <th class="d-none d-md-table-cell">#</th>
+{{--                <th class="d-none d-md-table-cell">#</th>--}}
                 <th>Naam</th>
                 <th  class="d-none d-md-table-cell">Email</th>
                 <th>Acties</th>
@@ -24,7 +24,7 @@
             <tbody>
             @foreach($users as $user)
                 <tr>
-                    <td class="d-none d-md-table-cell">{{ $user->id }}</td>
+{{--                    <td class="d-none d-md-table-cell">{{ $user->id }}</td>--}}
                     <td>{{ $user->name }}</td>
                     <td class="d-none d-md-table-cell">{{ $user->email }}</td>
                     <td >
