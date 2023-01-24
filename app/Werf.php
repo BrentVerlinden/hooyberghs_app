@@ -23,4 +23,8 @@ class Werf extends Model
     public function logs() {
         return $this->hasMany('App\Log');
     }
+
+    public function automation() {
+        return $this->belongsTo('App\Automation')->withDefault();
+    }
 }
