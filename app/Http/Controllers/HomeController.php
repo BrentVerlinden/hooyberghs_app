@@ -27,7 +27,7 @@ class HomeController extends Controller
     public function index($werfid)
     {
 
-        $pumps = Pump::all();
+        $pumps = Pump::where('werf_id', $werfid)->get();
 
         foreach ($pumps as $pump) {
 
@@ -42,8 +42,8 @@ class HomeController extends Controller
 
         }
 
-        $active_pumps = Pump::where('status', true)->get();
-        $inactive_pumps = Pump::where('status', false)->get();
+        $active_pumps = Pump::where('status', true)->where('werf_id', $werfid)->get();
+        $inactive_pumps = Pump::where('status', false)->where('werf_id', $werfid)->get();
         (new \App\Helpers\Json)->dump($pumps);
 
         $werf = Werf::findOrFail($werfid);
@@ -61,7 +61,7 @@ class HomeController extends Controller
     public function showPump($werfid, $id)
     {
         $pump = Pump::find($id);
-        $werf = Werf::findOrFail($werfid);
+        $werf = Werf::find($werfid);
         $power_consumptions = $pump->powerconsumption;
 
         //verbruik
@@ -84,6 +84,7 @@ class HomeController extends Controller
         }
 
         (new \App\Helpers\Json)->dump($pump);
+//        (new \App\Helpers\Json)->dump($werf);
         // je kunt nu de power_consumptions gebruiken in je view
 
         return view('pumps.show', ['pump' => $pump, 'power_consumptions' => $power_consumptions,'flowrates'=>$flowrates,'stroom' => $power_consumptions, 'werf' => $werf]);
@@ -97,8 +98,17 @@ class HomeController extends Controller
             $pump->status = true;
             // als pomp terug opzet, gaan we ervan uit pomp gefixt, dus motief uitgezet preventief weg
             $pump->motif = "";
+            if ($werf->frequention == 1) {
+                if ($pump->previous != null){
+            $pump->percentage = $pump->previous;
+                }
+            }
         } else {
             $pump->status = false;
+            if ($werf->frequention == 1) {
+            $pump->previous = $pump->percentage;
+            $pump->percentage = 0;
+            }
         }
         $pump->save();
         $log = new Log();

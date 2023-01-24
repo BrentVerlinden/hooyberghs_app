@@ -20,6 +20,7 @@ class CreatePumpsTable extends Migration
             $table->string('location');
             $table->string('motif')->nullable();
             $table->float('percentage')->nullable();
+            $table->float('previous')->nullable();
             $table->boolean('error')->nullable();
             $table->foreignId('sensor_id')->nullable();
             $table->foreignId('werf_id')->nullable();
