@@ -55,11 +55,12 @@ class PumpSettingsController extends Controller
 
         $automation->save();
 
-//        $log = new Log();
-//        $log->description = auth()->user()->email . " heeft de gebruiker met email " . $user->email . " bewerkt";
-//        $log->nameLog = "gebruiker bewerkt";
-//        $log->date = now();
-//        $log->save();
+        $log = new Log();
+        $log->description = auth()->user()->email . " heeft het automatisch systeem gestart";
+        $log->nameLog = "automatisch systeem gestart";
+        $log->werf_id = $werfid;
+        $log->date = now();
+        $log->save();
 
         // Flash a success message to the session
         session()->flash('success', 'De pomp begint met pompen');

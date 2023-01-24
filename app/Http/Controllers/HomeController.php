@@ -113,6 +113,7 @@ class HomeController extends Controller
         $log->description = auth()->user()->email . " heeft de pomp " . $pump->pumpname . $test1;
         $log->nameLog = "pomp aan/uit";
         $log->date = now();
+        $log->werf_id = $werfid;
         $log->save();
         return redirect('/user/werf/' . $werf->id . '/pump/'.$id);
     }
