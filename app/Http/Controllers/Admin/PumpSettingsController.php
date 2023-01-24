@@ -13,7 +13,7 @@ class PumpSettingsController extends Controller
 {
     public function index($werfid)
     {
-        $automation = Automation::where('werf_id', $werfid);
+        $automation = Automation::where('werf_id', $werfid)->first();
         $werf = Werf::findOrFail($werfid);
         return view('admin.pumpstart.update', compact('werf', 'automation'));
     }
@@ -63,7 +63,32 @@ class PumpSettingsController extends Controller
         $log->save();
 
         // Flash a success message to the session
-        session()->flash('success', 'De pomp begint met pompen');
+        session()->flash('success', 'De pompen beginnen met pompen');
+        // Redirect to the master page
+        return redirect('/admin/werf/' . $werfid . '/pumpsettings');
+    }
+
+
+
+    public function off(Request $request, $werfid)
+//        Automation $automation
+    {
+        $automation = Automation::where('werf_id', $werfid)->first();
+        $werf = Werf::findOrFail($werfid);
+
+        $automation->automatic = false;
+
+        $automation->save();
+
+        $log = new Log();
+        $log->description = auth()->user()->email . " heeft het automatisch systeem gestopt";
+        $log->nameLog = "automatisch systeem gestopt";
+        $log->werf_id = $werfid;
+        $log->date = now();
+        $log->save();
+
+        // Flash a success message to the session
+        session()->flash('success', 'De pompen stoppen met pompen');
         // Redirect to the master page
         return redirect('/admin/werf/' . $werfid . '/pumpsettings');
     }
