@@ -21,6 +21,19 @@ class CreateAutomationsTable extends Migration
             $table->foreignId('werf_id')->nullable();
             $table->foreign('werf_id')->references('id')->on('werves')->onDelete('cascade')->onUpdate('cascade');
         });
+
+        DB::table('automations')->insert(
+            [
+                [
+                    'werf_id'=> 1,
+                    'automatic'=>0
+                ],
+                [
+                    'werf_id'=> 2,
+                    'automatic'=>0
+                ],
+            ]
+        );
     }
 
     /**
