@@ -4,8 +4,8 @@
 
 @section('main')
     <div class="fixedmt"></div>
-    <h1>Nieuwe gebruiker aanmaken.</h1>
-    <form action="/admin/users" method="post">
+    <h1>Nieuwe werfgebruiker aanmaken.</h1>
+    <form action="/admin/werf/{{ $werf->id }}/users" method="post">
         @include('admin.users.form')
     </form>
 

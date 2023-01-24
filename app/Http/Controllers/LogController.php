@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Log;
+use App\Werf;
 use Illuminate\Http\Request;
 
 class LogController extends Controller
@@ -14,8 +15,9 @@ class LogController extends Controller
      */
 
 
-    public function index(Request $request)
+    public function index(Request $request, $werfid)
     {
+        $werf = Werf::findOrFail($werfid);
         $description = '%' . $request->input('description') . '%';
         $date = $request->input('date');
 
@@ -31,7 +33,7 @@ class LogController extends Controller
 
         $logs = $logs->get();
 
-        return view('admin.log.log', compact('logs'));
+        return view('admin.log.log', compact('logs', 'werf'));
     }
 
 
