@@ -74,6 +74,7 @@ class PumpController extends Controller
         $log->description = auth()->user()->email . " heeft de pomp " . $pump->pumpname . " aangemaakt";
         $log->nameLog = "Pomp aangemaakt";
         $log->date = now();
+        $log->werf_id = $werfid;
         $log->save();
 
         // Flash a success message to the session
@@ -136,6 +137,7 @@ class PumpController extends Controller
         $log->description = auth()->user()->email . " heeft de pomp " . $pump->pumpname . " bewerkt";
         $log->nameLog = "Pomp bewerkt";
         $log->date = now();
+        $log->werf_id = $werfid;
         $log->save();
 
         // Flash a success message to the session
@@ -162,6 +164,7 @@ class PumpController extends Controller
         $log->description = auth()->user()->email . " heeft de pomp  " . $pump->pumpname . " verwijderd";
         $log->nameLog = "Pomp verwijderd";
         $log->date = now();
+        $log->werf_id = $werfid;
         $log->save();
         session()->flash('success', "De pomp $pump->pumpname  is verwijderd");
         return redirect('/admin/werf/' . $werf->id . '/pumps');
