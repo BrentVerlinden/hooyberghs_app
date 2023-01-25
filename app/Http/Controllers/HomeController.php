@@ -108,6 +108,7 @@ class HomeController extends Controller
         }
         $pump->save();
         // process the slider value as needed
+
         return redirect('/user/werf/' . $werf->id . '/pump/'.$id);
     }
 

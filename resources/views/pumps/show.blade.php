@@ -13,7 +13,7 @@
 
         @if($werf->frequention == 1)
             <p>Frequentiegestuurde pomp</p>
-            <p>Frequentie: {{$pump->percentage}}</p>
+            <p id="percentage">Frequentie: {{$pump->percentage}}</p>
 
             @if(auth()->user()->admin)
                 <form>
@@ -355,6 +355,7 @@ power:data[0]['powerconsumption'][0]['power'][0]['power']
                 data: {range_slider: sliderValue},
                 success: function (data) {
                     // handle the response from the server
+                    $("#percentage").text(sliderValue);
                     console.log("done bitch");
                 }
             });
