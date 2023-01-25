@@ -94,4 +94,21 @@ class HomeController extends Controller
         return redirect('/user/werf/' . $werf->id . '/pump/'.$id);
     }
 
+    public function handleValueChange(Request $request, $werfid,  $id)
+    {
+        $pump = Pump::find($id);
+        $werf = Werf::find($werfid);
+        $sliderValue = $request->input('range_slider');
+        $pump->percentage = $sliderValue;
+        if($sliderValue == 0) {
+            $pump->status = 0;
+        } else {
+            $pump->status = 1;
+            $pump->motif = "";
+        }
+        $pump->save();
+        // process the slider value as needed
+        return redirect('/user/werf/' . $werf->id . '/pump/'.$id);
+    }
+
 }

@@ -10954,6 +10954,19 @@ body {
   color: black;
 }
 
+.leftm {
+  margin-left: 150px;
+}
+
+.testimg {
+  padding: 0px;
+  opacity: 1;
+}
+
+.space1 {
+  margin-top: 5px;
+}
+
 .flex-center {
   align-items: center;
   display: flex;

@@ -3,6 +3,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
     <link href="{{ asset('css/showpump.css') }}" rel="stylesheet">
     <script src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 @section('main')
     <div>
@@ -12,8 +14,24 @@
         @if($werf->frequention == 1)
             <p>Frequentiegestuurde pomp</p>
             <p>Frequentie: {{$pump->percentage}}</p>
+
+            @if(auth()->user()->admin)
+                <form>
+                    @csrf
+                    <input type="range" min="0" max="100"
+                           value="{{ old('percentage', $pump->percentage) }}"
+                           class="slider" id="range-slider">
+                </form>
+                @endif
+        @if($pump->status == 0)
+            @if($pump->motif !== "" &&  $pump->motif !== null)
+                <small>Reden: {{ $pump->motif }}</small>
+            @else<small>Geen reden gevonden</small>
+            @endif
+            @endif
         @endif
 
+        @if($werf->frequention == 0)
         <p>Status:
             @if($pump->status)
                 <span class="logged-in">●</span> Actief
@@ -26,6 +44,7 @@
                 @endif
             @endif
         </p>
+
 
 
         @if(auth()->user()->admin)
@@ -46,7 +65,7 @@
                 </div>
             </form>
         @endif
-
+        @endif
         <div class="mt-5">
 
             <div id="dashboard_div">
@@ -317,6 +336,32 @@ power:data[0]['powerconsumption'][0]['power'][0]['power']
         dashboard.bind(dateRangeFilter, chart);
         dashboard.draw(defaultView);
     }
+
+
+
+
+    $(document).ready(function() {
+        $("#range-slider").on("input", function() {
+            var sliderValue = $(this).val();
+            // send an AJAX request to the server with the new value
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                type: "POST",
+                url: "/admin/werf/{{ $werf->id }}/pump/{{ $pump->id }}/handle-value-change",
+                data: {range_slider: sliderValue},
+                success: function (data) {
+                    // handle the response from the server
+                    console.log("done bitch");
+                }
+            });
+        });
+    });
+
+
 
 </script>
 

@@ -20,7 +20,9 @@ class CreateSensorsTable extends Migration
             $table->string('name')->nullable();
             $table->boolean('error')->nullable();
             $table->foreignId('pump_id')->nullable();
+            $table->foreignId('calibration_id')->nullable();
             $table->foreign('pump_id')->references('id')->on('pumps')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('calibration_id')->references('id')->on('calibrations')->onDelete('cascade')->onUpdate('cascade');
 
         });
 
@@ -31,6 +33,7 @@ class CreateSensorsTable extends Migration
                     'created_at' => '2021-01-01 00:00:01', 'error' => false,
                     'name' => 'Sensor 1',
                     'pump_id' => 1,
+
                 ],
                 [
                     'water_level' => 18,

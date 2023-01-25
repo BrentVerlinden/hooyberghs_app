@@ -35,7 +35,7 @@ class CreatePowerconsumptionsTable extends Migration
                     'usage' => rand(10, 200),
                     'current' => rand(10, 200),
                     'created_at' => $start_time,
-                    'updated_at' => $start_time
+
                 ]);
 
                 $start_time->addMinutes(15);
