@@ -83,6 +83,7 @@ $selectedImage = $images[$i];
                     </form>
                 </div>
             </div></div>
+            </div>
         </div>
     </div>
 </div>
