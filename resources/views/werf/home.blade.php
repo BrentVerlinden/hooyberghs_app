@@ -7,7 +7,7 @@
     <a href="/admin/werf/crud" class="btn btn-primary mt-3">Alle werven beheren</a>
     @endif
     <h1 class="mt-4">Jouw werven</h1>
-    <p>U bent ingelogd als  {{ auth()->user()->name }}!</p>
+{{--    <p>U bent ingelogd als  {{ auth()->user()->name }}!</p>--}}
     <br>
     @guest
         <p>Please login...</p>
@@ -20,7 +20,10 @@
                     <div class="col-md-4 col-sm-6 col-xs-12">
                         <div class="card mb-4 card-size">
                             <div class="card-body">
-                                <a href="/user/werf/{{ $werf->id }}/home"><h5 class="card-title">{{ $werf->name }}</h5></a>
+                                <a href="/user/werf/{{ $werf->id }}/home"><h5 class="card-title">{{ $werf->name }}</h5>
+                                    <img src="img/hooyberghs.jpg" class="card-img-bottom img-fluid" width="100%" height="auto">
+                                </a>
+
                             </div>
                         </div>
                     </div>

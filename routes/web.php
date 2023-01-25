@@ -20,6 +20,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function (){
 
     //pompen
     Route::patch('/werf/{werfid}/pump/{id}', 'HomeController@updatePump');
+    Route::post('/werf/{werfid}/pump/{id}/handle-value-change', 'HomeController@handleValueChange');
 
     //pomp settings
 //    Route::resource('/werf/{werfid}/pumpsettings', 'Admin\PumpSettingsController');

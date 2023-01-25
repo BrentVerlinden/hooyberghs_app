@@ -16,5 +16,9 @@ class Sensor extends Model
         return $this->belongsTo('App\Pump')->withDefault();
     }
 
+    public function calibration() {
+        return $this->belongsTo('App\Sensor')->withDefault();
+    }
+
 
 }

@@ -1,15 +1,9 @@
 @extends('layouts.app')
 
-@extends('layouts.template3')
-
-@section('title', 'Wachtwoord resetten')
-
-@extends('layouts.app')
-
 <link rel="shortcut icon" href="{{ asset('img/hooyberghs_logo_one.jpg') }}">
 <title>@yield('title', 'Hooyberghs Applicatie')</title>
 
-@section('main')
+@section('content')
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
