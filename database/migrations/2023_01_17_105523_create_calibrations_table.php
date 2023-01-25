@@ -17,12 +17,10 @@ class CreateCalibrationsTable extends Migration
             $table->id();
             $table->dateTime('startDate')->nullable();
             $table->dateTime('endDate')->nullable();
-            $table->time('time'); //andere variable?
+            $table->time('time')->nullable(); //andere variable?
             $table->foreignId('werf_id');
-            $table->float('pump')->nullable();
-            $table->float('sensor')->nullable();
-            $table->json('min');
-            $table->json('max');
+            $table->float('min')->nullable();
+            $table->float('max')->nullable();
             //Foreign keys --> moet nog aangepast worden
             $table->foreign('werf_id')->references('id')->on('werves')->onDelete('cascade')->onUpdate('cascade');
         });
@@ -36,13 +34,8 @@ class CreateCalibrationsTable extends Migration
                     'endDate' => '2023-04-22',
                     'time' => 10,
                     'werf_id' => 1,
-                    'min' => json_encode([
-                        ['min'=> 5]
-                    ]),
-                    'max' => json_encode([
-                        ['max'=> 7]
-                    ]),
-
+                    'min' => 3,
+                    'max' => 10
                 ],
             ]
         );
