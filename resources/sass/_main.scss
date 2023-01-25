@@ -24,6 +24,23 @@ html, body {
         color: black;
     }
 }
+
+.leftm {
+    //max-width: 100%;
+    //height: auto;
+    //align-content: center;
+    margin-left: 150px;
+}
+
+.testimg {
+    padding: 0px;
+    opacity: 1;
+}
+
+.space1 {
+    margin-top: 5px;
+}
+
 .flex-center {
     align-items: center;
     display: flex;
