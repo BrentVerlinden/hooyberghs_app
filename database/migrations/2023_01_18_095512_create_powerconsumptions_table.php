@@ -19,7 +19,7 @@ class CreatePowerconsumptionsTable extends Migration
             $table->id();
             $table->float('usage');
             $table->float('current');
-            $table->timestamps();
+            $table->timestamp('created_at')->useCurrent();
             $table->foreign('pump_id')->references('id')->on('pumps')->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('pump_id');
         });
