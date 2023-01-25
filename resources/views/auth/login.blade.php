@@ -9,6 +9,12 @@
 @section('main')
 {{--    <h1 class="mt-5">Login</h1>--}}
 
+<?php
+$images = array("img/hooyberghs.jpg", "img/hooyberghs2.jpg", "img/hooyberghs3.jpg");
+$i = rand(0, count($images)-1);
+$selectedImage = $images[$i];
+?>
+
     <div class="row justify-content-center">
 
         <div class="col-xl-10 col-lg-12 col-md-9 mt-5">
@@ -18,7 +24,7 @@
                     <!-- Nested Row within Card Body -->
                     <div class="row">
                         <div class="col-lg-6 d-none d-lg-block bg-login-image">
-                            <img src="img/hooyberghs.jpg" alt="hooyberghs" width="500" height="310" class="testimg">
+                            <img src="<?php echo $selectedImage; ?>" alt="hooyberghs" width="500" height="310" class="testimg">
                         </div>
 {{--                        <div class="d-lg-none d-sm-block">--}}
 {{--                            <img src="img/hooyberghs_logo_one.jpg" alt="hooyberghs" class="testimg">--}}

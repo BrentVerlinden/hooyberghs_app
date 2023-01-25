@@ -9,6 +9,12 @@
 <link rel="shortcut icon" href="{{ asset('img/hooyberghs_logo_one.jpg') }}">
 <title>@yield('title', 'Hooyberghs Applicatie')</title>
 
+<?php
+$images = array("../img/hooyberghs.jpg", "../img/hooyberghs2.jpg", "../img/hooyberghs3.jpg");
+$i = rand(0, count($images)-1);
+$selectedImage = $images[$i];
+?>
+
 <div class="row justify-content-center">
 
     <div class="col-xl-10 col-lg-12 col-md-9 mt-5">
@@ -17,7 +23,7 @@
             <div class="card-body p-0">
                 <!-- Nested Row within Card Body -->
                 <div class="row">
-                    <div class="col-lg-6 d-none p-0 d-lg-block"><img src="../img/hooyberghs.jpg" alt="hooyberghs" width="500" height="270" class="testimg"></div>
+                    <div class="col-lg-6 d-none p-0 d-lg-block"><img src="<?php echo $selectedImage; ?>" alt="hooyberghs" width="500" height="270" class="testimg"></div>
                     <div class="col-lg-6">
                         <div class="p-5">
                             <div class="text-center">
