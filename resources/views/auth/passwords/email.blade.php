@@ -10,7 +10,7 @@
 <title>@yield('title', 'Hooyberghs Applicatie')</title>
 
 <?php
-$images = array("../img/hooyberghs.jpg", "../img/hooyberghs2.jpg", "../img/hooyberghs3.jpg");
+$images = array("../img/hooyberghs.jpg", "../img/hooyberghs2.jpg");
 $i = rand(0, count($images)-1);
 $selectedImage = $images[$i];
 ?>
@@ -57,7 +57,7 @@ $selectedImage = $images[$i];
                             </form>
                             <hr>
                             <div class="text-center">
-                                <a href="{{ url()->previous() }}">Terug</a>
+                                <a href="/">Terug</a>
                             </div>
 
                         </div>

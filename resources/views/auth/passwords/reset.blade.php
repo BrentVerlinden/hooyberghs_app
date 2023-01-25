@@ -10,13 +10,28 @@
 <title>@yield('title', 'Hooyberghs Applicatie')</title>
 
 @section('main')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Wachtwoord resetten') }}</div>
 
-                <div class="card-body">
+<?php
+$images = array("../../img/hooyberghs.jpg", "../../img/hooyberghs2.jpg");
+$i = rand(0, count($images)-1);
+$selectedImage = $images[$i];
+?>
+
+<div class="row justify-content-center">
+
+    <div class="col-xl-10 col-lg-12 col-md-9 mt-5">
+
+        <div class="card o-hidden border-0 shadow-lg my-5">
+            <div class="card-body p-0">
+                <!-- Nested Row within Card Body -->
+                <div class="row">
+                    <div class="col-lg-6 d-none p-0 d-lg-block"><img src="<?php echo $selectedImage; ?>" alt="hooyberghs" width="500" height="350" class="testimg"></div>
+                    <div class="col-lg-6">
+                        <div class="p-5">
+                            <div class="text-center">
+                                <h1 class="h4 text-gray-900 mb-4">Wachtwoord resetten</h1>
+                            </div>
+
                     <form method="POST" action="{{ route('password.update') }}">
                         @csrf
 
@@ -67,7 +82,7 @@
                         </div>
                     </form>
                 </div>
-            </div>
+            </div></div>
         </div>
     </div>
 </div>
