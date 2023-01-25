@@ -15,11 +15,11 @@ class CreateSensorsTable extends Migration
     {
         Schema::create('sensors', function (Blueprint $table) {
             $table->id();
-            $table->float('water_level');
+            $table->float('water_level')->nullable();
             $table->timestamp('created_at')->useCurrent();
-            $table->string('name');
-            $table->boolean('error');
-            $table->foreignId('pump_id');
+            $table->string('name')->nullable();
+            $table->boolean('error')->nullable();
+            $table->foreignId('pump_id')->nullable();
             $table->foreign('pump_id')->references('id')->on('pumps')->onDelete('cascade')->onUpdate('cascade');
 
         });
