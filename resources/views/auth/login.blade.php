@@ -10,7 +10,7 @@
 {{--    <h1 class="mt-5">Login</h1>--}}
 
 <?php
-$images = array("img/hooyberghs.jpg", "img/hooyberghs2.jpg", "img/hooyberghs3.jpg");
+$images = array("img/hooyberghs.jpg", "img/hooyberghs2.jpg");
 $i = rand(0, count($images)-1);
 $selectedImage = $images[$i];
 ?>
