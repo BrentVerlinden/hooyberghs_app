@@ -12,19 +12,7 @@
                    class="form-control  @error('depth') is-invalid @enderror"
                    placeholder="Diepte"
                    required>
-
-
-            <label for="day">Aantal dagen</label>
-            <input type="text" name="day" id="day"
-                   class="form-control @error('dag') is-invalid @enderror"
-                   placeholder="Dag"
-                   required>
-
-
             @error('depth')
-
-
-
             <div class="invalid-feedback">{{ $message }}</div>
             @enderror
         </div>
