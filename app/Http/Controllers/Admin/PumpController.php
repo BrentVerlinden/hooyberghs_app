@@ -63,12 +63,12 @@ class PumpController extends Controller
         $pump->werf_id = $werfid;
         $pump->error = 0;
 
-//        $sensor = new Sensor();
+        $sensor = new Sensor();
 //
-//        $sensor->error = 0;
+        $sensor->error = 0;
 //
-//        $sensor->save();
-//        $pump->sensor_id = $sensor->id;
+        $sensor->save();
+        $pump->sensor_id = $sensor->id;
         $pump->save();
 
         $log = new Log();
@@ -157,9 +157,9 @@ class PumpController extends Controller
     {
         $werf = Werf::findOrFail($werfid);
         $pump = Pump::findOrFail($pumpid);
-//        $sensor_id = $pump->sensor_id;
-//        $sensor = Sensor::findOrFail($sensor_id);
-//        $sensor->delete();
+        $sensor_id = $pump->sensor_id;
+        $sensor = Sensor::findOrFail($sensor_id);
+        $sensor->delete();
         $pump->delete();
         $log = new Log();
         $log->description = auth()->user()->email . " heeft de pomp  " . $pump->pumpname . " verwijderd";
