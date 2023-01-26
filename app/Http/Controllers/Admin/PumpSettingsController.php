@@ -19,58 +19,70 @@ class PumpSettingsController extends Controller
         return view('admin.pumpstart.update', compact('werf', 'pumps'));
     }
 
-    public function update(Request $request, $werfid)
+    public function update(Request $request, $werfid, $pumpid)
 //        Automation $automation
     {
-        $automation = Automation::where('werf_id', $werfid)->first();
+//        $automation = Automation::where('werf_id', $werfid)->first();
+        $pump = Pump::findOrFail($pumpid);
         $werf = Werf::findOrFail($werfid);
         // Validate $request
         $this->validate($request,[
             'depth' => 'required',
-            'day' => 'required'
         ]);
 
-        // Update user
-        $automation->depth = $request->depth;
-        $automation->day = $request->day;
-        $automation->automatic = true;
+        // Update pump
+        // check before starting to pump if water level > depth to pump
 
-        $automation->save();
+        if($pump->sensor->sensordatas->last()->water_level > $request->depth)
+        {
+            $pump->depth = $request->depth;
+            $pump->automatic = true;
+            $pump->save();
 
-        $log = new Log();
-        $log->description = auth()->user()->email . " heeft het automatisch systeem gestart";
-        $log->nameLog = "automatisch systeem gestart";
-        $log->werf_id = $werfid;
-        $log->date = now();
-        $log->save();
+            $log = new Log();
+            $log->description = auth()->user()->email . " heeft het automatisch systeem voor pomp " . $pump->pumpname . " gestart";
+            $log->nameLog = "automatisch systeem gestart";
+            $log->werf_id = $werfid;
+            $log->date = now();
+            $log->save();
+
+            // Flash a success message to the session
+            session()->flash('success', 'De pomp is ingesteld op automatisch');
+//            dd(session()->all());
+            // Redirect to the master page
+            return redirect('/admin/werf/' . $werfid . '/pumpsettings');
+        }
 
         // Flash a success message to the session
-        session()->flash('success', 'De pompen beginnen met pompen');
+        session()->flash('success', 'Oeps, er is iets misgegaan! Ben je zeker dat de diepte kleiner is dan het huidige waterniveau van de put?');
         // Redirect to the master page
         return redirect('/admin/werf/' . $werfid . '/pumpsettings');
     }
 
 
 
-    public function off(Request $request, $werfid)
+    public function off(Request $request, $werfid, $pumpid)
 //        Automation $automation
     {
-        $automation = Automation::where('werf_id', $werfid)->first();
+//        $automation = Automation::where('werf_id', $werfid)->first();
+
+        $pump = Pump::findOrFail($pumpid);
         $werf = Werf::findOrFail($werfid);
 
-        $automation->automatic = false;
+        $pump->automatic = false;
+        $pump->depth = null;
 
-        $automation->save();
+        $pump->save();
 
         $log = new Log();
-        $log->description = auth()->user()->email . " heeft het automatisch systeem gestopt";
+        $log->description = auth()->user()->email . " heeft het automatisch systeem voor pomp " . $pump->pumpname . " gestopt";
         $log->nameLog = "automatisch systeem gestopt";
         $log->werf_id = $werfid;
         $log->date = now();
         $log->save();
 
         // Flash a success message to the session
-        session()->flash('success', 'De pompen stoppen met pompen');
+        session()->flash('success', 'De pomp stopt met automatisch pompen');
         // Redirect to the master page
         return redirect('/admin/werf/' . $werfid . '/pumpsettings');
     }

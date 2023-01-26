@@ -3,8 +3,11 @@
 @section('main')
     <div class="fixedmt"></div>
     @foreach($pumps as $pump)
-        <h2>Pump: {{$pump->pumpname}}</h2>
-        <p>Location: {{$pump->location}}</p>
+        <h2>Pomp: {{$pump->pumpname}}</h2>
+        <p>Locatie: {{$pump->location}}</p>
+        @if($pump->error == 1)
+            <p class="mb-5">Er is mogelijk iets mis met de pomp (error). Kijk dit eerst na en zet de pomp aan via detail page om de error te overrulen.</p>
+            @endif
     @if($pump->automatic == 0 && $pump->error != 1)
         <form action="/admin/werf/{{ $werf->id }}/pumpsettings/{{$pump->id}}" method="post">
         @method('put')
@@ -19,18 +22,18 @@
             <div class="invalid-feedback">{{ $message }}</div>
             @enderror
         </div>
-        <button type="submit" class="btn btn-success mb-5">Start met pompen</button>
+        <button type="submit" class="btn btn-success mb-5">Start automatisatie</button>
 
     </form>
     @endif
-    @if($pump->automatic==1)
+    @if($pump->automatic==1 && $pump->error != 1)
         <form action="/admin/werf/{{ $werf->id }}/pumpsettings/extra/{{$pump->id}}" method="post">
             @method('put')
             @csrf
             <div class="form-group ">
 
             </div>
-            <button type="submit" class="btn btn-warning">Stop met pompen</button>
+            <button type="submit" class="btn btn-danger mb-5">Stop automatisatie</button>
 
         </form>
 
