@@ -15,14 +15,11 @@ class CreateCalibrationsTable extends Migration
     {
         Schema::create('calibrations', function (Blueprint $table) {
             $table->id();
-            $table->dateTime('startDate')->nullable();
-            $table->dateTime('endDate')->nullable();
             $table->time('time')->nullable(); //andere variable?
-            $table->foreignId('werf_id');
             $table->float('min')->nullable();
             $table->float('max')->nullable();
             //Foreign keys --> moet nog aangepast worden
-            $table->foreign('werf_id')->references('id')->on('werves')->onDelete('cascade')->onUpdate('cascade');
+
         });
 
         // 1 werf = 1 calibration
@@ -30,13 +27,38 @@ class CreateCalibrationsTable extends Migration
         DB::table('calibrations')->insert(
             [
                 [
-                    'startDate' => '2023-01-16',
-                    'endDate' => '2023-04-22',
                     'time' => 10,
-                    'werf_id' => 1,
                     'min' => 3,
                     'max' => 10
                 ],
+                [
+                    'time' => 10,
+                    'min' => 5,
+                    'max' => 15
+                ],
+                [
+                    'time' => 5,
+                    'min' => 1,
+                    'max' => 6
+                ],
+                [
+                    'time' => 10,
+                    'min' => 6,
+                    'max' => 16
+                ],
+                [
+                    'time' => 9,
+                    'min' => 10,
+                    'max' => 16
+                ],
+                [
+                    'time' => 9,
+                    'min' => 6,
+                    'max' => 16
+                ],
+
+
+
             ]
         );
 
