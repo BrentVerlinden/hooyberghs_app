@@ -22,7 +22,7 @@ class CreatePumpsTable extends Migration
             $table->float('percentage')->nullable();
             $table->float('previous')->nullable();
             $table->boolean('error')->nullable();
-            $table->boolean('automatic')->nullable();
+            $table->boolean('automatic')->nullable()->default(false);
             $table->float('depth')->nullable();
             $table->foreignId('sensor_id')->nullable();
             $table->foreignId('werf_id')->nullable();
@@ -44,7 +44,7 @@ class CreatePumpsTable extends Migration
                     'motif' => "",
                     'percentage' => 70,
                     'error' => false,
-
+                    'automatic' => false,
                     'werf_id' => 1,
                 ],
                 [
@@ -54,7 +54,7 @@ class CreatePumpsTable extends Migration
                     'motif' => "",
                     'percentage' => 70,
                     'error' => false,
-
+                    'automatic' => false,
                     'werf_id' => 1
                 ],
                 [
@@ -64,7 +64,7 @@ class CreatePumpsTable extends Migration
                     'motif' => "",
                     'percentage' => 70,
                     'error' => false,
-
+                    'automatic' => false,
                     'werf_id' => 1,
                 ],
                 [
@@ -74,7 +74,7 @@ class CreatePumpsTable extends Migration
                     'motif' => "",
                     'percentage' => 70,
                     'error' => false,
-
+                    'automatic' => false,
                     'werf_id' => 1,
                 ],
                 [
@@ -84,7 +84,7 @@ class CreatePumpsTable extends Migration
                     'motif' => "Deze pomp is preventief uitgeschakeld omdat het stroomverbruik veel te hoog lag",
                     'percentage' => 0,
                     'error' => true,
-
+                    'automatic' => false,
                     'werf_id' => 2,
                 ]
                 ,
@@ -95,7 +95,7 @@ class CreatePumpsTable extends Migration
                     'motif' => "Deze pomp is preventief uitgeschakeld omdat het stroomverbruik veel te hoog lag",
                     'percentage' => 0,
                     'error' => true,
-
+                    'automatic' => false,
                     'werf_id' => 2,
                 ]
 
