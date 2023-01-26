@@ -380,14 +380,14 @@ console.log();
             'chartType': 'LineChart',
             'containerId': 'chart4',
             'options': {
-                title: 'Stroom Ampère',
+                title: 'Waterniveau',
                 curveType: 'function',
                 legend: {position: 'right'},
                 hAxis: {
                     format: "MMM d, yyyy HH:mm"
                 },
                 vAxis: {
-                    title: 'Stroom'
+                    title: 'Meter'
                 },
                 series: {
                     0: {color: 'black'}
