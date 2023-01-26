@@ -50,56 +50,7 @@
         google.charts.load('current', {'packages':['corechart']});
         google.charts.setOnLoadCallback(drawChart1);
         google.charts.setOnLoadCallback(drawChart2);
-
         function drawChart1() {
-            var data = new google.visualization.DataTable();
-            data.addColumn('string', 'Pump');
-            data.addColumn('number', 'Stroom');
-
-            var pumps = @json($pumps);
-            var pumpData = {};
-            pumps.forEach(function(pump) {
-                pumpData[pump.pumpname] = {
-                    sum: 0,
-                    count: 0
-                };
-            });
-
-            pumps.forEach(function(pump) {
-                pump.powerconsumption.forEach(function(power_consumption) {
-                    pumpData[pump.pumpname].sum += power_consumption.usage;
-                    pumpData[pump.pumpname].count++;
-                });
-            });
-
-            var dataArray = [];
-            for (var pumpname in pumpData) {
-                var averagePower = pumpData[pumpname].sum / pumpData[pumpname].count;
-                dataArray.push([pumpname, averagePower]);
-            }
-            data.addRows(dataArray);
-
-            var options = {
-                title: 'Gemiddelde Stroomverbruik per Pomp',
-                hAxis: {
-
-                },
-                vAxis: {
-                    title: 'Stroom (kWh)'
-                },
-                series: {
-                    0: {color: 'lightgray'}
-                }
-            };
-
-            var chart = new google.visualization.ColumnChart(
-                document.getElementById('chart_div'));
-
-            chart.draw(data, options);
-        }
-
-
-        function drawChart2() {
             var data = new google.visualization.DataTable();
             data.addColumn('string', 'Pump');
             data.addColumn('number', 'Huidige niveau');
@@ -113,20 +64,24 @@
             var count = 0;
 
             pumps.forEach(function (pump) {
-                pump.sensors.forEach(function (sensor) {
-                    var sensorName = sensor.name;
+
+                    var sensorName = pump.sensor.name;
+
                     if (!pumpData[sensorName]) {
                         pumpData[sensorName] = {
                             lastData: 0,
                             firstData: 0
                         };
                     }
-                });
+
             });
 
             pumps.forEach(function (pump) {
-                pump.sensors.forEach(function (sensor) {
-                    var sensorName = sensor.name;
+                var sensorName = pump.sensor.name;
+                console.log(pump.sensor.sensordatas);
+                pump.sensor.sensordatas.forEach(function (sensor) {
+
+
                     if (pumpData[sensorName].firstData == 0) {
                         pumpData[sensorName].firstData = sensor.water_level;
                     }
@@ -167,6 +122,57 @@
 
             chart.draw(data, options);
         }
+
+        function drawChart2() {
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Pump');
+            data.addColumn('number', 'Stroom');
+
+            var pumps = @json($pumps);
+
+            var pumpData = {};
+            pumps.forEach(function(pump) {
+
+                pumpData[pump.pumpname] = {
+                    sum: 0,
+                    count: 0
+                };
+            });
+
+            pumps.forEach(function(pump) {
+                pump.powerconsumption.forEach(function(power_consumption) {
+                    pumpData[pump.pumpname].sum += power_consumption.usage;
+                    pumpData[pump.pumpname].count++;
+                });
+            });
+
+            var dataArray = [];
+            for (var pumpname in pumpData) {
+                var averagePower = pumpData[pumpname].sum / pumpData[pumpname].count;
+                dataArray.push([pumpname, averagePower]);
+            }
+            data.addRows(dataArray);
+
+            var options = {
+                title: 'Gemiddelde Stroomverbruik per Pomp',
+                hAxis: {
+
+                },
+                vAxis: {
+                    title: 'Stroom (kWh)'
+                },
+                series: {
+                    0: {color: 'lightgray'}
+                }
+            };
+
+            var chart = new google.visualization.ColumnChart(
+                document.getElementById('chart_div'));
+
+            chart.draw(data, options);
+        }
+
+
 
     </script>
 

@@ -46,6 +46,8 @@ class CreatePumpsTable extends Migration
                     'error' => false,
                     'automatic' => false,
                     'werf_id' => 1,
+
+                    'sensor_id' => 1,
                 ],
                 [
                     'pumpname' => "Pomp 2",
@@ -56,6 +58,9 @@ class CreatePumpsTable extends Migration
                     'error' => false,
                     'automatic' => false,
                     'werf_id' => 1
+                    ,
+
+                    'sensor_id' => 2
                 ],
                 [
                     'pumpname' => "Pomp 3",
@@ -66,6 +71,8 @@ class CreatePumpsTable extends Migration
                     'error' => false,
                     'automatic' => false,
                     'werf_id' => 1,
+
+                    'sensor_id' => 3
                 ],
                 [
                     'pumpname' => "Pomp 4",
@@ -76,6 +83,9 @@ class CreatePumpsTable extends Migration
                     'error' => false,
                     'automatic' => false,
                     'werf_id' => 1,
+
+
+                    'sensor_id' => 4
                 ],
                 [
                     'pumpname' => "Pomp 5",
@@ -86,6 +96,7 @@ class CreatePumpsTable extends Migration
                     'error' => true,
                     'automatic' => false,
                     'werf_id' => 2,
+                    'sensor_id' => 5
                 ]
                 ,
                 [
@@ -97,6 +108,7 @@ class CreatePumpsTable extends Migration
                     'error' => true,
                     'automatic' => false,
                     'werf_id' => 2,
+                    'sensor_id' => 6
                 ]
 
             ]

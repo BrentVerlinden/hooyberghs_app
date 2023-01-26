@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Log;
 use App\Pump;
+use App\Sensor;
 use App\Werf;
 use Illuminate\Http\Request;
 
@@ -27,7 +28,7 @@ class HomeController extends Controller
     public function index($werfid)
     {
 
-        $pumps = Pump::with('powerconsumption', 'sensor')->where('werf_id', $werfid)->get();
+        $pumps = Pump::with('powerconsumption', 'sensor.sensordatas')->where('werf_id', $werfid)->get();
 
 
 
@@ -48,7 +49,7 @@ class HomeController extends Controller
 
     public function showPump($werfid, $id)
     {
-        $pump = Pump::with(['powerconsumption', 'flowrate'])->find($id);
+        $pump = Pump::with(['powerconsumption', 'flowrate','sensor.sensordatas'])->find($id);
         $werf = Werf::find($werfid);
 
         (new \App\Helpers\Json)->dump($pump);
