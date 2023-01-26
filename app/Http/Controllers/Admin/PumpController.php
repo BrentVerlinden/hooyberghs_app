@@ -36,7 +36,7 @@ class PumpController extends Controller
     public function create($werfid)
     {
         $werf = Werf::findOrFail($werfid);
-       $pump = new Pump();
+        $pump = new Pump();
         return view('admin.pumps.create', compact('pump', 'werf'));
     }
 
@@ -61,6 +61,7 @@ class PumpController extends Controller
         $pump->location = $request->location;
         $pump->status = 0;
         $pump->werf_id = $werfid;
+        $pump->error = 0;
 
 //        $sensor = new Sensor();
 //
