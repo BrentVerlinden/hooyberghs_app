@@ -4,9 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Calibration extends Model
+class Sensordata extends Model
 {
-
     public function sensor() {
         return $this->belongsTo('App\Sensor')->withDefault();
     }

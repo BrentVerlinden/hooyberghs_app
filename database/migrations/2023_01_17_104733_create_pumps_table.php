@@ -22,6 +22,8 @@ class CreatePumpsTable extends Migration
             $table->float('percentage')->nullable();
             $table->float('previous')->nullable();
             $table->boolean('error')->nullable();
+            $table->boolean('automatic')->nullable();
+            $table->float('depth')->nullable();
             $table->foreignId('sensor_id')->nullable();
             $table->foreignId('werf_id')->nullable();
 
@@ -29,6 +31,7 @@ class CreatePumpsTable extends Migration
             //Foreign keys --> moet nog aangepast worden
 
             $table->foreign('werf_id')->references('id')->on('werves')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('sensor_id')->references('id')->on('sensors')->onDelete('cascade')->onUpdate('cascade');
         });
 
 
