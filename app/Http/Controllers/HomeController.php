@@ -62,7 +62,8 @@ class HomeController extends Controller
         $pump = Pump::find($id);
         if ($request->status == 'on') {
             $pump->status = true;
-            // als pomp terug opzet, gaan we ervan uit pomp gefixt, dus motief uitgezet preventief weg
+            $pump->error = 0;
+            // als pomp terug opzet, gaan we ervan uit pomp gefixt, dus motief uitgezet preventief weg en error weg
             $pump->motif = "";
             if ($werf->frequention == 1) {
                 if ($pump->previous != null){
@@ -100,12 +101,22 @@ class HomeController extends Controller
         $werf = Werf::find($werfid);
         $sliderValue = $request->input('range_slider');
         $pump->percentage = $sliderValue;
+
+        $log = new Log();
         if($sliderValue == 0) {
             $pump->status = 0;
+            $test1 = " uitgezet (freq 0)";
         } else {
             $pump->status = 1;
+            $pump->error = 0;
             $pump->motif = "";
+            $test1 = " aangezet (freq " . $sliderValue . ")";
         }
+        $log->description = auth()->user()->email . " heeft de pomp " . $pump->pumpname . $test1;
+        $log->nameLog = "pomp aan/uit";
+        $log->date = now();
+        $log->werf_id = $werfid;
+        $log->save();
         $pump->save();
         // process the slider value as needed
 
