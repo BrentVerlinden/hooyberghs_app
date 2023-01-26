@@ -42,20 +42,27 @@
             <hr>
         </div>
         <div class="container">
-
             <div class="row">
                 @foreach($logs ?? '' as $log)
                     <div class="col-md-4 col-sm-6 col-xs-12">
                         <div class="card mb-4 card-size">
+                            <a id="button{{$loop->index}}" class="" onclick="toggleDescription({{$loop->index}})"><i class="fas fa-caret-down"></i></a>
+{{--                            mx-auto--}}
                             <div class="card-body">
-                                <h5 class="card-title">{{ $loop->index + 1 }} - {{ $log->description }}</h5>
+                                <h5 class="card-title"><img class="img-fluid mximg" src="/img/hooyberghs_logo_one.jpg" alt="logo"> {{ $loop->index + 1 }} - {{ $log->nameLog }}</h5>
+                                {{--                                <span><i class="fas fa-wrench"></i></span>--}}
+                                <p class="card-text" id="description{{$loop->index}}">{{ $log->description }}</p>
+                                <div class="card-bottom-section">
+                                    <hr>
                                 <p class="card-text">Tijd: {{ $log->date }}</p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 @endforeach
             </div>
         </div>
+
 {{--        <div class="container">--}}
 {{--            <h2 class="text-center">Alle Logs</h2>--}}
 {{--            <div class="row">--}}
@@ -74,3 +81,14 @@
     @endauth
 
 @endsection
+
+<script>
+    function toggleDescription(index) {
+        var description = document.getElementById("description" + index);
+        if (description.style.display === "none") {
+            description.style.display = "block";
+        } else {
+            description.style.display = "none";
+        }
+    }
+</script>
