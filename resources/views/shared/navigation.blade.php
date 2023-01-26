@@ -20,9 +20,9 @@
                     @auth
 
                 <li class="nav-item dropdown ml-4">
-
+{{--                    <p class="text-center mt-2">Werf: </p>--}}
                     <a class="nav-link dropdown-toggle" href="#!" data-toggle="dropdown">
-                        <i class="fas fa-user"></i>     {{ auth()->user()->name }} <span class="caret"></span>
+                        <i class="fas fa-user"></i>     {{ auth()->user()->name }} ({{$werf->name}}) <span class="caret"></span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right">
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Automation;
 use App\Http\Controllers\Controller;
 use App\Log;
+use App\Pump;
 use App\User;
 use App\Werf;
 use Illuminate\Http\Request;
@@ -13,29 +14,10 @@ class PumpSettingsController extends Controller
 {
     public function index($werfid)
     {
-        $automation = Automation::where('werf_id', $werfid)->first();
+        $pumps = Pump::where('werf_id', $werfid)->get();
         $werf = Werf::findOrFail($werfid);
-        return view('admin.pumpstart.update', compact('werf', 'automation'));
+        return view('admin.pumpstart.update', compact('werf', 'pumps'));
     }
-
-//    public function store(Request $request, $werfid)
-//    {
-//        $werf = Werf::findOrFail($werfid);
-//        // Validate $request
-//        $this->validate($request,[
-//            'depth' => 'required',
-//            'day' => 'required'
-//        ]);
-//
-//        $automation = new Automation();
-//        $automation->depth = $request->depth;
-//        $automation->day = $request->day;
-//        $automation->werf_id = $werf->id;
-//        $automation->automatic = true;
-//        $automation->save();
-//
-//        return redirect('/admin/werf/' . $werfid . '/pumpsettings');
-//    }
 
     public function update(Request $request, $werfid)
 //        Automation $automation
