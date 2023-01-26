@@ -49,6 +49,7 @@
             </tbody>
         </table>
     </div>
+    <a href="/" class="btn btn-primary mt-3">Terug</a>
 @endsection
 
 <script>
