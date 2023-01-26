@@ -98,6 +98,8 @@
 
     </div>
 
+    <a href="{{ url()->previous() }}" class="btn btn-primary mt-3">Terug</a>
+
 @endsection
 
 naam:data[0]['pumpname']
