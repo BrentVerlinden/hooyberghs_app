@@ -1,15 +1,15 @@
 {{--@extends('layouts.app')--}}
+@extends('layouts.app')
 
 @extends('layouts.template3')
 
 @section('title', 'Login')
 
-@extends('layouts.app')
-
 @section('main')
 {{--    <h1 class="mt-5">Login</h1>--}}
 <link rel="shortcut icon" href="{{ asset('img/hooyberghs_logo_one.jpg') }}">
 <title>@yield('title', 'Hooyberghs Applicatie')</title>
+
 <?php
 $images = array("img/hooyberghs.jpg", "img/hooyberghs2.jpg");
 $i = rand(0, count($images)-1);
