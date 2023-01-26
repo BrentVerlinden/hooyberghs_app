@@ -91,7 +91,13 @@
                         <div id="chart3"></div>
                     </div>
                 </div>
+                <div class="mb-5"><h3>Waterniveau </h3>
+                    <div class="border ">
+                        <div id="filter4"></div>
 
+                        <div id="chart4"></div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -110,6 +116,7 @@ power:data[0]['powerconsumption'][0]['power'][0]['power']
     google.charts.setOnLoadCallback(drawChart1);//verbruik KWH
     google.charts.setOnLoadCallback(drawChart2);//Waterdebiet m3/S
     google.charts.setOnLoadCallback(drawChart3);//Stroom ampere
+    google.charts.setOnLoadCallback(drawChart4);//Waterniveau
     function drawChart1() {
         var data = @json($power_consumptions);
         var chartData = [['Datum', 'Verbruik']];
@@ -339,7 +346,81 @@ power:data[0]['powerconsumption'][0]['power'][0]['power']
         dashboard.draw(defaultView);
     }
 
+    function drawChart4() {
+        var data = @json($pump);
+        var chartData = [['Datum', 'Waterniveau']];
+console.log();
+        data.sensor.sensordatas.forEach(function (sensor) {
+            chartData.push([new Date(sensor.created_at), sensor.water_level]);
 
+        });
+        console.log('chart4', );
+
+// Create the data table
+        var chartDataTable = new google.visualization.arrayToDataTable(chartData);
+
+        // Create a dashboard
+        var dashboard = new google.visualization.Dashboard(document.getElementById('dashboard_div'));
+
+        // Create the date range filter
+        var dateRangeFilter = new google.visualization.ControlWrapper({
+            'controlType': 'DateRangeFilter',
+            'containerId': 'filter4',
+            'options': {
+                'filterColumnLabel': 'Datum',
+                'ui': {
+                    'format': {
+                        'pattern': 'dd-MM-yyyy'
+                    }
+                }
+            }
+        });
+
+
+        // Create the chart
+        var chart = new google.visualization.ChartWrapper({
+            'chartType': 'LineChart',
+            'containerId': 'chart4',
+            'options': {
+                title: 'Stroom Ampère',
+                curveType: 'function',
+                legend: {position: 'right'},
+                hAxis: {
+                    format: "MMM d, yyyy HH:mm"
+                },
+                vAxis: {
+                    title: 'Stroom'
+                },
+                series: {
+                    0: {color: 'black'}
+                },
+                interpolateNulls: true,
+                animation: {
+                    duration: 1000,
+                    easing: 'out',
+                },
+                pointSize: 5,
+                pointShape: 'circle',
+                explorer: {
+                    axis: 'horizontal',
+                    keepInBounds: true,
+                    maxZoomIn: 4.0
+                },
+            }
+        });
+
+        // Create the default view
+        var defaultView = new google.visualization.DataView(chartDataTable);
+
+        // Bind the data table to the date range filter
+        dateRangeFilter.setDataTable(defaultView);
+
+        // Listen for the 'statechange' event
+
+        // Draw the dashboard
+        dashboard.bind(dateRangeFilter, chart);
+        dashboard.draw(defaultView);
+    }
 
 
     $(document).ready(function() {
