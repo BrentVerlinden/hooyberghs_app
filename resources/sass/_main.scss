@@ -37,6 +37,14 @@ html, body {
     opacity: 1;
 }
 
+@media screen and (max-width: 600px) {
+    #chart_div, #chart_div2 {
+        width: 100%;
+        height: 300px;
+        overflow: auto;
+    }
+}
+
 .space1 {
     margin-top: 5px;
 }
