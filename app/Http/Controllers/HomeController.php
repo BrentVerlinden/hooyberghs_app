@@ -27,7 +27,7 @@ class HomeController extends Controller
     public function index($werfid)
     {
 
-        $pumps = Pump::with('powerconsumption', 'sensors')->where('werf_id', $werfid)->get();
+        $pumps = Pump::with('powerconsumption', 'sensor')->where('werf_id', $werfid)->get();
 
 
 
