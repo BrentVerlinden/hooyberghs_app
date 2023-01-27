@@ -1,12 +1,17 @@
 @extends('layouts.template')
+
+@section('title', 'Detail pomp')
+
 <head>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
     <link href="{{ asset('css/showpump.css') }}" rel="stylesheet">
     <script src="https://www.gstatic.com/charts/loader.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link rel="shortcut icon" href="{{ asset('/img/hooyberghs_logo_one.jpg') }}">
 </head>
 @section('main')
+
     <div>
         <div class="fixedmt"></div>
         <h1 class="pump">{{$pump->pumpname}}</h1>
