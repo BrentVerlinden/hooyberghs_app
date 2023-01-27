@@ -15,7 +15,7 @@
             <p>Frequentiegestuurde pomp</p>
             <p id="percentage">Frequentie: {{$pump->percentage}}</p>
 
-            @if(auth()->user()->admin)
+            @if(auth()->user()->admin && $pump->automatic == 0)
                 <form>
                     @csrf
                     <input type="range" min="0" max="100"
@@ -47,7 +47,7 @@
 
 
 
-        @if(auth()->user()->admin)
+        @if(auth()->user()->admin && $pump->automatic == 0)
             <form action="/admin/werf/{{ $werf->id }}/pump/{{ $pump->id }}" method="POST">
                 @csrf
                 @method('PATCH')
