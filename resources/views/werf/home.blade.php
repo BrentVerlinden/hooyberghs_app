@@ -2,12 +2,12 @@
 
 @section('main')
     <div class="fixedmt"></div>
+    <h1>Overzicht werven</h1>
     @if(auth()->user()->admin)
-    <h1>Werven</h1>
-    <a href="/admin/werf/crud" class="btn btn-primary mt-3">Alle werven beheren</a>
+        <a href="/admin/werf/crud" class="btn btn-primary mt-3 mb-4">Alle werven in systeem beheren</a>
     @endif
-    <h1 class="mt-4">Jouw werven</h1>
-{{--    <p>U bent ingelogd als  {{ auth()->user()->name }}!</p>--}}
+    {{--    <h1 class="mt-4">Jouw werven</h1>--}}
+    {{--    <p>U bent ingelogd als  {{ auth()->user()->name }}!</p>--}}
     <br>
     @guest
         <p>Please login...</p>
