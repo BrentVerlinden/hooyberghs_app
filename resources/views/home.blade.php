@@ -1,55 +1,133 @@
 @extends('layouts.template')
-<head><script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script> </head>
+<head>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css"
+          integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"/>
+
+</head>
 
 @section('main')
     <div class="fixedmt"></div>
     <h1>Welkom in {{$werf->name}}, {{ auth()->user()->name }}!</h1>
-{{--    <h3>Ingelogd in {{$werf->name}}</h3>--}}
+    {{--    <h3>Ingelogd in {{$werf->name}}</h3>--}}
     @if(auth()->user()->admin)
-        <div class="mt-5">    <a href="/admin/werf/{{ $werf->id }}/pumpsettings" class="align-content-center text-center">Pompinstellingen werf</a> </div>
+        <div class="mt-5"><a href="/admin/werf/{{ $werf->id }}/pumpsettings" class="align-content-center text-center">Pompinstellingen
+                werf</a></div>
 
     @endif
     <br>
     @guest
         <p>Please login...</p>
     @endguest
-        @auth
-            <div class="row mt-3 mb-5">
-                <div class="col-6">
-                    <h2><span class="logged-in">●</span> Actieve pompen</h2><div class="circle_green">
+    @auth
+        <div class="container-fluid py-4">
+            <div class="row">
+                @foreach($active_pumps ?? '' as $pump)
+                    <div class="col-xl-3 col-lg-6">
+                        <a href="/user/werf/{{ $werf->id }}/pump/{{ $pump->id }}">
+                        <div class="card l-bg-green-dark">
+                            <div class="card-statistic-3 p-4">
+                                <div class="card-icon card-icon-large"><i class="fas fa-droplet"></i></div>
+                                <div class="mb-4">
+                                    <h5 class="card-title mb-0">{{ $pump->pumpname }}</h5>
+                                </div>
+                                <div class="row align-items-center mb-2 d-flex">
+                                    <div class="col-8">
+                                        <h2 class="d-flex align-items-center mb-0">
+                                            @if($pump->status)
+                                                <p>Actief</p>
+                                            @else
+                                                <p>Inactief</p>
+                                            @endif
+                                        </h2>
+                                    </div>
+
+                                    <div class="col-4 text-right">
+                                        @if($werf->frequention == 1)
+                                        <span>{{$pump->percentage}}% <i class="fa fa-arrow-up"></i></span>
+                                        @else
+                                            <span>Binair</span>
+                                            @endif
+                                    </div>
+                                </div>
+                                @if($werf->frequention == 1)
+                                <div class="progress mt-1 " data-height="8" style="height: 8px;">
+                                    <div class="progress-bar l-bg-cyan" role="progressbar"
+                                         data-width="{{ $pump->percentage }}%"
+                                         aria-valuenow="{{ $pump->percentage }}" aria-valuemin="0"
+                                         aria-valuemax="100" style="width: {{ $pump->percentage }}%;"></div>
+                                </div>
+                                    @endif
+                            </div>
+                        </div>
+                        </a>
                     </div>
-                    <ul >
-            @foreach($active_pumps ?? '' as $pump)
-                            <li style="list-style: none"><a href="/user/werf/{{ $werf->id }}/pump/{{ $pump->id }}">{{ $pump->pumpname }}</a></li>
-                        @endforeach
-                    </ul>
-                </div>
-                <div class="col-6">
-                    <h2><span class="logged-out">●</span> Inactieve pompen</h2>
-                    <ul>
-                        @foreach($inactive_pumps ?? '' as $pump)
-                            <li style="list-style: none"><a href="/user/werf/{{ $werf->id }}/pump/{{ $pump->id }}">{{ $pump->pumpname }}</a></li>
-                        @endforeach
-                    </ul>
-                </div>
+                @endforeach
+                @foreach($inactive_pumps ?? '' as $pump)
+                        <div class="col-xl-3 col-lg-6">
+                            <a href="/user/werf/{{ $werf->id }}/pump/{{ $pump->id }}">
+                            <div class="card l-bg-cherry">
+                                <div class="card-statistic-3 p-4">
+                                    <div class="card-icon card-icon-large"><i class="fas fa-droplet"></i></div>
+                                    <div class="mb-4">
+                                        <h5 class="card-title mb-0">{{ $pump->pumpname }}</h5>
+                                    </div>
+                                    <div class="row align-items-center mb-2 d-flex">
+                                        <div class="col-8">
+                                            <h2 class="d-flex align-items-center mb-0">
+                                                @if($pump->status)
+                                                    <p>Actief</p>
+                                                @else
+                                                    <p>Inactief</p>
+                                                @endif
+                                            </h2>
+                                        </div>
+
+                                        <div class="col-4 text-right">
+                                            @if($werf->frequention == 1)
+                                            <span>{{$pump->percentage}}% <i class="fa fa-arrow-up"></i></span>
+                                            @else
+                                                <span>Binair</span>
+                                                @endif
+                                        </div>
+                                    </div>
+                                    @if($werf->frequention == 1)
+                                    <div class="progress mt-1 " data-height="8" style="height: 8px;">
+                                        <div class="progress-bar l-bg-cyan" role="progressbar"
+                                             data-width="{{ $pump->percentage }}%"
+                                             aria-valuenow="{{ $pump->percentage }}" aria-valuemin="0"
+                                             aria-valuemax="100" style="width: {{ $pump->percentage }}%;"></div>
+                                    </div>
+                                        @endif
+                                </div>
+                            </div>
+                            </a>
+                        </div>
+                @endforeach
+                {{--                            <li style="list-style: none"><a href="/user/werf/{{ $werf->id }}/pump/{{ $pump->id }}">{{ $pump->pumpname }}</a></li>--}}
+
+
+            </div>
+        </div>
+        <div>
+            <div class="border">
+                <h4 class="mt-2">Waterniveau</h4>
+                <div id="chart_div2" class="mt-5"></div>
             </div>
 
-            <div>
-                <div class="border">
-                    <h4 class="mt-2">Waterniveau</h4>
-                <div id="chart_div2" class="mt-5"></div></div>
-
-                <div class="border mt-4">
-                    <h4 class="mt-2">Stroomverbruik</h4>
-            <div id="chart_div" class="mt-5"></div></div>
-
+            <div class="border mt-4">
+                <h4 class="mt-2">Stroomverbruik</h4>
+                <div id="chart_div" class="mt-5"></div>
             </div>
+
+        </div>
     @endauth
 
     <script type="text/javascript">
-        google.charts.load('current', {'packages':['corechart']});
+        google.charts.load('current', {'packages': ['corechart']});
         google.charts.setOnLoadCallback(drawChart1);
         google.charts.setOnLoadCallback(drawChart2);
+
         function drawChart1() {
             var data = new google.visualization.DataTable();
             data.addColumn('string', 'Pump');
@@ -65,14 +143,14 @@
 
             pumps.forEach(function (pump) {
 
-                    var sensorName = pump.sensor.name;
+                var sensorName = pump.sensor.name;
 
-                    if (!pumpData[sensorName]) {
-                        pumpData[sensorName] = {
-                            lastData: 0,
-                            firstData: 0
-                        };
-                    }
+                if (!pumpData[sensorName]) {
+                    pumpData[sensorName] = {
+                        lastData: 0,
+                        firstData: 0
+                    };
+                }
 
             });
 
@@ -104,16 +182,14 @@
 
             var options = {
                 title: 'Waterniveau per put',
-                hAxis: {
-
-                },
+                hAxis: {},
                 vAxis: {
                     title: 'Waterniveau in m'
                 },
-                legend: { position: 'top', maxLines: 3 },
+                legend: {position: 'top', maxLines: 3},
                 series: {
-                    0: { color: 'lightblue', labelInLegend: 'Huidige niveau' },
-                    1: { color: '#000058', labelInLegend: 'Start niveau' },
+                    0: {color: 'lightblue', labelInLegend: 'Huidige niveau'},
+                    1: {color: '#000058', labelInLegend: 'Start niveau'},
 
                 }
             };
@@ -131,7 +207,7 @@
             var pumps = @json($pumps);
 
             var pumpData = {};
-            pumps.forEach(function(pump) {
+            pumps.forEach(function (pump) {
 
                 pumpData[pump.pumpname] = {
                     sum: 0,
@@ -139,8 +215,8 @@
                 };
             });
 
-            pumps.forEach(function(pump) {
-                pump.powerconsumption.forEach(function(power_consumption) {
+            pumps.forEach(function (pump) {
+                pump.powerconsumption.forEach(function (power_consumption) {
                     pumpData[pump.pumpname].sum += power_consumption.usage;
                     pumpData[pump.pumpname].count++;
                 });
@@ -155,9 +231,7 @@
 
             var options = {
                 title: 'Gemiddelde Stroomverbruik per Pomp',
-                hAxis: {
-
-                },
+                hAxis: {},
                 vAxis: {
                     title: 'Stroom (kWh)'
                 },
@@ -171,7 +245,6 @@
 
             chart.draw(data, options);
         }
-
 
 
     </script>
