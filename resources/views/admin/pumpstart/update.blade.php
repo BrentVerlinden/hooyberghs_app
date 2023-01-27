@@ -16,10 +16,10 @@
                             @method('put')
                             @csrf
                             <div class="form-group ">
-                                <label for="depth">Diepte</label>
+                                <label for="depth">Diepte (in m)</label>
                                 <input type="text" name="depth" id="depth"
                                        class="form-control  @error('depth') is-invalid @enderror"
-                                       placeholder="Diepte"
+                                       placeholder="Diepte (bvb 3.5)"
                                        required>
                                 @error('depth')
                                 <div class="invalid-feedback">{{ $message }}</div>
