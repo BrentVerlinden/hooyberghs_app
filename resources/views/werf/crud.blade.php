@@ -17,16 +17,24 @@
             <thead>
             <tr>
 {{--                <th class="d-none d-md-table-cell">#</th>--}}
-                <th class="text-center">Naam</th>
-                <th class="text-center">Acties</th>
+                <th class="">Naam</th>
+                <th class="d-none d-md-table-cell text-center " style="vertical-align: middle;">Soort pompen</th>
+                <th class="text-right">Acties</th>
             </tr>
             </thead>
             <tbody>
             @foreach($werfs as $werf)
                 <tr>
 {{--                    <td class="">{{ $werf->id }}</td>--}}
-                    <td class="text-center">{{ $werf->name }}</td>
-                    <td class="text-center">
+                    <td class="">{{ $werf->name }}</td>
+                    <td class="d-none d-md-table-cell text-center" style="vertical-align: middle;">
+                        @if($werf->frequention == 1)
+                            Frequentiegestuurd
+                        @else
+                            Binair
+                        @endif
+                    </td>
+                    <td class="text-right">
                         <form action="/admin/werf/crud/{{ $werf->id }}" method="post">
                             @method('delete')
                             @csrf
