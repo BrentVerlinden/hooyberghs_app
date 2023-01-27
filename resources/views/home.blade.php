@@ -68,7 +68,7 @@
                             <a href="/user/werf/{{ $werf->id }}/pump/{{ $pump->id }}">
                             <div class="card l-bg-cherry">
                                 <div class="card-statistic-3 p-4">
-                                    <div class="card-icon card-icon-large"><i class="fas fa-droplet"></i></div>
+                                    <div class="card-icon card-icon-large"><i class="fas fa-wrench"></i></div>
                                     <div class="mb-4">
                                         <h5 class="card-title mb-0">{{ $pump->pumpname }}</h5>
                                     </div>
