@@ -2,7 +2,7 @@
 <nav class="navbar navbar-expand-md navbar-light shadow-sm">
     <div class="container">
         <a class="navbar-brand" href="/user/werf/{{$werf->id}}/home">
-            <img src="{{ asset('img/hooyberghs_logo_two.png') }}" alt="description of myimage" height="59" width="329"
+            <img src="{{ asset('img/hooyberghs_logo_two.png') }}" alt="hooyberghs logo" class="img-fluid" height="59" width="329"
             id="img-1">
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsNav">
