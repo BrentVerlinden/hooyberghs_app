@@ -109,13 +109,13 @@
 
             </div>
         </div>
-        <div>
-            <div class="border">
+        <div class="row">
+            <div class="border col-lg-6 col-sm-12">
                 <h4 class="mt-2">Waterniveau</h4>
                 <div id="chart_div2" class="mt-5"></div>
             </div>
 
-            <div class="border mt-4">
+            <div class="border col-lg-6 col-sm-12">
                 <h4 class="mt-2">Stroomverbruik</h4>
                 <div id="chart_div" class="mt-5"></div>
             </div>
