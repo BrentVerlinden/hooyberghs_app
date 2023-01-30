@@ -21,20 +21,20 @@
 
         @if($werf->frequention == 1)
             {{--            && $pump->error != 1--}}
-{{--            <p>Frequentiegestuurde pomp</p>--}}
+            {{--            <p>Frequentiegestuurde pomp</p>--}}
 
-          <p>Frequentie: <span  id="rangeValue"> {{$pump->percentage}} </span> </p>
+            <p>Frequentie: <span  id="rangeValue"> {{$pump->percentage}} </span> </p>
 
 
             <p>
                 @if($pump->percentage > 0)
                     @if(!$pump->error)
-                    <span class="logged-in">● </span>Actief
+                        <span class="logged-in">● </span>Actief
                     @endif
                 @else
                     @if(!$pump->error)
-                    <span class="logged-out">● </span>Inactief
-                    <br>
+                        <span class="logged-out">● </span>Inactief
+                        <br>
                     @endif
                 @endif
             </p>
@@ -55,12 +55,12 @@
             <p>
                 @if($pump->status)
                     @if(!$pump->error)
-                    <span class="logged-in">● </span>Actief
+                        <span class="logged-in">● </span>Actief
                     @endif
                 @else
                     @if(!$pump->error)
-                    <span class="logged-out">● </span>Inactief
-                    <br>
+                        <span class="logged-out">● </span>Inactief
+                        <br>
                     @endif
                 @endif
             </p>
@@ -87,10 +87,10 @@
 
         @if($pump->error == 1)
             <p><span class="errorr">● </span>Error</p>
-                    @if($pump->motif !== "" &&  $pump->motif !== null)
-                        <small>Reden: {{ $pump->motif }}</small>
-                    @else<small>Geen reden gevonden</small>
-                    @endif
+            @if($pump->motif !== "" &&  $pump->motif !== null)
+                <small>Reden: {{ $pump->motif }}</small>
+            @else<small>Geen reden gevonden</small>
+            @endif
             <br>
             <small class="mt-2">(Om de pomp error manueel te overschrijven moet je de pomp terug inschakelen)</small>
         @endif
@@ -101,40 +101,38 @@
 
 
                 <div class="row">
-                <div class="col-lg-12 col-sm-12">
-                    <div class="card mb-4 card-size">
-                        <h4 class="mt-2">Waterniveau</h4>
-                        <div id="filter4"></div>
-                        <div id="chart4" class="mt-5"></div>
+                    <div class="col-lg-12 col-sm-12">
+                        <div class="card mb-4 card-size">
+                            <h4 class="mt-2">Waterniveau</h4>
+                            <div id="filter4"></div>
+                            <div id="chart4" class="mt-5"></div>
+                        </div>
                     </div>
-                </div>
 
-                <div class="col-lg-12 col-sm-12">
-                    <div class="card mb-4 card-size">
-                        <h4 class="mt-2">Stroom</h4>
-                        <div id="filter3"></div>
-                        <div id="chart3" class="mt-5"></div>
+                    <div class="col-lg-12 col-sm-12">
+                        <div class="card mb-4 card-size">
+                            <h4 class="mt-2">Stroom</h4>
+                            <div id="filter3"></div>
+                            <div id="chart3" class="mt-5"></div>
+                        </div>
                     </div>
-                </div>
 
 
-
-
-                <div class="col-lg-12 col-sm-12">
-                    <div class="card mb-4 card-size">
-                        <h4 class="mt-2">Waterdebiet</h4>
-                        <div id="filter2"></div>
-                        <div id="chart2" class="mt-5"></div>
+                    <div class="col-lg-12 col-sm-12">
+                        <div class="card mb-4 card-size">
+                            <h4 class="mt-2">Waterdebiet</h4>
+                            <div id="filter2"></div>
+                            <div id="chart2" class="mt-5"></div>
+                        </div>
                     </div>
-                </div>
 
-{{--                <div class="mb-5"><h3>Verbruik KWH</h3>--}}
-{{--                    <div class="border ">--}}
-{{--                        <div id="filter_div"></div>--}}
+                    {{--                <div class="mb-5"><h3>Verbruik KWH</h3>--}}
+                    {{--                    <div class="border ">--}}
+                    {{--                        <div id="filter_div"></div>--}}
 
-{{--                        <div id="chart_div"></div>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
+                    {{--                        <div id="chart_div"></div>--}}
+                    {{--                    </div>--}}
+                    {{--                </div>--}}
 
                 </div>
             </div>
@@ -143,7 +141,7 @@
 
     </div>
 
-    <a href="/user/werf/{{$werf->id}}/home" class="btn btn-primary mt-3">Terug</a>
+    <a href="{{ url()->previous() }}" class="btn btn-primary mt-3">Terug</a>
 
 @endsection
 
@@ -153,7 +151,7 @@ power:data[0]['powerconsumption'][0]['power'][0]['power']
     google.charts.load('current', {'packages': ['corechart', 'controls']});
 
     // google.charts.setOnLoadCallback(drawChart1);//verbruik KWH
-    // google.charts.setOnLoadCallback(drawChart2);//Waterdebiet m3/S
+    google.charts.setOnLoadCallback(drawChart2);//Waterdebiet m3/S
     google.charts.setOnLoadCallback(drawChart3);//Stroom ampere
     google.charts.setOnLoadCallback(drawChart4);//Waterniveau
     function drawChart1() {
@@ -238,8 +236,8 @@ power:data[0]['powerconsumption'][0]['power'][0]['power']
         var chartData = [['Datum', 'Debiet']];
 
         data.forEach(function (flowrate) {
-           // console.log(flowrate);
-           chartData.push([new Date(flowrate.created_at), flowrate.flowrate]);
+            // console.log(flowrate);
+            chartData.push([new Date(flowrate.created_at), flowrate.flowrate]);
         });
 
 
@@ -388,7 +386,7 @@ power:data[0]['powerconsumption'][0]['power'][0]['power']
     function drawChart4() {
         var data = @json($pump);
         var chartData = [['Datum', 'Waterniveau']];
-console.log();
+        console.log();
         data.sensor.sensordatas.forEach(function (sensor) {
             chartData.push([new Date(sensor.created_at), sensor.water_level]);
 
