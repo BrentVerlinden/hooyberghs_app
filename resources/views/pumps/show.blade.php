@@ -144,7 +144,7 @@ power:data[0]['powerconsumption'][0]['power'][0]['power']
     google.charts.load('current', {'packages': ['corechart', 'controls']});
 
     // google.charts.setOnLoadCallback(drawChart1);//verbruik KWH
-    google.charts.setOnLoadCallback(drawChart2);//Waterdebiet m3/S
+    // google.charts.setOnLoadCallback(drawChart2);//Waterdebiet m3/S
     google.charts.setOnLoadCallback(drawChart3);//Stroom ampere
     google.charts.setOnLoadCallback(drawChart4);//Waterniveau
     function drawChart1() {
