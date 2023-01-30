@@ -29,25 +29,32 @@
                         @if(auth()->user()->admin)
                             <form action="/admin/werf/{{$werf->id}}/pumps" method="get">
                                 @csrf
-                                <button type="submit" class="dropdown-item"><i class="fas fa-sign-out-alt"></i> Pompen beheren
+                                <button type="submit" class="dropdown-item"> Pompen beheren
                                 </button>
                             </form>
+
                         <form action="/admin/werf/{{$werf->id}}/users" method="get">
                             @csrf
-                            <button type="submit" class="dropdown-item"><i class="fas fa-sign-out-alt"></i> Gebruikers beheren
+                            <button type="submit" class="dropdown-item"> Gebruikers beheren
                             </button>
                         </form>
 
+                            <form action="/admin/werf/{{ $werf->id }}/pumpsettings" method="get">
+                                @csrf
+                                <button type="submit" class="dropdown-item"> Automatisatie
+                                </button>
+                            </form>
+
                         <form action="/admin/werf/{{$werf->id}}/log" method="get">
                             @csrf
-                            <button type="submit" class="dropdown-item"><i class="fas fa-sign-out-alt"></i> Logboek
+                            <button type="submit" class="dropdown-item"> Logboek
                             </button>
                         </form>
                         @endif
 
                             <form action="/" method="get">
                                 @csrf
-                                <button type="submit" class="dropdown-item"><i class="fas fa-sign-out-alt"></i> Mijn werven
+                                <button type="submit" class="dropdown-item"> Mijn werven
                                 </button>
                             </form>
 
