@@ -75,27 +75,6 @@
 
             <div id="dashboard_div">
 
-
-                <div class="mb-5"><h3>Waterdebiet</h3>
-                    <div class=" border">
-                        <div id="filter2"></div>
-                        <div id="chart2"></div>
-                    </div>
-                </div>
-                <div class="mb-5"><h3>Verbruik KWH</h3>
-                    <div class="border ">
-                        <div id="filter_div"></div>
-
-                        <div id="chart_div"></div>
-                    </div>
-                </div>
-                <div class="mb-5"><h3>Stroom </h3>
-                    <div class="border ">
-                        <div id="filter3"></div>
-
-                        <div id="chart3"></div>
-                    </div>
-                </div>
                 <div class="mb-5"><h3>Waterniveau </h3>
                     <div class="border ">
                         <div id="filter4"></div>
@@ -103,6 +82,29 @@
                         <div id="chart4"></div>
                     </div>
                 </div>
+
+                <div class="mb-5"><h3>Stroom </h3>
+                    <div class="border ">
+                        <div id="filter3"></div>
+
+                        <div id="chart3"></div>
+                    </div>
+                </div>
+                <div class="mb-5"><h3>Waterdebiet</h3>
+                    <div class=" border">
+                        <div id="filter2"></div>
+                        <div id="chart2"></div>
+                    </div>
+                </div>
+{{--                <div class="mb-5"><h3>Verbruik KWH</h3>--}}
+{{--                    <div class="border ">--}}
+{{--                        <div id="filter_div"></div>--}}
+
+{{--                        <div id="chart_div"></div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+
+
             </div>
         </div>
 
