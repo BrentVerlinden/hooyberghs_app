@@ -13,19 +13,46 @@
 @section('main')
 
     <div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
         <div class="fixedmt"></div>
         <h1 class="pump">{{$pump->pumpname}}</h1>
 
         @if($werf->frequention == 1)
             <p>Frequentiegestuurde pomp</p>
-            <p id="percentage">Frequentie: {{$pump->percentage}}</p>
-
+          <span>Frequentie: <span id="rangeValue">0</span> </span>
             @if(auth()->user()->admin && $pump->automatic == 0)
                 <form>
                     @csrf
-                    <input type="range" min="0" max="100"
-                           value="{{ old('percentage', $pump->percentage) }}"
-                           class="slider" id="range-slider">
+                    <div>
+
+                        <Input  class="slider"  type="range" value="{{ old('percentage', $pump->percentage) }}" min="0" max="100" onChange="rangeSlide(this.value)" id="range-slider" onmousemove="rangeSlide(this.value)"></Input>
+                    </div>
+
                 </form>
                 @endif
         @if($pump->status == 0)
@@ -120,7 +147,7 @@ power:data[0]['powerconsumption'][0]['power'][0]['power']
 <script type="text/javascript">
     google.charts.load('current', {'packages': ['corechart', 'controls']});
 
-    google.charts.setOnLoadCallback(drawChart1);//verbruik KWH
+    // google.charts.setOnLoadCallback(drawChart1);//verbruik KWH
     google.charts.setOnLoadCallback(drawChart2);//Waterdebiet m3/S
     google.charts.setOnLoadCallback(drawChart3);//Stroom ampere
     google.charts.setOnLoadCallback(drawChart4);//Waterniveau
@@ -429,30 +456,45 @@ console.log();
         dashboard.draw(defaultView);
     }
 
+    function rangeSlide(value) {
+        document.getElementById('rangeValue').innerHTML = value;
+    }
 
-    $(document).ready(function() {
-        $("#range-slider").on("input", function() {
-            var sliderValue = $(this).val();
-            // send an AJAX request to the server with the new value
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-            $.ajax({
-                type: "POST",
-                url: "/admin/werf/{{ $werf->id }}/pump/{{ $pump->id }}/handle-value-change",
-                data: {range_slider: sliderValue},
-                success: function (data) {
-                    // handle the response from the server
-                    $("#percentage").text(sliderValue);
-                    console.log("done bitch");
-                }
-            });
-        });
-    });
 
 
 
 </script>
 
+<style>
+    #rangeValue {
+        position: relative;
+        display: block;
+        text-align: center;
+        font-size: 2em;
+        color: #999;
+        font-weight: 400;
+    }
+
+    .range {
+        width: 400px;
+        height: 15px;
+        -webkit-appearance: none;
+        background: #111;
+        outline: none;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: inset 0 0 5px rgba(0, 0, 0, 1);
+    }
+
+    .range::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        background: #00fd0a;
+        cursor: pointer;
+        border: 4px solid #333;
+        box-shadow: -407px 0 0 400px #00fd0a;
+    }
+
+</style>
