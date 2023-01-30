@@ -134,7 +134,7 @@
 
     </div>
 
-    <a href="{{ url()->previous() }}" class="btn btn-primary mt-3">Terug</a>
+    <a href="/user/werf/{{$werf->id}}/home" class="btn btn-primary mt-3">Terug</a>
 
 @endsection
 
