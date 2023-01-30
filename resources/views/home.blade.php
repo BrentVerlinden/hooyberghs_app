@@ -230,7 +230,7 @@
             var options = {
                 title: 'Waterniveau per Put',
                 hAxis: {},
-                vAxis: { title: 'Waterniveau (m)' },
+                vAxis: { title: 'Waterniveau (TAW)' },
                 legend: { position: 'top', maxLines: 3 },
                 series: {
                     0: { color: '#7bbded', labelInLegend: 'Huidige waterniveau' },
