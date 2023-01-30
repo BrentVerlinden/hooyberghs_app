@@ -15,30 +15,6 @@
     <div>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
         <div class="fixedmt"></div>
         <h1 class="pump">{{$pump->pumpname}}</h1>
 
@@ -46,9 +22,8 @@
             {{--            && $pump->error != 1--}}
             <p>Frequentiegestuurde pomp</p>
 
-          <span>Frequentie: <span id="rangeValue">0</span> </span>
+          <p>Frequentie: <span  id="rangeValue"> {{$pump->percentage}} </span> </p>
 
-            <p id="percentage">Frequentie: {{$pump->percentage}}</p>
 
             <p>
                 @if($pump->percentage > 0)
@@ -481,20 +456,32 @@ console.log();
         document.getElementById('rangeValue').innerHTML = value;
     }
 
-
+    $(document).ready(function() {
+        $("#range-slider").on("input", function() {
+            var sliderValue = $(this).val();
+            // send an AJAX request to the server with the new value
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                type: "POST",
+                url: "/admin/werf/{{ $werf->id }}/pump/{{ $pump->id }}/handle-value-change",
+                data: {range_slider: sliderValue},
+                success: function (data) {
+                    // handle the response from the server
+                    $("#percentage").text(sliderValue);
+                    window.location.reload();
+                }
+            });
+        });
+    });
 
 
 </script>
 
 <style>
-    #rangeValue {
-        position: relative;
-        display: block;
-        text-align: center;
-        font-size: 2em;
-        color: #999;
-        font-weight: 400;
-    }
 
     .range {
         width: 400px;

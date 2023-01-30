@@ -11097,6 +11097,10 @@ nav a {
   color: #07f737;
 }
 
+.errorr {
+  color: orange;
+}
+
 .logged-out {
   color: red;
 }
@@ -11126,7 +11130,7 @@ nav a {
 }
 
 .l-bg-orange-dark {
-  background: linear-gradient(to right, #a86008, #ffba56) !important;
+  background: linear-gradient(to right, #a86008, #ffba52) !important;
   color: #fff;
 }
 
