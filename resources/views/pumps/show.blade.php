@@ -479,7 +479,7 @@ power:data[0]['powerconsumption'][0]['power'][0]['power']
                 success: function (data) {
                     // handle the response from the server
                     $("#percentage").text(sliderValue);
-                    window.location.reload();
+                    // window.location.reload();
                 }
             });
         });
