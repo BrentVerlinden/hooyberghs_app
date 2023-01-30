@@ -11,8 +11,7 @@
 {{--    <h1>Welkom in {{$werf->name}}, {{ auth()->user()->name }}!</h1>--}}
     {{--    <h3>Ingelogd in {{$werf->name}}</h3>--}}
     @if(auth()->user()->admin)
-        <div class="mt-2"><a href="/admin/werf/{{ $werf->id }}/pumpsettings" class="align-content-center text-center">Pompinstellingen
-                werf</a></div>
+        <div class="mt-2 text-left ml-4 txtbg"><a href="/admin/werf/{{ $werf->id }}/pumpsettings" class="align-content-center text-center"><i class="fa-solid fa-gear"></i> Automatisatie</a></div>
 
     @endif
     <br>
@@ -20,7 +19,7 @@
         <p>Please login...</p>
     @endguest
     @auth
-        <div class="container-fluid py-4">
+        <div class="container-fluid pb-4 pt-2">
             <div class="row">
                 @foreach($active_pumps ?? '' as $pump)
                     <div class="col-xl-3 col-lg-6">
@@ -137,6 +136,7 @@
 
         </div>
         <div class="row"></div>
+        @if(count($logs) > 0)
         <div class="col-lg-12 col-sm-12">
             <div class="card mb-4">
             <div class="card-body p-3 pb-0">
@@ -184,26 +184,13 @@
                     </table>
 {{--                    {{ $logs->withQueryString()->links() }}--}}
                 </div>
+
             </div>
             </div>
-
-
-
-
-
-
-
-
-
-{{--            <div class="card mb-4 card-size">--}}
-{{--                <h4 class="mt-2">Logs</h4>--}}
-{{--                @foreach($logs as $log)--}}
-{{--                    <p>{{$log->nameLog}}: {{$log->description}}</p>--}}
-{{--                    <hr>--}}
-
-{{--                @endforeach--}}
-{{--            </div>--}}
         </div>
+        @else
+            <p>Geen error logs gevonden</p>
+        @endif
     @endauth
 
     <script type="text/javascript">
