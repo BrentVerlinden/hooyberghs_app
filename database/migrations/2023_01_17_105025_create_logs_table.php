@@ -17,7 +17,7 @@ class CreateLogsTable extends Migration
             $table->id();
             $table->string('description');
             $table->string('nameLog');
-            $table->dateTime('date'); //andere variable?
+            $table->dateTime('date')->useCurrent(); //andere variable?
             $table->foreignId('user_id')->nullable();
             $table->foreignId('pump_id')->nullable();
             $table->foreignId('sensor_id')->nullable();
