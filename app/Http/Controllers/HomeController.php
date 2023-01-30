@@ -30,12 +30,10 @@ class HomeController extends Controller
 
         $pumps = Pump::with('powerconsumption', 'sensor.sensordatas')->where('werf_id', $werfid)->get();
 
-//        $active_pumps = Pump::where('werf_id', $werfid)->where('error', 0)->where('status', true)->orWhere('percentage', '>', 0)->get();
-//        $inactive_pumps = Pump::where('werf_id', $werfid)->where(function($query) {
-//            $query->where('status', false)
-//                ->orWhere('percentage', 0)
-//                ->orWhere('error', 1);
-//        })->get();
+        $pump_count = Pump::where('werf_id', $werfid)->count();
+        $logs = Log::where('nameLog', 'error')->where('werf_id', $werfid)->take(($pump_count))->get();
+
+
 
         $werf = Werf::find($werfid);
 
@@ -85,6 +83,7 @@ class HomeController extends Controller
         return view('home', [
             'active_pumps' => $active_pumps,
             'inactive_pumps' => $inactive_pumps,'pumps'=>$pumps,
+            'logs' => $logs,
             'error_pumps' => $error_pumps,
             'werf' => $werf
         ]);

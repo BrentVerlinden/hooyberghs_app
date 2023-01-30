@@ -8,7 +8,7 @@
 
 @section('main')
     <div class="fixedmt"></div>
-    <h1>Welkom in {{$werf->name}}, {{ auth()->user()->name }}!</h1>
+{{--    <h1>Welkom in {{$werf->name}}, {{ auth()->user()->name }}!</h1>--}}
     {{--    <h3>Ingelogd in {{$werf->name}}</h3>--}}
     @if(auth()->user()->admin)
         <div class="mt-2"><a href="/admin/werf/{{ $werf->id }}/pumpsettings" class="align-content-center text-center">Pompinstellingen
@@ -123,9 +123,11 @@
             </div>
         </div>
         <div class="row">
-            <div class="border col-lg-12 col-sm-12">
+            <div class="col-lg-12 col-sm-12">
+                <div class="card mb-4 card-size">
                 <h4 class="mt-2">Waterniveau</h4>
                 <div id="chart_div2" class="mt-5"></div>
+                </div>
             </div>
 
 {{--            <div class="border col-lg-6 col-sm-12">--}}
@@ -133,6 +135,74 @@
 {{--                <div id="chart_div" class="mt-5"></div>--}}
 {{--            </div>--}}
 
+        </div>
+        <div class="row"></div>
+        <div class="col-lg-12 col-sm-12">
+            <div class="card mb-4">
+            <div class="card-body p-3 pb-0">
+{{--                <ul class="list-group">--}}
+{{--                    @foreach($logs as $log)--}}
+{{--                    <li--}}
+{{--                        class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">--}}
+{{--                        <div class="d-flex flex-column">--}}
+{{--                            <h6 class="mb-1 text-dark font-weight-bold text-sm">{{$log->nameLog}}</h6>--}}
+{{--                            <span class="text-xs">{{$log->date}}</span>--}}
+{{--                        </div>--}}
+{{--                        <div class="d-flex align-items-center text-sm">--}}
+
+{{--                            <p class="btn btn-link text-dark text-sm mb-0 px-0 ms-4"><i--}}
+{{--                                    class="material-icons text-lg position-relative me-1"></i>--}}
+{{--                                {{$log->description}}--}}
+{{--                                </p>--}}
+{{--                        </div>--}}
+{{--                    </li>--}}
+{{--                    @endforeach--}}
+{{--                 </ul>--}}
+
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th class="d-none d-md-table-cell">Naam</th>
+                            <th>Beschrijving</th>
+                            <th>Tijd</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($logs as $log)
+                            <tr>
+                                {{--                    <td class="d-none d-md-table-cell">{{ $user->id }}</td>--}}
+                                <td class="d-none d-md-table-cell">{{ $log->nameLog }}</td>
+                                <td class="">{{ $log->description }}</td>
+                                <td>{{ date("d/m/Y H:i:s", strtotime($log->date)) }}</td>
+                            </tr>
+                            </form>
+                            </td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+{{--                    {{ $logs->withQueryString()->links() }}--}}
+                </div>
+            </div>
+            </div>
+
+
+
+
+
+
+
+
+
+{{--            <div class="card mb-4 card-size">--}}
+{{--                <h4 class="mt-2">Logs</h4>--}}
+{{--                @foreach($logs as $log)--}}
+{{--                    <p>{{$log->nameLog}}: {{$log->description}}</p>--}}
+{{--                    <hr>--}}
+
+{{--                @endforeach--}}
+{{--            </div>--}}
         </div>
     @endauth
 
