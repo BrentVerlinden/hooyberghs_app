@@ -110,15 +110,15 @@
             </div>
         </div>
         <div class="row">
-            <div class="border col-lg-6 col-sm-12">
+            <div class="border col-lg-12 col-sm-12">
                 <h4 class="mt-2">Waterniveau</h4>
                 <div id="chart_div2" class="mt-5"></div>
             </div>
 
-            <div class="border col-lg-6 col-sm-12">
-                <h4 class="mt-2">Stroomverbruik</h4>
-                <div id="chart_div" class="mt-5"></div>
-            </div>
+{{--            <div class="border col-lg-6 col-sm-12">--}}
+{{--                <h4 class="mt-2">Stroomverbruik</h4>--}}
+{{--                <div id="chart_div" class="mt-5"></div>--}}
+{{--            </div>--}}
 
         </div>
     @endauth
@@ -131,74 +131,47 @@
         function drawChart1() {
             var data = new google.visualization.DataTable();
             data.addColumn('string', 'Pump');
-            data.addColumn('number', 'Huidige niveau');
-            data.addColumn('number', 'Waterlevel');
+            data.addColumn('number', 'Huidge niveau');
             data.addColumn({type: 'string', role: 'style'});
 
             var pumps = @json($pumps);
             var pumpData = {};
-            var total = 0;
-            var total_first = 0;
-            var count = 0;
 
             pumps.forEach(function (pump) {
-
                 var sensorName = pump.sensor.name;
-
                 if (!pumpData[sensorName]) {
-                    pumpData[sensorName] = {
-                        lastData: 0,
-                        firstData: 0
-                    };
+                    pumpData[sensorName] = { lastData: 0 };
                 }
-
             });
 
             pumps.forEach(function (pump) {
                 var sensorName = pump.sensor.name;
-                console.log(pump.sensor.sensordatas);
                 pump.sensor.sensordatas.forEach(function (sensor) {
-
-
-                    if (pumpData[sensorName].firstData == 0) {
-                        pumpData[sensorName].firstData = sensor.water_level;
-                    }
                     pumpData[sensorName].lastData = sensor.water_level;
-                    total += sensor.water_level;
-                    total_first += pumpData[sensorName].firstData;
-                    count++;
                 });
             });
 
-
             var dataArray = [];
             for (var pumpname in pumpData) {
-                dataArray.push([pumpname, pumpData[pumpname].lastData, pumpData[pumpname].firstData, '#000058']);
+                dataArray.push([pumpname, pumpData[pumpname].lastData, '#7bbded']);
             }
-            var average = total / count;
-            var average_first = total_first / count;
-            dataArray.push(["Waterniveau werf", average, average_first, 'darkgray']);
             data.addRows(dataArray);
 
             var options = {
-                title: 'Waterniveau per put',
+                title: 'Water Level per Pump',
                 hAxis: {},
-                vAxis: {
-                    title: 'Waterniveau in m'
-                },
-                legend: {position: 'top', maxLines: 3},
+                vAxis: { title: 'Water Level (m)' },
+                legend: { position: 'top', maxLines: 3 },
                 series: {
-                    0: {color: 'lightblue', labelInLegend: 'Huidige niveau'},
-                    1: {color: '#000058', labelInLegend: 'Start niveau'},
-
+                    0: { color: '#7bbded', labelInLegend: 'Huidige waterniveau' },
                 }
             };
             var chart = new google.visualization.ColumnChart(
-                document.getElementById('chart_div2'));
+                document.getElementById('chart_div2')
+            );
 
             chart.draw(data, options);
         }
-
         function drawChart2() {
             var data = new google.visualization.DataTable();
             data.addColumn('string', 'Pump');
