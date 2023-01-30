@@ -426,7 +426,7 @@ power:data[0]['powerconsumption'][0]['power'][0]['power']
                     format: "MMM d, yyyy HH:mm"
                 },
                 vAxis: {
-                    title: 'Meter'
+                    title: 'TAW'
                 },
                 series: {
                     0: {color: 'black'}
