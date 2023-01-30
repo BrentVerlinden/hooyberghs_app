@@ -17,10 +17,11 @@
 
         <div class="fixedmt"></div>
         <h1 class="pump">{{$pump->pumpname}}</h1>
+        <p>{{$pump->location}}</p>
 
         @if($werf->frequention == 1)
             {{--            && $pump->error != 1--}}
-            <p>Frequentiegestuurde pomp</p>
+{{--            <p>Frequentiegestuurde pomp</p>--}}
 
           <p>Frequentie: <span  id="rangeValue"> {{$pump->percentage}} </span> </p>
 
@@ -98,27 +99,33 @@
 
             <div id="dashboard_div">
 
-                <div class="mb-5"><h3>Waterniveau </h3>
-                    <div class="border ">
+
+                <div class="row">
+                <div class="col-lg-12 col-sm-12">
+                    <div class="card mb-4 card-size">
+                        <h4 class="mt-2">Waterniveau</h4>
                         <div id="filter4"></div>
-
-                        <div id="chart4"></div>
+                        <div id="chart4" class="mt-5"></div>
                     </div>
                 </div>
 
-                <div class="mb-5"><h3>Stroom </h3>
-                    <div class="border ">
+                <div class="col-lg-12 col-sm-12">
+                    <div class="card mb-4 card-size">
+                        <h4 class="mt-2">Stroom</h4>
                         <div id="filter3"></div>
+                        <div id="chart3" class="mt-5"></div>
+                    </div>
+                </div>
 
-                        <div id="chart3"></div>
-                    </div>
-                </div>
-                <div class="mb-5"><h3>Waterdebiet</h3>
-                    <div class=" border">
+
+                <div class="col-lg-12 col-sm-12">
+                    <div class="card mb-4 card-size">
+                        <h4 class="mt-2">Waterdebiet</h4>
                         <div id="filter2"></div>
-                        <div id="chart2"></div>
+                        <div id="chart2" class="mt-5"></div>
                     </div>
                 </div>
+
 {{--                <div class="mb-5"><h3>Verbruik KWH</h3>--}}
 {{--                    <div class="border ">--}}
 {{--                        <div id="filter_div"></div>--}}
@@ -127,7 +134,7 @@
 {{--                    </div>--}}
 {{--                </div>--}}
 
-
+                </div>
             </div>
         </div>
 
