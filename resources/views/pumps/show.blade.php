@@ -43,8 +43,26 @@
         <h1 class="pump">{{$pump->pumpname}}</h1>
 
         @if($werf->frequention == 1)
+            {{--            && $pump->error != 1--}}
             <p>Frequentiegestuurde pomp</p>
+
           <span>Frequentie: <span id="rangeValue">0</span> </span>
+
+            <p id="percentage">Frequentie: {{$pump->percentage}}</p>
+
+            <p>
+                @if($pump->percentage > 0)
+                    @if(!$pump->error)
+                    <span class="logged-in">● </span>Actief
+                    @endif
+                @else
+                    @if(!$pump->error)
+                    <span class="logged-out">● </span>Inactief
+                    <br>
+                    @endif
+                @endif
+            </p>
+
             @if(auth()->user()->admin && $pump->automatic == 0)
                 <form>
                     @csrf
@@ -54,50 +72,53 @@
                     </div>
 
                 </form>
-                @endif
-        @if($pump->status == 0)
-            @if($pump->motif !== "" &&  $pump->motif !== null)
-                <small>Reden: {{ $pump->motif }}</small>
-            @else<small>Geen reden gevonden</small>
-            @endif
             @endif
         @endif
 
         @if($werf->frequention == 0)
-        <p>Status:
-            @if($pump->status)
-                <span class="logged-in">●</span> Actief
-            @else
-                <span class="logged-out">●</span>  Inactief
-                <br>
-                @if($pump->motif !== "" &&  $pump->motif !== null)
-                    <small>Reden: {{ $pump->motif }}</small>
-                @else<small>Geen reden gevonden</small>
-                @endif
-            @endif
-        </p>
-
-
-
-        @if(auth()->user()->admin && $pump->automatic == 0)
-            <form action="/admin/werf/{{ $werf->id }}/pump/{{ $pump->id }}" method="POST">
-                @csrf
-                @method('PATCH')
-                <label for="status">
-                    @if($pump->status)
-                        Pomp uitschakelen?
-                    @else
-                        Pomp inschakelen?
+            <p>
+                @if($pump->status)
+                    @if(!$pump->error)
+                    <span class="logged-in">● </span>Actief
                     @endif
-                </label>
-                <div class="toggle-switch round">
-                    <input type="checkbox" name="status" id="status"
-                           onchange="this.form.submit()" {{ $pump->status ? 'checked' : ''}}>
-                    <label for="status"></label>
-                </div>
-            </form>
+                @else
+                    @if(!$pump->error)
+                    <span class="logged-out">● </span>Inactief
+                    <br>
+                    @endif
+                @endif
+            </p>
+
+            @if(auth()->user()->admin && $pump->automatic == 0)
+                <form action="/admin/werf/{{ $werf->id }}/pump/{{ $pump->id }}" method="POST">
+                    @csrf
+                    @method('PATCH')
+                    <label for="status">
+                        @if($pump->status)
+                            Pomp uitschakelen?
+                        @else
+                            Pomp inschakelen?
+                        @endif
+                    </label>
+                    <div class="toggle-switch round">
+                        <input type="checkbox" name="status" id="status"
+                               onchange="this.form.submit()" {{ $pump->status ? 'checked' : ''}}>
+                        <label for="status"></label>
+                    </div>
+                </form>
+            @endif
         @endif
+
+        @if($pump->error == 1)
+            <p><span class="errorr">● </span>Error</p>
+                    @if($pump->motif !== "" &&  $pump->motif !== null)
+                        <small>Reden: {{ $pump->motif }}</small>
+                    @else<small>Geen reden gevonden</small>
+                    @endif
+            <br>
+            <small class="mt-2">(Om de pomp error manueel te overschrijven moet je de pomp terug inschakelen)</small>
         @endif
+
         <div class="mt-5">
 
             <div id="dashboard_div">
