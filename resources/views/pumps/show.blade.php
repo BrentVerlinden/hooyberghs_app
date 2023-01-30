@@ -485,22 +485,6 @@ power:data[0]['powerconsumption'][0]['power'][0]['power']
         });
     });
 
-    // var intervalId = setInterval(function() {
-    //     redrawCharts();
-    // }, 2000);
-    //
-    // function redrawCharts() {
-    //     // google.charts.setOnLoadCallback(drawChart1);//verbruik KWH
-    //     drawChart2();//Waterdebiet m3/S
-    //     drawChart3();//Stroom ampere
-    //     drawChart4();//Waterniveau
-    //
-    //     google.charts.setOnLoadCallback(drawChart2);//Waterdebiet m3/S
-    //     google.charts.setOnLoadCallback(drawChart3);//Stroom ampere
-    //     google.charts.setOnLoadCallback(drawChart4);//Waterniveau
-    //     // Your code to redraw the charts here
-    // }
-
 
 </script>
 
