@@ -11,89 +11,107 @@
     <link rel="shortcut icon" href="{{ asset('/img/hooyberghs_logo_one.jpg') }}">
 </head>
 @section('main')
+    <div class="fixedmt"></div>
+    <div class="container-fluid pb-4 pt-2">
+
+            <div class="card l-bg-gray">
+                <div class="card-statistic-3 p-4">
+                    <div class="card-icon card-icon-large mr-3"><i class="fas fa-circle-info"></i></div>
+                    <div class="mb-4">
+                        <h2 class="card-title mb-0">{{ $pump->pumpname }}</h2>
+                    </div>
+
+                    <p style="font-size: 1rem;">Locatie: {{$pump->location}}</p>
+                    @if($werf->frequention == 1)
+                        {{--            && $pump->error != 1--}}
+                        {{--            <p>Frequentiegestuurde pomp</p>--}}
+
+                        <p style="font-size: 1rem;">Frequentie: <span  id="rangeValue"> {{$pump->percentage}} </span> </p>
+
+
+                        <p style="font-size: 1rem;">
+                            @if($pump->percentage > 0)
+                                @if(!$pump->error)
+                                    <span class="logged-in">● </span>Actief
+                                @endif
+                            @else
+                                @if(!$pump->error)
+                                    <span class="logged-out">● </span>Inactief
+                                    <br>
+                                @endif
+                            @endif
+                        </p>
+
+                        @if(auth()->user()->admin && $pump->automatic == 0)
+                            <form>
+                                @csrf
+                                <div >
+                                    <div>
+                                        <input class="slider" type="range" value="{{ old('percentage', $pump->percentage) }}" min="0" max="100" onChange="rangeSlide(this.value)" id="range-slider" onmousemove="rangeSlide(this.value)">
+                                    </div>
+                                </div>
+
+                            </form>
+                        @endif
+                    @endif
+
+                    @if($werf->frequention == 0)
+                        <p>
+                            @if($pump->status)
+                                @if(!$pump->error)
+                                    <span class="logged-in">● </span>Actief
+                                @endif
+                            @else
+                                @if(!$pump->error)
+                                    <span class="logged-out">● </span>Inactief
+                                    <br>
+                                @endif
+                            @endif
+                        </p>
+
+                        @if(auth()->user()->admin && $pump->automatic == 0)
+                            <form action="/admin/werf/{{ $werf->id }}/pump/{{ $pump->id }}" method="POST">
+                                @csrf
+                                @method('PATCH')
+                                <label for="status">
+                                    @if($pump->status)
+                                        Pomp uitschakelen?
+                                    @else
+                                        Pomp inschakelen?
+                                    @endif
+                                </label>
+                                <div class="toggle-switch round">
+                                    <input type="checkbox" name="status" id="status"
+                                           onchange="this.form.submit()" {{ $pump->status ? 'checked' : ''}}>
+                                    <label for="status"></label>
+                                </div>
+                            </form>
+                        @endif
+                    @endif
+
+                    @if($pump->error == 1)
+                        <p><span class="errorr">● </span>Error</p>
+                        @if($pump->motif !== "" &&  $pump->motif !== null)
+                            <small>Reden: {{ $pump->motif }}</small>
+                        @else<small>Geen reden gevonden</small>
+                        @endif
+                        <br>
+                        <small class="mt-2">(Om de pomp error manueel te overschrijven moet je de pomp terug inschakelen)</small>
+                    @endif
+                </div>
+            </div>
+    </div>
+
+
+
 
     <div>
 
 
-        <div class="fixedmt"></div>
-        <h1 class="pump">{{$pump->pumpname}}</h1>
-        <p>{{$pump->location}}</p>
-
-        @if($werf->frequention == 1)
-            {{--            && $pump->error != 1--}}
-            {{--            <p>Frequentiegestuurde pomp</p>--}}
-
-            <p>Frequentie: <span  id="rangeValue"> {{$pump->percentage}} </span> </p>
 
 
-            <p>
-                @if($pump->percentage > 0)
-                    @if(!$pump->error)
-                        <span class="logged-in">● </span>Actief
-                    @endif
-                @else
-                    @if(!$pump->error)
-                        <span class="logged-out">● </span>Inactief
-                        <br>
-                    @endif
-                @endif
-            </p>
 
-            @if(auth()->user()->admin && $pump->automatic == 0)
-                <form>
-                    @csrf
-                    <div>
 
-                        <Input  class="slider"  type="range" value="{{ old('percentage', $pump->percentage) }}" min="0" max="100" onChange="rangeSlide(this.value)" id="range-slider" onmousemove="rangeSlide(this.value)"></Input>
-                    </div>
-
-                </form>
-            @endif
-        @endif
-
-        @if($werf->frequention == 0)
-            <p>
-                @if($pump->status)
-                    @if(!$pump->error)
-                        <span class="logged-in">● </span>Actief
-                    @endif
-                @else
-                    @if(!$pump->error)
-                        <span class="logged-out">● </span>Inactief
-                        <br>
-                    @endif
-                @endif
-            </p>
-
-            @if(auth()->user()->admin && $pump->automatic == 0)
-                <form action="/admin/werf/{{ $werf->id }}/pump/{{ $pump->id }}" method="POST">
-                    @csrf
-                    @method('PATCH')
-                    <label for="status">
-                        @if($pump->status)
-                            Pomp uitschakelen?
-                        @else
-                            Pomp inschakelen?
-                        @endif
-                    </label>
-                    <div class="toggle-switch round">
-                        <input type="checkbox" name="status" id="status"
-                               onchange="this.form.submit()" {{ $pump->status ? 'checked' : ''}}>
-                        <label for="status"></label>
-                    </div>
-                </form>
-            @endif
-        @endif
-
-        @if($pump->error == 1)
-            <p><span class="errorr">● </span>Error</p>
-            @if($pump->motif !== "" &&  $pump->motif !== null)
-                <small>Reden: {{ $pump->motif }}</small>
-            @else<small>Geen reden gevonden</small>
-            @endif
-            <br>
-            <small class="mt-2">(Om de pomp error manueel te overschrijven moet je de pomp terug inschakelen)</small>
-        @endif
 
         <div class="mt-5">
 
@@ -479,7 +497,7 @@ power:data[0]['powerconsumption'][0]['power'][0]['power']
                 success: function (data) {
                     // handle the response from the server
                     $("#percentage").text(sliderValue);
-                    // window.location.reload();
+
                 }
             });
         });
@@ -491,7 +509,7 @@ power:data[0]['powerconsumption'][0]['power'][0]['power']
 <style>
 
     .range {
-        width: 400px;
+        width: 200px;
         height: 15px;
         -webkit-appearance: none;
         background: #111;
@@ -511,5 +529,29 @@ power:data[0]['powerconsumption'][0]['power'][0]['power']
         border: 4px solid #333;
         box-shadow: -407px 0 0 400px #00fd0a;
     }
+    input[type=range] {
+        -webkit-appearance: none;
+        background-color:
+            #ccd4ed;
+        width: 50%;
+        height: 20px;
+        border-radius: 10px;
+    }
 
+    /*input[type=range]:focus {*/
+    /*    outline: none;*/
+    /*}*/
+
+    /*input[type=range]::-webkit-slider-thumb {*/
+    /*    -webkit-appearance: none;*/
+    /*    width: 20px;*/
+    /*    height: 20px;*/
+    /*    background-color: white;*/
+    /*    border-radius: 50%;*/
+    /*    cursor: pointer;*/
+    /*}*/
+.slider{
+
+
+}
 </style>
