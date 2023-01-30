@@ -34,11 +34,7 @@
                                 <div class="row align-items-center mb-2 d-flex">
                                     <div class="col-8">
                                         <h2 class="d-flex align-items-center mb-0">
-                                            @if($pump->status)
-                                                <p>Actief</p>
-                                            @else
-                                                <p>Inactief</p>
-                                            @endif
+                                            <p>Actief</p>
                                         </h2>
                                     </div>
 
@@ -63,23 +59,40 @@
                         </a>
                     </div>
                 @endforeach
+                    @foreach($error_pumps ?? '' as $pump)
+                        <div class="col-xl-3 col-lg-6">
+                            <a href="/user/werf/{{ $werf->id }}/pump/{{ $pump->id }}">
+                                <div class="card l-bg-orange-dark">
+                                    <div class="card-statistic-3 p-4">
+                                        <div class="card-icon card-icon-large"><i class="fas fa-wrench"></i></div>
+                                        <div class="mb-4">
+                                            <h5 class="card-title mb-0">{{ $pump->pumpname }}</h5>
+                                        </div>
+                                    </div>
+                                    <div class="row align-items-center mb-2 d-flex">
+                                        <div class="col-8">
+                                            <h2 class="d-flex align-items-center ml-4">
+                                                <p>Error</p>
+                                            </h2>
+                                        </div>
+                                </div>
+                                </div>
+                            </a>
+                        </div>
+                    @endforeach
                 @foreach($inactive_pumps ?? '' as $pump)
                         <div class="col-xl-3 col-lg-6">
                             <a href="/user/werf/{{ $werf->id }}/pump/{{ $pump->id }}">
                             <div class="card l-bg-cherry">
                                 <div class="card-statistic-3 p-4">
-                                    <div class="card-icon card-icon-large"><i class="fas fa-wrench"></i></div>
+                                    <div class="card-icon card-icon-large"><i class="fas fa-power-off"></i></div>
                                     <div class="mb-4">
                                         <h5 class="card-title mb-0">{{ $pump->pumpname }}</h5>
                                     </div>
                                     <div class="row align-items-center mb-2 d-flex">
                                         <div class="col-8">
                                             <h2 class="d-flex align-items-center mb-0">
-                                                @if($pump->status)
-                                                    <p>Actief</p>
-                                                @else
-                                                    <p>Inactief</p>
-                                                @endif
+                                                <p>Inactief</p>
                                             </h2>
                                         </div>
 

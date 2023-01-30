@@ -30,18 +30,62 @@ class HomeController extends Controller
 
         $pumps = Pump::with('powerconsumption', 'sensor.sensordatas')->where('werf_id', $werfid)->get();
 
+//        $active_pumps = Pump::where('werf_id', $werfid)->where('error', 0)->where('status', true)->orWhere('percentage', '>', 0)->get();
+//        $inactive_pumps = Pump::where('werf_id', $werfid)->where(function($query) {
+//            $query->where('status', false)
+//                ->orWhere('percentage', 0)
+//                ->orWhere('error', 1);
+//        })->get();
 
+        $werf = Werf::find($werfid);
 
-        $active_pumps = Pump::where('status', true)->where('werf_id', $werfid)->get();
-        $inactive_pumps = Pump::where('status', false)->where('werf_id', $werfid)->get();
+        $active_pumps = Pump::where(function($query) use ($werfid, $werf) {
+            if ($werf->frequention) {
+                $query->where('error', 0)
+                    ->where('percentage', '>', 0)
+                    ->where('werf_id', $werfid);
+            } else {
+                $query->where('status', true)
+                    ->where('werf_id', $werfid)
+                    ->where('error', 0);
+            }
+        })->get();
+
+        $inactive_pumps = Pump::where(function($query) use ($werfid, $werf) {
+            if ($werf->frequention) {
+                $query->where('error', 0)
+                    ->where('percentage', '=', 0)
+                    ->where('werf_id', $werfid);
+            } else {
+                $query->where('status', false)
+                    ->where('werf_id', $werfid)
+                    ->where('error', 0);
+            }
+        })->get();
+
+        $error_pumps = Pump::where('werf_id', $werfid)
+            ->where('error', true)
+            ->get();
+
+//        $inactive_pumps = Pump::where(function($query) use ($werfid) { $query->where(function($query) use ($werfid) {
+//            $query->where('status', false)
+//                ->where('werf_id', $werfid);
+//        })->orWhere(function($query) use ($werfid) {
+//            $query->where('werf_id', $werfid)
+//                ->where('error', 1);
+//        })->orWhere(function($query) use ($werfid) {
+//            $query->where('werf_id', $werfid)
+//                ->where('frequency', "=", 0);
+//        });
+
         (new \App\Helpers\Json)->dump($pumps);
-
         $werf = Werf::findOrFail($werfid);
 
 
         return view('home', [
             'active_pumps' => $active_pumps,
             'inactive_pumps' => $inactive_pumps,'pumps'=>$pumps,
+            'error_pumps' => $error_pumps,
             'werf' => $werf
         ]);
     }
