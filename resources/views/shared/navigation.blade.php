@@ -33,11 +33,6 @@
                                 </button>
                             </form>
 
-                        <form action="/admin/werf/{{$werf->id}}/users" method="get">
-                            @csrf
-                            <button type="submit" class="dropdown-item"> Gebruikers beheren
-                            </button>
-                        </form>
 
                             <form action="/admin/werf/{{ $werf->id }}/pumpsettings" method="get">
                                 @csrf
@@ -52,6 +47,14 @@
                         </form>
                         @endif
 
+                            @if(auth()->user()->admin)
+                                <hr>
+                                <form action="/admin/werf/{{$werf->id}}/users" method="get">
+                                    @csrf
+                                    <button type="submit" class="dropdown-item"> Gebruikers beheren
+                                    </button>
+                                </form>
+                            @endif
                             <form action="/" method="get">
                                 @csrf
                                 <button type="submit" class="dropdown-item"> Mijn werven

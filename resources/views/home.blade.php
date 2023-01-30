@@ -26,7 +26,7 @@
                         <a href="/user/werf/{{ $werf->id }}/pump/{{ $pump->id }}">
                         <div class="card l-bg-green-dark">
                             <div class="card-statistic-3 p-4">
-                                <div class="card-icon card-icon-large"><i class="fas fa-droplet"></i></div>
+                                <div class="card-icon card-icon-large mr-3"><i class="fas fa-droplet"></i></div>
                                 <div class="mb-4">
                                     <h5 class="card-title mb-0">{{ $pump->pumpname }}</h5>
                                 </div>
@@ -228,9 +228,9 @@
             data.addRows(dataArray);
 
             var options = {
-                title: 'Water Level per Pump',
+                title: 'Waterniveau per Put',
                 hAxis: {},
-                vAxis: { title: 'Water Level (m)' },
+                vAxis: { title: 'Waterniveau (m)' },
                 legend: { position: 'top', maxLines: 3 },
                 series: {
                     0: { color: '#7bbded', labelInLegend: 'Huidige waterniveau' },
