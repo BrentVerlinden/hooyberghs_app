@@ -75,10 +75,10 @@ $selectedImage = $images[$i];
             </div>
 
         </div>
-        <p>admin: badr.azougagh@example.com
-            ww: admin1234</p>
-        <p><br>User: rutger.stessens@example.com
-            ww: user1234</p>
+{{--        <p>admin: badr.azougagh@example.com--}}
+{{--            ww: admin1234</p>--}}
+{{--        <p><br>User: rutger.stessens@example.com--}}
+{{--            ww: user1234</p>--}}
 
     </div>
 @endsection
