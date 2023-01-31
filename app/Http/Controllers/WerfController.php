@@ -73,9 +73,9 @@ class WerfController extends Controller
             $werf->frequention = 0;
         }
         $werf->save();
-        $automation = new Automation();
-        $automation->werf_id = $werf->id;
-        $automation->save();
+//        $automation = new Automation();
+//        $automation->werf_id = $werf->id;
+//        $automation->save();
 
         $werfuser = new Werfuser();
         $werfuser->user_id = auth()->user()->id;
