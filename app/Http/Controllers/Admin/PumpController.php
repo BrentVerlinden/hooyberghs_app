@@ -62,6 +62,7 @@ class PumpController extends Controller
         $pump->pumpname = $request->name;
         $pump->location = $request->location;
         $pump->status = 0;
+        $pump->percentage = 0;
         $pump->werf_id = $werfid;
         $pump->error = 0;
 

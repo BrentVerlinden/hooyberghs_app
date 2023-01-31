@@ -80,6 +80,8 @@
                                         Pomp inschakelen?
                                     @endif
                                 </label>
+
+                                <br>
                                 <div class="toggle-switch round">
                                     <input type="checkbox" name="status" id="status"
                                            onchange="this.form.submit()" {{ $pump->status ? 'checked' : ''}}>
