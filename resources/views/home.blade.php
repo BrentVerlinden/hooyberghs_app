@@ -32,7 +32,7 @@
                                 </div>
                                 <div class="row align-items-center mb-2 d-flex">
                                     <div class="col-8">
-                                        <h2 class="d-flex align-items-center mb-0">
+                                        <h2 class="d-lex align-items-center mb-0">
                                             <p>Actief</p>
                                         </h2>
                                     </div>
@@ -63,7 +63,7 @@
                             <a href="/user/werf/{{ $werf->id }}/pump/{{ $pump->id }}">
                                 <div class="card l-bg-orange-dark">
                                     <div class="card-statistic-3 p-4">
-                                        <div class="card-icon card-icon-large"><i class="fas fa-wrench"></i></div>
+                                        <div class="card-icon card-icon-large mr-3"><i class="fas fa-wrench"></i></div>
                                         <div class="mb-4">
                                             <h5 class="card-title mb-0">{{ $pump->pumpname }}</h5>
                                         </div>
@@ -84,7 +84,7 @@
                             <a href="/user/werf/{{ $werf->id }}/pump/{{ $pump->id }}">
                             <div class="card l-bg-cherry">
                                 <div class="card-statistic-3 p-4">
-                                    <div class="card-icon card-icon-large"><i class="fas fa-power-off"></i></div>
+                                    <div class="card-icon card-icon-large mr-3"><i class="fas fa-power-off"></i></div>
                                     <div class="mb-4">
                                         <h5 class="card-title mb-0">{{ $pump->pumpname }}</h5>
                                     </div>
