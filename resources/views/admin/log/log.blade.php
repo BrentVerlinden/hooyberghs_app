@@ -32,7 +32,29 @@
             </div>
             <hr>
         </div>
-        {{ $logs->withQueryString()->links() }}
+
+        <div class="paginationHuge">{{ $logs->withQueryString()->links() }}</div>
+
+        <nav aria-label="Page navigation" class="paginationSmall">
+            <ul class="pagination">
+                <li class="page-item {{ $logs->onFirstPage() ? 'disabled' : '' }}">
+                    <a class="page-link" href="{{ $logs->previousPageUrl() }}" aria-label="Previous">
+                        <i class="fas fa-angle-left"></i>
+                    </a>
+                </li>
+                <li class="page-item active">
+      <span class="page-link">
+         {{ $logs->currentPage() }}
+        <span class="sr-only">(current)</span>
+      </span>
+                </li>
+                <li class="page-item {{ $logs->hasMorePages() ? '' : 'disabled' }}">
+                    <a class="page-link" href="{{ $logs->nextPageUrl() }}" aria-label="Next">
+                        <i class="fas fa-angle-right"></i>
+                    </a>
+                </li>
+            </ul>
+        </nav>
         <div class="table-responsive text-left">
             <table class="table">
                 <thead>
@@ -56,7 +78,27 @@
                 @endforeach
                 </tbody>
             </table>
-            {{ $logs->withQueryString()->links() }}
+            <div class="paginationHuge">{{ $logs->withQueryString()->links() }}</div>
+            <nav aria-label="Page navigation" class="paginationSmall">
+                <ul class="pagination">
+                    <li class="page-item {{ $logs->onFirstPage() ? 'disabled' : '' }}">
+                        <a class="page-link" href="{{ $logs->previousPageUrl() }}" aria-label="Previous">
+                            <i class="fas fa-angle-left"></i>
+                        </a>
+                    </li>
+                    <li class="page-item active">
+      <span class="page-link">
+         {{ $logs->currentPage() }}
+        <span class="sr-only">(current)</span>
+      </span>
+                    </li>
+                    <li class="page-item {{ $logs->hasMorePages() ? '' : 'disabled' }}">
+                        <a class="page-link" href="{{ $logs->nextPageUrl() }}" aria-label="Next">
+                            <i class="fas fa-angle-right"></i>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
         </div>
     @endauth
 
@@ -91,3 +133,31 @@
         }
     }
 </script>
+
+<style>
+    .paginationHuge {
+        display: inline-block;
+    }
+
+    .paginationSmall {
+        display: none;
+    }
+
+    @media (max-width: 767px) {
+        .paginationHuge {
+            display: none;
+        }
+
+        .paginationSmall {
+            display: inline-block;
+        }
+    }
+
+    .pagination .page-item {
+        display: inline-block;
+    }
+
+    .paginationHuge {
+        float: left;
+    }
+</style>
