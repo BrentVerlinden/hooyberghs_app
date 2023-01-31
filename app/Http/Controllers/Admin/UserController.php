@@ -84,7 +84,7 @@ class UserController extends Controller
             $log->werf_id = $werfid;
             $log->save();
         } else {
-            $msg = "Deze user bestaat al in het systeem. Als deze nog niet in uw werf zit, zullen we deze toevoegen aan jouw werf. Let wel op, de gegevens van deze persoon blijven ongewijzigd aangezien dit account al bestond.";
+            $msg = "Deze gebruiker bestaat al in het systeem. Als deze nog niet in uw werf zit, zullen we deze toevoegen aan jouw werf. Let wel op, de gegevens van deze persoon blijven ongewijzigd aangezien dit account al bestond.";
             session()->flash('success', $msg);
 
             $log = new Log();
