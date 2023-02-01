@@ -148,11 +148,13 @@
         @endif
 
         <div class="row"></div>
+
         @if(count($logs) > 0)
+
         <div class="col-lg-12 col-sm-12">
             <div class="card mb-4">
             <div class="card-body p-3 pb-0">
-
+                <h3>Laatste foutmeldingen</h3>
                 <div class="table-responsive">
                     <table class="table">
                         <thead>
