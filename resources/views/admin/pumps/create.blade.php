@@ -4,12 +4,12 @@
 
 @section('main')
     <div class="fixedmt"></div>
-    <h1>Nieuwe pomp aanmaken.</h1>
+    <h1>Nieuwe pomp aanmaken</h1>
     <form action="/admin/werf/{{$werf->id}}/pumps" method="post">
         @include('admin.pumps.form')
     </form>
 
-    <a href="{{ url()->previous() }}" class="btn btn-primary mt-3">Terug</a>
+    <a href="/admin/werf/{{$werf->id}}/pumps" style="background-color: #1C60AA" class="btn btn-primary mt-3">Terug</a>
 @endsection
 
 

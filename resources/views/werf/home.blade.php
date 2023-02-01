@@ -4,7 +4,7 @@
     <div class="fixedmt"></div>
     <h1>Overzicht werven</h1>
     @if(auth()->user()->admin)
-        <a href="/admin/werf/crud" class="btn btn-primary mt-3 mb-4">Alle werven in systeem beheren</a>
+        <a href="/admin/werf/crud" style="background-color: #1C60AA" class="btn btn-primary mt-3 mb-4">Beheer werven</a>
     @endif
     {{--    <h1 class="mt-4">Jouw werven</h1>--}}
     {{--    <p>U bent ingelogd als  {{ auth()->user()->name }}!</p>--}}

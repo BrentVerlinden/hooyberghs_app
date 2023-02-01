@@ -38,4 +38,4 @@
     <div class="invalid-feedback">{{ $message }}</div>
     @enderror
 </div>
-<button type="submit" class="btn btn-success">Gebruiker opslaan</button>
+<button type="submit" style="background-color:#4D9B24" class="btn btn-success">Gebruiker opslaan</button>

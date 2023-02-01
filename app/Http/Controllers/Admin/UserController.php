@@ -63,6 +63,7 @@ class UserController extends Controller
         $request->merge(['password' => Hash::make($request->password)]);
         // Create new user
         $user = User::firstOrNew(['email' => $request->email]);
+
         if (!$user->exists) {
             $user->name = $request->name;
             $user->email = $request->email;
@@ -74,7 +75,7 @@ class UserController extends Controller
                 $user->admin = 0;
             }
             $user->save();
-            $msg = "Deze gebruiker is succesvol toegevoegd aan het systeem & aan jouw werf.";
+            $msg = "$user->name is succesvol toegevoegd aan $werf->name";
             session()->flash('success', $msg);
 
             $log = new Log();
@@ -84,7 +85,7 @@ class UserController extends Controller
             $log->werf_id = $werfid;
             $log->save();
         } else {
-            $msg = "Deze gebruiker bestaat al in het systeem. Als deze nog niet in uw werf zit, zullen we deze toevoegen aan jouw werf. Let wel op, de gegevens van deze persoon blijven ongewijzigd aangezien dit account al bestond.";
+            $msg = "De bestaande gebruiker <bold>$user->name</bold> wordt toegevoegd aan $werf->name";
             session()->flash('success', $msg);
 
             $log = new Log();
@@ -163,7 +164,7 @@ class UserController extends Controller
         $log->save();
 
         // Flash a success message to the session
-        session()->flash('success', 'De gebruiker is bewerkt');
+        session()->flash('success', 'De gebruiker ' .$user->name. ' is bewerkt');
         // Redirect to the master page
         return redirect('/admin/werf/' . $werf->id . '/users');
     }
@@ -179,9 +180,10 @@ class UserController extends Controller
 
 //        $user->delete();
         $user = User::find($user->id);
+        $werf=Werf::find($werfid);
         if ($user->werfusers->count() === 1) {
             $user->delete();
-            session()->flash('success', "De gebruiker $user->name  is verwijderd");
+            session()->flash('danger', "De gebruiker $user->name is uit het systeem verwijderd");
 
             $log = new Log();
             $log->description = auth()->user()->email . " heeft de gebruiker met email " . $user->email . " verwijderd uit het systeem";
@@ -191,7 +193,7 @@ class UserController extends Controller
             $log->save();
         } else {
             $user->werfusers()->where('werf_id', $werfid)->delete();
-            session()->flash('success', "De gebruiker $user->name  is verwijderd uit uw werf. Aangezien deze nog in andere wer(ven) zit, zal het account wel blijven bestaan.");
+            session()->flash('danger', "De gebruiker $user->name wordt verwijderd voor $werf->name");
 
             $log = new Log();
             $log->description = auth()->user()->email . " heeft de gebruiker met email " . $user->email . " verwijderd uit de werf";

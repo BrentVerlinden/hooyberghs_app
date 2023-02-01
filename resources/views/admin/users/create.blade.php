@@ -9,7 +9,7 @@
         @include('admin.users.form')
     </form>
 
-    <a href="{{ url()->previous() }}" class="btn btn-primary mt-3">Terug</a>
+    <a href="{{ url()->previous() }}" style="background-color: #1C60AA" class="btn btn-primary mt-3">Terug</a>
 @endsection
 
 

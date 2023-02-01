@@ -24,13 +24,13 @@
                             <input type="date" class="form-control" name="date" id="date" value="{{ request()->input('date') }}">
                         </div>
                         <div class="mt-sm-2 mt-lg-0 mt-md-0">
-                            <button type="submit" class="btn btn-success btn-block">Zoeken</button>
+                            <button type="submit" style="background-color:#4D9B24"  class="btn btn-success btn-block">Zoeken</button>
                         </div>
 
                     </div>
                 </form>
             </div>
-            <hr>
+
         </div>
 
         <div class="paginationHuge">{{ $logs->withQueryString()->links() }}</div>

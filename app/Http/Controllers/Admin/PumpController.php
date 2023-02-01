@@ -53,8 +53,8 @@ class PumpController extends Controller
         $werf = Werf::findOrFail($werfid);
         // Validate $request
         $this->validate($request,[
-            'name' => 'required|min:3',
-            'location' => 'required|min:3|',
+            'name' => 'required|min:1',
+            'location' => 'required|min:2|',
 
         ]);
         // Create new genre
@@ -91,7 +91,7 @@ class PumpController extends Controller
         $log->save();
 
         // Flash a success message to the session
-        $message = "$pump->pumpname is aangemaakt.";
+        $message = "Pomp $pump->pumpname is aangemaakt";
         session()->flash('success', $message);
         // Redirect to the master page
         return redirect('/admin/werf/' . $werf->id . '/pumps');
@@ -136,8 +136,8 @@ class PumpController extends Controller
         $pump = Pump::findOrFail($pumpid);
         // Validate $request
         $this->validate($request,[
-            'name' => 'required|min:3',
-            'location' => 'required|min:3|',
+            'name' => 'required|min:1',
+            'location' => 'required|min:2|',
 
         ]);
 
@@ -154,7 +154,7 @@ class PumpController extends Controller
         $log->save();
 
         // Flash a success message to the session
-        session()->flash('success', 'De pomp is bewerkt');
+        session()->flash('success', "Pomp $pump->pumpname is bewerkt");
         // Redirect to the master page
         return redirect('/admin/werf/' . $werf->id . '/pumps');
     }
@@ -184,7 +184,7 @@ class PumpController extends Controller
         $log->date = now();
         $log->werf_id = $werfid;
         $log->save();
-        session()->flash('success', "De pomp $pump->pumpname  is verwijderd");
+        session()->flash('danger', "Pomp $pump->pumpname  is verwijderd");
         return redirect('/admin/werf/' . $werf->id . '/pumps');
     }
 }

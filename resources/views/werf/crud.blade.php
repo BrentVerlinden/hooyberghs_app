@@ -5,11 +5,12 @@
 @section('main')
 
     <div class="fixedmt"></div>
+    @include('shared.alert')
     <h1>Werven</h1>
 {{--        @include('shared.alert')--}}
     <p>
-        <a href="/admin/werf/crud/create" class="btn btn-outline-success">
-            <i class="fas fa-plus-circle mr-1"></i>Maak een nieuwe werf aan
+        <a href="/admin/werf/crud/create" class="btn edit-button btn-outline-success">
+            <i class="fas fa-plus-circle mr-1 "></i>Maak een nieuwe werf aan
         </a>
     </p>
     <div class="table-responsive">
@@ -39,7 +40,7 @@
                             @method('delete')
                             @csrf
                             <div class="btn-group btn-group-sm">
-                                <a href="/admin/werf/crud/{{ $werf->id }}/edit" class="btn btn-outline-success"
+                                <a href="/admin/werf/crud/{{ $werf->id }}/edit"  class="edit-button btn btn-outline-success"
                                    data-toggle="tooltip"
                                    title="Edit {{ $werf->name }}">
                                     <i class="fas fa-edit"></i>
@@ -60,9 +61,4 @@
     <a href="/" class="btn btn-primary mt-3">Terug</a>
 @endsection
 
-<script>
-    var message = "{!! session()->get('success') !!}";
-    if (message) {
-        alert(message);
-    }
-</script>
+

@@ -51,7 +51,7 @@ $selectedImage = $images[$i];
                                 {{--                                        </div>--}}
                                 {{--                                    </div>--}}
 
-                                <button class="btn btn-primary btn-user btn-block">
+                                <button style="background-color: #1C60AA" class="btn btn-primary btn-user btn-block">
                                     Verstuur wachtwoord reset link
                                 </button>
                             </form>
