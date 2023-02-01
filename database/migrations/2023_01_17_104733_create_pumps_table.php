@@ -40,7 +40,7 @@ class CreatePumpsTable extends Migration
                 [
                     'pumpname' => "Pomp 1",
                     'status' => true,
-                    'location' => "hoek 1",
+                    'location' => "A1",
                     'motif' => "",
                     'percentage' => 70,
                     'error' => false,
@@ -52,7 +52,7 @@ class CreatePumpsTable extends Migration
                 [
                     'pumpname' => "Pomp 2",
                     'status' => true,
-                    'location' => "hoek 2",
+                    'location' => "B6",
                     'motif' => "",
                     'percentage' => 70,
                     'error' => false,
@@ -65,7 +65,7 @@ class CreatePumpsTable extends Migration
                 [
                     'pumpname' => "Pomp 3",
                     'status' => true,
-                    'location' => "hoek 3",
+                    'location' => "E7",
                     'motif' => "",
                     'percentage' => 70,
                     'error' => false,
@@ -77,7 +77,7 @@ class CreatePumpsTable extends Migration
                 [
                     'pumpname' => "Pomp 4",
                     'status' => true,
-                    'location' => "hoek 4",
+                    'location' => "C3",
                     'motif' => "",
                     'percentage' => 70,
                     'error' => false,
@@ -90,7 +90,7 @@ class CreatePumpsTable extends Migration
                 [
                     'pumpname' => "Pomp 5",
                     'status' => false,
-                    'location' => "hoek 5",
+                    'location' => "D2",
                     'motif' => "Deze pomp is preventief uitgeschakeld omdat het stroomverbruik veel te hoog lag",
                     'percentage' => 0,
                     'error' => true,
@@ -102,7 +102,7 @@ class CreatePumpsTable extends Migration
                 [
                     'pumpname' => "Pomp 6",
                     'status' => false,
-                    'location' => "hoek 6",
+                    'location' => "B1",
                     'motif' => "Deze pomp is preventief uitgeschakeld omdat het stroomverbruik veel te hoog lag",
                     'percentage' => 0,
                     'error' => true,

@@ -23,11 +23,11 @@ class CreateWervesTable extends Migration
         DB::table('werves')->insert(
             [
                 [
-                    'name' => 'Werf 1',
+                    'name' => 'GEEKL',
                     'frequention' => 1
                 ],
                 [
-                    'name' => 'Werf 2',
+                    'name' => 'TURGA',
                     'frequention' => 0
                 ],
             ]
