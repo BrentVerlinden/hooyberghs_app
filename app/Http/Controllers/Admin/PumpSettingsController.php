@@ -33,7 +33,7 @@ class PumpSettingsController extends Controller
         // Update pump
         // check before starting to pump if water level > depth to pump
 
-        if($pump->sensor->sensordatas->last()->water_level >= $request->depth)
+        if($pump->sensor->sensordatas->last()->water_level >= $request->depth && $request->depth >= 0)
         {
             $pump->depth = $request->depth;
             $pump->automatic = true;
