@@ -11139,8 +11139,8 @@ nav a {
 }
 
 .l-bg-gray {
-  background: rgb(254, 254, 254);
-  background: linear-gradient(90deg, rgb(254, 254, 254) 0%, rgb(217, 216, 216) 97%);
+  background: rgb(255, 255, 255);
+  background: radial-gradient(circle, rgb(255, 255, 255) 0%, rgb(221, 221, 221) 100%);
 }
 
 .card .card-statistic-3 .card-icon-large .fas,
@@ -11179,5 +11179,9 @@ nav a {
 .l-bg-cyan {
   background: linear-gradient(135deg, #289cf5, #84c0ec) !important;
   color: #fff;
+}
+
+.edit-button:hover {
+  background-color: #4D9B24;
 }
 

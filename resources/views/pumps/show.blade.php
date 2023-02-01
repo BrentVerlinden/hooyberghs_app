@@ -18,7 +18,44 @@
                 <div class="card-statistic-3 p-4">
                     <div class="card-icon card-icon-large mr-3"><i class="fas fa-circle-info"></i></div>
                     <div class="mb-4">
-                        <h2 class="card-title mb-0">{{ $pump->pumpname }}</h2>
+                        <h2 class="card-title mb-0">
+                            @if($werf->frequention==1)
+                                @if($pump->percentage > 0)
+                                    @if(!$pump->error)
+                                        <span class="logged-in">● </span>
+                                    @else
+                                        <span class="errorr">● </span>
+                                    @endif
+                                @else
+                                    @if(!$pump->error)
+                                        <span class="logged-out">● </span>
+
+                                    @else
+
+                                        <span class="errorr">● </span>
+
+                                    @endif
+                                @endif
+                            @else
+                                @if($pump->status)
+                                    @if(!$pump->error)
+                                        <span class="logged-in">● </span>
+                                    @else
+                                        <span class="errorr">● </span>
+                                    @endif
+                                @else
+                                    @if(!$pump->error)
+                                        <span class="logged-out">● </span>
+
+                                    @else
+
+                                        <span class="errorr">● </span>
+
+                                    @endif
+                                @endif
+
+                            @endif
+                         {{ $pump->pumpname }}</h2>
                     </div>
 
                     <p style="font-size: 1rem;">Locatie: {{$pump->location}}</p>
@@ -29,25 +66,16 @@
                         <p style="font-size: 1rem;">Frequentie: <span  id="rangeValue"> {{$pump->percentage}} </span> </p>
 
 
-                        <p style="font-size: 1rem;">
-                            @if($pump->percentage > 0)
-                                @if(!$pump->error)
-                                    <span class="logged-in">● </span>Actief
-                                @endif
-                            @else
-                                @if(!$pump->error)
-                                    <span class="logged-out">● </span>Inactief
-                                    <br>
-                                @endif
-                            @endif
-                        </p>
-
                         @if(auth()->user()->admin && $pump->automatic == 0)
-                            <form>
+                            <form action="/admin/werf/{{ $werf->id }}/pump/{{ $pump->id }}" method="POST">
                                 @csrf
+                                @method('PATCH')
+
                                 <div >
                                     <div>
-                                        <input class="slider" type="range" value="{{ old('percentage', $pump->percentage) }}" min="0" max="100" onChange="rangeSlide(this.value)" id="range-slider" onmousemove="rangeSlide(this.value)">
+                                        <input class="slider"  onchange="this.form.submit()" type="range"
+                                               value="{{ old('percentage', $pump->percentage) }}" min="0" max="100"
+                                               onChange="rangeSlide(this.value)" id="range-slider" onmousemove="rangeSlide(this.value)">
                                     </div>
                                 </div>
 
@@ -56,30 +84,12 @@
                     @endif
 
                     @if($werf->frequention == 0)
-                        <p>
-                            @if($pump->status)
-                                @if(!$pump->error)
-                                    <span class="logged-in">● </span>Actief
-                                @endif
-                            @else
-                                @if(!$pump->error)
-                                    <span class="logged-out">● </span>Inactief
-                                    <br>
-                                @endif
-                            @endif
-                        </p>
 
                         @if(auth()->user()->admin && $pump->automatic == 0)
                             <form action="/admin/werf/{{ $werf->id }}/pump/{{ $pump->id }}" method="POST">
                                 @csrf
                                 @method('PATCH')
-                                <label for="status">
-                                    @if($pump->status)
-                                        Pomp uitschakelen?
-                                    @else
-                                        Pomp inschakelen?
-                                    @endif
-                                </label>
+
 
                                 <br>
                                 <div class="toggle-switch round">
@@ -92,7 +102,7 @@
                     @endif
 
                     @if($pump->error == 1)
-                        <p><span class="errorr">● </span>Error</p>
+
                         @if($pump->motif !== "" &&  $pump->motif !== null)
                             <small>Reden: {{ $pump->motif }}</small>
                         @else<small>Geen reden gevonden</small>
@@ -161,7 +171,7 @@
 
     </div>
 
-    <a href="{{ url()->previous() }}" class="btn btn-primary mt-3">Terug</a>
+    <a href="{{ url()->previous() }}" style="background-color: #1C60AA" class="btn btn-primary mt-3">Terug</a>
 
 @endsection
 
@@ -227,7 +237,7 @@ power:data[0]['powerconsumption'][0]['power'][0]['power']
                     duration: 1000,
                     easing: 'out',
                 },
-                pointSize: 5,
+                pointSize: 2,
                 pointShape: 'circle',
                 explorer: {
                     axis: 'horizontal',
@@ -303,14 +313,7 @@ power:data[0]['powerconsumption'][0]['power'][0]['power']
                 animation: {
                     duration: 1000,
                     easing: 'out',
-                },
-                pointSize: 5,
-                pointShape: 'circle',
-                explorer: {
-                    axis: 'horizontal',
-                    keepInBounds: true,
-                    maxZoomIn: 4.0
-                },
+                }
             }
         });
 
@@ -380,8 +383,6 @@ power:data[0]['powerconsumption'][0]['power'][0]['power']
                     duration: 1000,
                     easing: 'out',
                 },
-                pointSize: 5,
-                pointShape: 'circle',
                 explorer: {
                     axis: 'horizontal',
                     keepInBounds: true,
@@ -439,7 +440,7 @@ power:data[0]['powerconsumption'][0]['power'][0]['power']
             'chartType': 'LineChart',
             'containerId': 'chart4',
             'options': {
-                title: 'Waterniveau',
+                title: 'Waterniveau in TAW',
                 curveType: 'function',
                 legend: {position: 'right'},
                 hAxis: {
@@ -449,15 +450,13 @@ power:data[0]['powerconsumption'][0]['power'][0]['power']
                     title: 'TAW'
                 },
                 series: {
-                    0: {color: 'black'}
+                    0: {color: '#7bbded' }
                 },
                 interpolateNulls: true,
                 animation: {
                     duration: 1000,
                     easing: 'out',
                 },
-                pointSize: 5,
-                pointShape: 'circle',
                 explorer: {
                     axis: 'horizontal',
                     keepInBounds: true,

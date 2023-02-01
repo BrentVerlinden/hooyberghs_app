@@ -59,7 +59,7 @@ $selectedImage = $images[$i];
                                         @enderror
                                     </div>
 
-                                    <button class="btn btn-primary btn-user btn-block">
+                                    <button style="background-color: #1C60AA" class="btn btn-primary btn-user btn-block">
                                         Login
                                     </button>
                                 </form>

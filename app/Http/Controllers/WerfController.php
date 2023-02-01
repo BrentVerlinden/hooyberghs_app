@@ -89,7 +89,7 @@ class WerfController extends Controller
         $log->save();
 
         // Flash a success message to the session
-        $message = "Werf $werf->name is aangemaakt.";
+        $message = "Werf $werf->name is aangemaakt";
         session()->flash('success', $message);
         // Redirect to the master page
         return redirect('/admin/werf/crud');
@@ -154,7 +154,7 @@ class WerfController extends Controller
         $log->save();
 
         // Flash a success message to the session
-        session()->flash('success', 'De werf is bewerkt');
+        session()->flash('success', 'De werf '.$werf->name. ' is bewerkt');
         // Redirect to the master page
         return redirect('/admin/werf/crud');
     }
@@ -174,7 +174,7 @@ class WerfController extends Controller
         $log->nameLog = "werf verwijderd";
         $log->date = now();
         $log->save();
-        session()->flash('success', "De werf $werf->name  is verwijderd");
+        session()->flash('danger', "Werf $werf->name  is verwijderd");
         return redirect('/admin/werf/crud');
     }
 }

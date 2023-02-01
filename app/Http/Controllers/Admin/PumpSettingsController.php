@@ -33,7 +33,7 @@ class PumpSettingsController extends Controller
         // Update pump
         // check before starting to pump if water level > depth to pump
 
-        if($pump->sensor->sensordatas->last()->water_level > $request->depth)
+        if($pump->sensor->sensordatas->last()->water_level >= $request->depth)
         {
             $pump->depth = $request->depth;
             $pump->automatic = true;
@@ -54,7 +54,7 @@ class PumpSettingsController extends Controller
         }
 
         // Flash a success message to the session
-        session()->flash('success', 'Oeps, er is iets misgegaan! Ben je zeker dat de diepte kleiner is dan het huidige waterniveau van de put?');
+        session()->flash('danger', 'U overschrijdt het grondwaterniveau');
         // Redirect to the master page
         return redirect('/admin/werf/' . $werfid . '/pumpsettings');
     }

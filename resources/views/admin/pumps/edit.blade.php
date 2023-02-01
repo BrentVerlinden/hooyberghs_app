@@ -4,6 +4,7 @@
 
 @section('main')
     <div class="fixedmt"></div>
+    @include('shared.alert')
     <h1>Pomp bewerken: {{ $pump->pumpnamename }}</h1>
     <form action="/admin/werf/{{$werf->id}}/pumps/{{ $pump->id }}" method="post">
         @method('put')
@@ -13,7 +14,7 @@
             <input type="text" name="name" id="name"
                    class="form-control @error('name') is-invalid @enderror"
                    placeholder="Name"
-                   minlength="3"
+                   minlength="1"
                    required
                    value="{{ old('name', $pump->pumpname) }}">
 
@@ -21,7 +22,7 @@
             <input type="text" name="location" id="location"
                    class="form-control @error('location') is-invalid @enderror"
                    placeholder="Locatie"
-                   minlength="3"
+                   minlength="2"
                    required
                    value="{{ old('location', $pump->location) }}">
 
@@ -29,7 +30,7 @@
             <div class="invalid-feedback">{{ $message }}</div>
             @enderror
         </div>
-        <button type="submit" class="btn btn-success">Pomp opslaan</button>
+        <button type="submit" style="background-color:#4D9B24" class="btn btn-success">Pomp opslaan</button>
     </form>
-    <a href="{{ url()->previous() }}" class="btn btn-primary mt-3">Terug</a>
+    <a href="{{ url()->previous() }}" style="background-color: #1C60AA" class="btn btn-primary mt-3">Terug</a>
 @endsection

@@ -4,10 +4,11 @@
 
 @section('main')
     <div class="fixedmt"></div>
+    @include('shared.alert')
     <h1>Pompen</h1>
     {{--    @include('shared.alert')--}}
     <p>
-        <a href="/admin/werf/{{$werf->id}}/pumps/create" class="btn btn-outline-success">
+        <a href="/admin/werf/{{$werf->id}}/pumps/create" class="btn edit-button btn-outline-success">
             <i class="fas fa-plus-circle mr-1"></i>Maak een nieuwe pomp aan
         </a>
     </p>
@@ -30,7 +31,7 @@
                             @method('delete')
                             @csrf
                             <div class="btn-group btn-group-sm">
-                                <a href="/admin/werf/{{$werf->id}}/pumps/{{ $pump->id }}/edit" class="btn btn-outline-success"
+                                <a href="/admin/werf/{{$werf->id}}/pumps/{{ $pump->id }}/edit" class="btn edit-button btn-outline-success"
                                    data-toggle="tooltip"
                                    title="Edit {{ $pump->pumpname }}">
                                     <i class="fas fa-edit"></i>
@@ -50,9 +51,4 @@
     </div>
 @endsection
 
-<script>
-    var message = "{!! session()->get('success') !!}";
-    if (message) {
-        alert(message);
-    }
-</script>
+

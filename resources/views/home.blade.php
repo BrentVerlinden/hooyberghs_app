@@ -11,7 +11,13 @@
 {{--    <h1>Welkom in {{$werf->name}}, {{ auth()->user()->name }}!</h1>--}}
     {{--    <h3>Ingelogd in {{$werf->name}}</h3>--}}
     @if(auth()->user()->admin)
-        <div class="mt-2 text-left ml-4 txtbg"><a href="/admin/werf/{{ $werf->id }}/pumpsettings" class="align-content-center text-center"><i class="fa-solid fa-gear"></i> Automatisatie</a></div>
+        @if(count($pumps)>0)
+            <div class="mt-2 text-left ml-4 txtbg"><a href="/admin/werf/{{ $werf->id }}/pumpsettings" style="color:#1C60AA " class="align-content-center text-center"><i class="fa-solid fa-gear"></i> Automatisatie</a>
+            </div>
+
+        @endif
+
+
 
     @endif
     <br>
@@ -28,13 +34,13 @@
                             <div class="card-statistic-3 p-4">
                                 <div class="card-icon card-icon-large mr-3"><i class="fas fa-droplet"></i></div>
                                 <div class="mb-4">
-                                    <h5 class="card-title mb-0">{{ $pump->pumpname }}</h5>
+                                    <h3 class="card-title mb-0">{{ $pump->pumpname }}</h3>
                                 </div>
                                 <div class="row align-items-center mb-2 d-flex">
                                     <div class="col-8">
-                                        <h2 class="d-lex align-items-center mb-0">
-                                            <p>Actief</p>
-                                        </h2>
+                                        <h5 class="d-flex align-items-center mb-0">
+                                            <p>{{$pump->location}}</p>
+                                        </h5>
                                     </div>
 
                                     <div class="col-4 text-right">
@@ -65,16 +71,21 @@
                                     <div class="card-statistic-3 p-4">
                                         <div class="card-icon card-icon-large mr-3"><i class="fas fa-wrench"></i></div>
                                         <div class="mb-4">
-                                            <h5 class="card-title mb-0">{{ $pump->pumpname }}</h5>
+                                            <h3 class="card-title mb-0">{{ $pump->pumpname }}</h3>
+                                        </div>
+                                        <div class="row align-items-center mb-2 d-flex">
+                                            <div class="col-8">
+                                                <h5 class="d-flex align-items-center mb-0">
+                                                    <p>{{$pump->location}}</p>
+                                                </h5>
+                                            </div>
+
+                                            <div class="col-4 text-right">
+                                                    <span>Error</span>
+
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="row align-items-center mb-2 d-flex">
-                                        <div class="col-8">
-                                            <h2 class="d-flex align-items-center ml-4">
-                                                <p>Error</p>
-                                            </h2>
-                                        </div>
-                                </div>
                                 </div>
                             </a>
                         </div>
@@ -82,37 +93,30 @@
                 @foreach($inactive_pumps ?? '' as $pump)
                         <div class="col-xl-3 col-lg-6">
                             <a href="/user/werf/{{ $werf->id }}/pump/{{ $pump->id }}">
-                            <div class="card l-bg-cherry">
-                                <div class="card-statistic-3 p-4">
-                                    <div class="card-icon card-icon-large mr-3"><i class="fas fa-power-off"></i></div>
-                                    <div class="mb-4">
-                                        <h5 class="card-title mb-0">{{ $pump->pumpname }}</h5>
-                                    </div>
-                                    <div class="row align-items-center mb-2 d-flex">
-                                        <div class="col-8">
-                                            <h2 class="d-flex align-items-center mb-0">
-                                                <p>Inactief</p>
-                                            </h2>
+                                <div class="card l-bg-cherry">
+                                    <div class="card-statistic-3 p-4">
+                                        <div class="card-icon card-icon-large mr-3"><i class="fas fa-power-off"></i></div>
+                                        <div class="mb-4">
+                                            <h3 class="card-title mb-0">{{ $pump->pumpname }}</h3>
+                                        </div>
+                                        <div class="row align-items-center mb-2 d-flex">
+                                            <div class="col-8">
+                                                <h5 class="d-flex align-items-center mb-0">
+                                                    <p>{{$pump->location}}</p>
+                                                </h5>
+                                            </div>
+
+                                            <div class="col-4 text-right">
+                                                @if($werf->frequention == 1)
+                                                    <span>{{$pump->percentage}}% <i class="fa fa-arrow-up"></i></span>
+                                                @else
+                                                    <span>Binair</span>
+                                                @endif
+                                            </div>
                                         </div>
 
-                                        <div class="col-4 text-right">
-                                            @if($werf->frequention == 1)
-                                            <span>{{$pump->percentage}}% <i class="fa fa-arrow-up"></i></span>
-                                            @else
-                                                <span>Binair</span>
-                                                @endif
-                                        </div>
                                     </div>
-                                    @if($werf->frequention == 1)
-                                    <div class="progress mt-1 " data-height="8" style="height: 8px;">
-                                        <div class="progress-bar l-bg-cyan" role="progressbar"
-                                             data-width="{{ $pump->percentage }}%"
-                                             aria-valuenow="{{ $pump->percentage }}" aria-valuemin="0"
-                                             aria-valuemax="100" style="width: {{ $pump->percentage }}%;"></div>
-                                    </div>
-                                        @endif
                                 </div>
-                            </div>
                             </a>
                         </div>
                 @endforeach
@@ -120,44 +124,34 @@
 
 
             </div>
+
         </div>
-        <div class="row">
-            <div class="col-lg-12 col-sm-12">
-                <div class="card mb-4 card-size">
-                <h4 class="mt-2">Waterniveau</h4>
-                <div id="chart_div2" class="mt-5"></div>
+        @if(count($pumps)>0)
+            <div class="row">
+                <div class="col-lg-12 col-sm-12">
+                    <div class="card mb-4 card-size">
+                        <h4 class="mt-2">Waterniveau</h4>
+                        <div id="chart_div2" class="mt-5"></div>
+                    </div>
                 </div>
+
+                {{--            <div class="border col-lg-6 col-sm-12">--}}
+                {{--                <h4 class="mt-2">Stroomverbruik</h4>--}}
+                {{--                <div id="chart_div" class="mt-5"></div>--}}
+                {{--            </div>--}}
+
             </div>
+        @else
+            <h1>Welkom op uw nieuwe werf: {{$werf->name}}</h1>
+            <a href="/admin/werf/{{$werf->id}}/pumps/create" style="background-color: #1C60AA"  class="btn btn-primary mt-5">Pomp aanmaken</a>
 
-{{--            <div class="border col-lg-6 col-sm-12">--}}
-{{--                <h4 class="mt-2">Stroomverbruik</h4>--}}
-{{--                <div id="chart_div" class="mt-5"></div>--}}
-{{--            </div>--}}
+        @endif
 
-        </div>
         <div class="row"></div>
         @if(count($logs) > 0)
         <div class="col-lg-12 col-sm-12">
             <div class="card mb-4">
             <div class="card-body p-3 pb-0">
-{{--                <ul class="list-group">--}}
-{{--                    @foreach($logs as $log)--}}
-{{--                    <li--}}
-{{--                        class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">--}}
-{{--                        <div class="d-flex flex-column">--}}
-{{--                            <h6 class="mb-1 text-dark font-weight-bold text-sm">{{$log->nameLog}}</h6>--}}
-{{--                            <span class="text-xs">{{$log->date}}</span>--}}
-{{--                        </div>--}}
-{{--                        <div class="d-flex align-items-center text-sm">--}}
-
-{{--                            <p class="btn btn-link text-dark text-sm mb-0 px-0 ms-4"><i--}}
-{{--                                    class="material-icons text-lg position-relative me-1"></i>--}}
-{{--                                {{$log->description}}--}}
-{{--                                </p>--}}
-{{--                        </div>--}}
-{{--                    </li>--}}
-{{--                    @endforeach--}}
-{{--                 </ul>--}}
 
                 <div class="table-responsive">
                     <table class="table">
@@ -189,7 +183,10 @@
             </div>
         </div>
         @else
-            <p>Geen error logs gevonden</p>
+            @if(count($pumps)>0)
+                <p>Geen error logs gevonden</p>
+            @endif
+
         @endif
     @endauth
 
@@ -208,16 +205,16 @@
             var pumpData = {};
 
             pumps.forEach(function (pump) {
-                var sensorName = pump.sensor.name;
-                if (!pumpData[sensorName]) {
-                    pumpData[sensorName] = { lastData: 0 };
+                var pitName = pump.location;
+                if (!pumpData[pitName]) {
+                    pumpData[pitName] = { lastData: 0 };
                 }
             });
 
             pumps.forEach(function (pump) {
-                var sensorName = pump.sensor.name;
+                var pitName = pump.location;
                 pump.sensor.sensordatas.forEach(function (sensor) {
-                    pumpData[sensorName].lastData = sensor.water_level;
+                    pumpData[pitName].lastData = sensor.water_level;
                 });
             });
 
@@ -228,7 +225,7 @@
             data.addRows(dataArray);
 
             var options = {
-                title: 'Waterniveau per Put',
+                title: 'Waterniveau per put',
                 hAxis: {},
                 vAxis: { title: 'Waterniveau (TAW)' },
                 legend: { position: 'top', maxLines: 3 },
