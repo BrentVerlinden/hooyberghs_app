@@ -37450,8 +37450,8 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\sites_laravel\hooyberghs_app\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! D:\sites_laravel\hooyberghs_app\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\sites_laravel\hooyberghs_app\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\sites_laravel\hooyberghs_app\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
