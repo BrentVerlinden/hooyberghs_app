@@ -5,7 +5,7 @@
 @section('main')
     <div class="fixedmt"></div>
     <h1>Logboek</h1>
-    <p>U bent ingelogd als  {{ auth()->user()->name }}!</p>
+{{--    <p>U bent ingelogd als  {{ auth()->user()->name }}!</p>--}}
     <br>
     @guest
         <p>Please login...</p>
