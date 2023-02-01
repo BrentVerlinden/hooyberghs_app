@@ -67,7 +67,7 @@
 
 
                         @if(auth()->user()->admin && $pump->automatic == 0)
-                            <form action="/admin/werf/{{ $werf->id }}/pump/{{ $pump->id }}" method="POST">
+                            <form action="/admin/werf/{{ $werf->id }}/pump/{{ $pump->id }}/handle-value-change" method="POST">
                                 @csrf
                                 @method('PATCH')
 
@@ -75,7 +75,7 @@
                                     <div>
                                         <input class="slider"  onchange="this.form.submit()" type="range"
                                                value="{{ old('percentage', $pump->percentage) }}" min="0" max="100"
-                                               onChange="rangeSlide(this.value)" id="range-slider" onmousemove="rangeSlide(this.value)">
+                                               onChange="rangeSlide(this.value)" id="rangeslider" name="rangeslider" onmousemove="rangeSlide(this.value)">
                                     </div>
                                 </div>
 
@@ -481,28 +481,6 @@ power:data[0]['powerconsumption'][0]['power'][0]['power']
     function rangeSlide(value) {
         document.getElementById('rangeValue').innerHTML = value;
     }
-
-    $(document).ready(function() {
-        $("#range-slider").on("input", function() {
-            var sliderValue = $(this).val();
-            // send an AJAX request to the server with the new value
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-            $.ajax({
-                type: "POST",
-                url: "/admin/werf/{{ $werf->id }}/pump/{{ $pump->id }}/handle-value-change",
-                data: {range_slider: sliderValue},
-                success: function (data) {
-                    // handle the response from the server
-                    $("#percentage").text(sliderValue);
-
-                }
-            });
-        });
-    });
 
 
 </script>

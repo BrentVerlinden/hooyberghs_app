@@ -143,7 +143,7 @@ class HomeController extends Controller
     {
         $pump = Pump::find($id);
         $werf = Werf::find($werfid);
-        $sliderValue = $request->input('range_slider');
+        $sliderValue = $request->input('rangeslider');
         $pump->percentage = $sliderValue;
 
         $log = new Log();
