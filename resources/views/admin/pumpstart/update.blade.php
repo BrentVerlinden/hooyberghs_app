@@ -34,6 +34,7 @@
                                 <input type="text" name="depth" id="depth"
                                        class="form-control  @error('depth') is-invalid @enderror"
                                        placeholder="Gewenst niveau (bvb 3.5)"
+
                                        required>
                                 @error('depth')
                                 <div class="invalid-feedback">{{ $message }}</div>

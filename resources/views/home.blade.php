@@ -108,7 +108,11 @@
 
                                             <div class="col-4 text-right">
                                                 @if($werf->frequention == 1)
+                                                    @if($pump->percentage>0)
                                                     <span>{{$pump->percentage}}% <i class="fa fa-arrow-up"></i></span>
+                                                    @else
+                                                        <span>UIT</span>
+                                                    @endif
                                                 @else
                                                     <span>Binair</span>
                                                 @endif
