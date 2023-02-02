@@ -87,4 +87,19 @@ class PumpSettingsController extends Controller
         return redirect('/admin/werf/' . $werfid . '/pumpsettings');
     }
 
+    public function reset($werfid, $pumpid) {
+        $pump = Pump::find($pumpid);
+        $pump->error = 0;
+        $pump->save();
+
+        $log = new Log();
+        $log->description = auth()->user()->email . " heeft de pomp " . $pump->pumpname . " gereset";
+        $log->nameLog = "pomp gereset";
+        $log->werf_id = $werfid;
+        $log->date = now();
+        $log->save();
+
+        return redirect('/admin/werf/' . $werfid . '/pumpsettings');
+    }
+
 }
