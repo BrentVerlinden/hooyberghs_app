@@ -31,7 +31,8 @@ class HomeController extends Controller
         $pumps = Pump::with('powerconsumption', 'sensor.sensordatas')->where('werf_id', $werfid)->get();
 
         $pump_count = Pump::where('werf_id', $werfid)->count();
-        $logs = Log::where('nameLog', 'error')->where('werf_id', $werfid)->take(($pump_count))->get();
+        $logs = Log::where('nameLog', 'error')->where('werf_id', $werfid)->orderBy('date', 'desc')->take(8)->get();
+
 
 
 
