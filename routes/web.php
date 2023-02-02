@@ -24,6 +24,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function (){
 
     //pomp settings
 //    Route::resource('/werf/{werfid}/pumpsettings', 'Admin\PumpSettingsController');
+    Route::patch('/werf/{werfid}/pumpsettings/{pumpid}/reset', 'Admin\PumpSettingsController@reset');
     Route::put('/werf/{werfid}/pumpsettings/{pumpid}', 'Admin\PumpSettingsController@update');
     Route::put('/werf/{werfid}/pumpsettings/extra/{pumpid}', 'Admin\PumpSettingsController@off');
     Route::get('/werf/{werfid}/pumpsettings', 'Admin\PumpSettingsController@index');
